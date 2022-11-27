@@ -1,0 +1,84 @@
+common_champion
+Stephen Curry common 49.30
+Deni Avdija common 40.62
+Joel Embiid common 52.38
+Dalano Banton common 18.93
+Jericho Sims common 28.13
+expect: 189.36
+
+
+common_contender
+Cedi Osman common 21.93
+Jerami Grant common 54.39
+Nikola Jović common 15.74
+Myles Turner common 52.79
+Juan Toscano-Anderson common 7.64
+expect: 152.49
+
+
+common_eastern_conference
+Kristaps Porzingis common 49.63
+Immanuel Quickley common 27.19
+Nick Richards common 22.15
+Bennedict Mathurin common 23.01
+Wesley Matthews common 4.29
+expect: 126.27
+
+
+super_rare_champion
+Ja Morant rare 39.72
+Bones Hyland rare 36.59
+Brandon Ingram super_rare 52.64
+Paul Reed super_rare 33.84
+Nic Claxton super_rare 51.71
+expect: 214.49
+
+
+super_rare_contender
+Precious Achiuwa super_rare 23.11
+Kentavious Caldwell-Pope super_rare 34.01
+Andre Drummond super_rare 14.76
+Sam Hauser rare 30.27
+Bol Bol rare 41.23
+expect: 143.38
+
+
+rare_champion
+Giannis Antetokounmpo rare 35.72
+Marcus Smart rare 47.32
+Kevin Huerter rare 39.64
+Sam Hauser rare 30.14
+Trae Young limited 50.77
+expect: 203.58
+
+
+rare_contender
+Jalen Green limited 39.72
+Cedi Osman rare 24.08
+Paul Reed rare 31.15
+Nikola Jović rare 17.30
+Josh Giddey limited 36.53
+expect: 148.79
+
+
+limited_champion
+Kevin Porter Jr. limited 33.37
+Nick Richards limited 22.05
+Malik Monk limited 30.26
+Trey Murphy III limited 18.16
+Dillon Brooks limited 27.55
+expect: 131.39
+
+
+limited_contender
+Tre Mann limited 9.46
+Theo Pinson limited 0.78
+Jeremy Sochan limited 12.05
+Tim Hardaway Jr. limited 23.94
+Tyus Jones limited 13.62
+expect: 59.85
+
+
+limited_eastern_conference no possible lineup
+
+

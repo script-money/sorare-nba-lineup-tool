@@ -1,0 +1,192 @@
+query NBAOpenFixtureQuery {
+  nbaOpenFixture {
+    ...NBALobby_GameWeekHeader_fixture
+    leaderboards {
+      ...UpcomingTournaments_NBALeaderboard
+      ...OpenFixtureLineupBox_NBALeaderboard
+      ...MyTeams_NBALeaderboard
+      __typename
+    }
+    __typename
+  }
+}
+
+fragment NBALobby_GameWeekHeader_fixture on NBAFixture {
+  id
+  slug
+  gameWeek
+  fixtureState
+  startDate
+  endDate
+  __typename
+}
+
+fragment MyTeams_NBALeaderboard on NBALeaderboard {
+  slug
+  ...OpenFixtureLineupBox_NBALeaderboard
+  myLineups {
+    id
+    ...OpenFixtureLineupBox_NBALineup
+    __typename
+  }
+  __typename
+}
+
+fragment OpenFixtureLineupBox_NBALeaderboard on NBALeaderboard {
+  slug
+  ...LineupBox_NBALeaderboard
+  ...OpenFixtureSubtitle_LeaderboardInterface
+  __typename
+}
+
+fragment LineupBox_NBALeaderboard on NBALeaderboard {
+  slug
+  displayName
+  displayNameWithoutRarity
+  monochromeIconImageUrl
+  lineupsCount
+  isTraining
+  ...getLeaderboardScarcity_LeaderboardInterface
+  __typename
+}
+
+fragment getLeaderboardScarcity_LeaderboardInterface on LeaderboardInterface {
+  leaderboardRarity
+  __typename
+}
+
+fragment OpenFixtureSubtitle_LeaderboardInterface on LeaderboardInterface {
+  slug
+  isTraining
+  lineupsCount
+  ...CardRewards_LeaderboardInterface
+  __typename
+}
+
+fragment CardRewards_LeaderboardInterface on LeaderboardInterface {
+  ...formatCardRewards_LeaderboardInterface
+  __typename
+}
+
+fragment formatCardRewards_LeaderboardInterface on LeaderboardInterface {
+  prizePool {
+    uniqueCardsCount
+    superRareCardsCount
+    superRareCardsCount
+    rareCardsCount
+    limitedCardsCount
+    commonCardsMaxThreshold
+    commonCardsCount
+    __typename
+  }
+  __typename
+}
+
+fragment OpenFixtureLineupBox_NBALineup on NBALineup {
+  id
+  ...LineupBox_NBALineup
+  __typename
+}
+
+fragment LineupBox_NBALineup on NBALineup {
+  id
+  rank
+  score
+  cards {
+    card {
+      id
+      avatarImageUrl
+      player {
+        lastName
+        displayName
+        __typename
+      }
+      __typename
+    }
+    score
+    isMvp
+    playerInFixture {
+      status {
+        statusIconType
+        inGame
+        upcomingGames {
+          id
+          __typename
+        }
+        isScoreFinal
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment UpcomingTournaments_NBALeaderboard on NBALeaderboard {
+  ...UpcomingLeaderboards_NBALeaderboard
+  __typename
+}
+
+fragment UpcomingLeaderboards_NBALeaderboard on NBALeaderboard {
+  slug
+  displayName
+  displayNameWithoutRarity
+  lineupsCount
+  isTraining
+  isUserEligible
+  myLineups {
+    id
+    __typename
+  }
+  beginnerLeaderboardDetails {
+    progressionRankPercentageThreshold
+    isCompleted
+    isVisible
+    __typename
+  }
+  requirements {
+    tenGameAverageTotalLimit
+    ...getLeaderboardRequirements_NBALeaderboardRequirements
+    __typename
+  }
+  ...getLeaderboardScarcity_LeaderboardInterface
+  ...DivisionLogo_LeaderboardInterface
+  ...formatCardRewards_LeaderboardInterface
+  ...useSortAndFilterLeaderboards_LeaderboardInterface
+  __typename
+}
+
+fragment DivisionLogo_LeaderboardInterface on LeaderboardInterface {
+  iconImageUrl
+  __typename
+}
+
+fragment getLeaderboardRequirements_NBALeaderboardRequirements on NBALeaderboardRequirements {
+  tenGameAverageTotalLimit
+  allowMVP
+  allowedConference
+  ...getLeaderboardRequirements_LeaderboardRequirementsInterface
+  __typename
+}
+
+fragment getLeaderboardRequirements_LeaderboardRequirementsInterface on LeaderboardRequirementsInterface {
+  allowedRarities
+  minRarity {
+    minCount
+    rarity
+    __typename
+  }
+  ... on NBALeaderboardRequirements {
+    tenGameAverageTotalLimit
+    allowMVP
+    __typename
+  }
+  __typename
+}
+
+fragment useSortAndFilterLeaderboards_LeaderboardInterface on LeaderboardInterface {
+  isUserEligible
+  ...getLeaderboardScarcity_LeaderboardInterface
+  __typename
+}

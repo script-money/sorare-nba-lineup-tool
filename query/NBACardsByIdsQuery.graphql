@@ -1,0 +1,23 @@
+query NBACardsByIdsQuery($input: NBACardsInput!) {
+  nbaCards(input: $input) {
+    id
+    slug
+    totalBonus
+    team {
+      fullName
+    }
+    player {
+      displayName
+      tenGameAverage
+      positions
+      latestFinalFixtureStats(last: 24) {
+        score
+        tenGameAverage
+        status {
+          statusIconType
+        }
+      }
+    }
+    rarity
+  }
+}
