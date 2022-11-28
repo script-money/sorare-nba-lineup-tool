@@ -205,6 +205,7 @@ if __name__ == "__main__":
             )
         )
 
+        tmp_best_card = None
         if allow_mvp:  # 选择mvp
             best_card = max(
                 avaliable_cards_with_condition,
@@ -214,6 +215,7 @@ if __name__ == "__main__":
                 high_rarity_count += 1
             select_cards.append(best_card)
             used_cards.append(best_card)
+            tmp_best_card = best_card
 
         # exclude used cards
         card_pool = list(
@@ -229,8 +231,14 @@ if __name__ == "__main__":
                 if is_common
                 else len(list(filter(lambda card: card[2] == min_rarity, possible)))
             )
-            players = list(map(lambda card: card[0], possible))
-            unique_players = len(set(players))  # type: ignore
+            players = []
+            other_players = list(map(lambda card: card[0], possible))
+            players = (
+                [tmp_best_card[0]] + other_players
+                if tmp_best_card != None
+                else other_players
+            )
+            unique_players = len(set(players))
 
             if (
                 total_point <= tournaments["tenGameAverageTotalLimit"]
