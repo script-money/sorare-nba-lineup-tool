@@ -36,3 +36,18 @@ def divide(a, b):
         return 0
     else:
         return round(a / b, 2)
+
+
+def exclude_best_and_worst(stats_arr):
+    worst = 0
+    worst_index = 0
+    best = 0
+    best_index = 0
+    for index, game in enumerate(stats_arr):
+        if game < worst:
+            worst = game
+            worst_index = index
+        if game > best:
+            best = game
+            best_index = index
+    return [k for i, k in enumerate(stats_arr) if i != worst_index and i != best_index]

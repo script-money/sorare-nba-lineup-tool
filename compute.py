@@ -5,7 +5,7 @@ from statistics import NormalDist
 from datetime import datetime
 from itertools import combinations
 from pytz import timezone
-from utils import ewma, divide
+from utils import ewma, divide, exclude_best_and_worst
 from config.config import (
     mu_of_game_decision,
     compute_by_recent_n_weeks_games,
@@ -129,7 +129,7 @@ if __name__ == "__main__":
         )
         player_name = card["player"]["displayName"]
         # ------------check single player--------------
-        # if player_name != "Marcus Smart":
+        # if player_name != "Ja Morant":
         #     continue
         card_average = card["player"]["tenGameAverage"]
         card_rarity = card["rarity"]
@@ -142,7 +142,7 @@ if __name__ == "__main__":
                 card_scores,
             )
         )  # 计算每场比赛的表现变化率，应该0上下浮动
-        clean_stats_arr = [i for i in stats_arr if i < max(stats_arr)]  # 去掉表现最好的一把
+        clean_stats_arr = exclude_best_and_worst(stats_arr)
         if len(clean_stats_arr) == 0:
             continue
         ewma_ = ewma(clean_stats_arr, 0.5)  # 用ewma平滑结果，系数可以调整，该数值越小，历史数据的影响越小

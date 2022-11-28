@@ -147,7 +147,7 @@ limited_eastern_conference = {
 
 # 球员表现和评分差异服从正态分布，mu是该分布的均值，例如球员评分30，mu=0.1，则表现的期望均值是33
 # 下面设置的mu加成（或削减）都是经验值，不保证100%准确，可以自己微调
-compute_by_recent_n_weeks_games = 7  # 计算最近n周比赛的表现变化率
+compute_by_recent_n_weeks_games = 8  # 计算最近n周比赛的表现变化率
 mu_of_game_decision = -0.1  # 伤病报告里面game_decision的可能会打也可能不打，表现变化率均值的加该负值
 mu_of_max_rank_team_bonus_ratio = 0.2  # 如果对手是攻防最弱球队，表现变化率均值的最大加成，反之打强队削减
 mu_of_home_bonus = 0.04  # 表现变化率均值的主场加成
@@ -155,7 +155,7 @@ mu_of_home_b2b = -0.01  # 主场打背靠背表现变化率均值的扣减
 mu_of_away_b2b = -0.02  # 客场打背靠背表现变化率均值的扣减
 mu_of_single_game_bonus = -0.25  # 只打单场表现变化率均值的扣减
 mu_of_multiple_games_bonus = 0.15  # 打3场及以上的比赛的表现变化率均值的加成
-mvp_threshold = 40  # MVP选择的最低阈值
+mvp_threshold = 35  # MVP选择的最低阈值
 
 all_tournaments = [
     common_champion,
