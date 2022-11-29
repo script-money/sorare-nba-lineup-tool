@@ -67,29 +67,32 @@ def get_injure_data():
             }
         )
 
-    with open(f"data/injure-{date.today()}.json", "w") as f:
+    today = datetime.now(timezone("US/Eastern"))
+    today_str = today.strftime("%Y-%m-%d")
+    with open(f"data/injure-{today_str}.json", "w") as f:
         json.dump(injured_data, f)
         print("injure saved in data folder")
 
     return injured_data
 
 
-def get_next_epoch_schedule() -> list[MatchData]:
+def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
     match_data: list[MatchData] = []
-    today = datetime.now(timezone("US/Eastern"))
+    today = (
+        datetime.now(timezone("US/Eastern")) if specific_date == None else specific_date
+    )
     today_str = today.strftime("%Y-%m-%d")
     next_days: list[str] = []
     weekday = today.weekday()
-
     if weekday <= 4 and weekday >= 1:  # upper week 1-4
-        offset = 3 - weekday
+        offset = -1 if weekday == 4 else 3 - weekday
         next_days.append((today + timedelta(days=offset)).strftime("%Y%m%d"))
         for i in range(3):
             next_days.append(
                 (today + timedelta(days=i + offset + 1)).strftime("%Y%m%d")
             )
     else:  # lower week
-        offset = 6 - weekday
+        offset = -1 if weekday == 0 else 7 - weekday
         next_days.append((today + timedelta(days=offset)).strftime("%Y%m%d"))
         for i in range(4):
             next_days.append(
@@ -186,7 +189,9 @@ def get_team_rank():
         )
         defense.append(team)
     teams["team_defense_rank"] = defense
-    with open(f"data/team-rank-{date.today()}.json", "w") as f:
+    today = datetime.now(timezone("US/Eastern"))
+    today_str = today.strftime("%Y-%m-%d")
+    with open(f"data/team-rank-{today_str}.json", "w") as f:
         json.dump(teams, f)
         print("team rank saved in data folder")
     return teams

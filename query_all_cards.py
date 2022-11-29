@@ -3,7 +3,8 @@ import json
 
 from gql import Client, gql
 from gql.transport.aiohttp import AIOHTTPTransport
-from datetime import date
+from datetime import datetime
+from pytz import timezone
 
 
 def load_query(path):
@@ -41,7 +42,9 @@ async def main():
             all_cards_info += result["nbaCards"]
 
         # save result as json to data, naming as date
-        with open(f"data/cards-{date.today()}.json", "w") as f:
+        today = datetime.now(timezone("US/Eastern"))
+        today_str = today.strftime("%Y-%m-%d")
+        with open(f"data/cards-{today_str}.json", "w") as f:
             json.dump(all_cards_info, f)
             print("cards data saved in data folder")
 
