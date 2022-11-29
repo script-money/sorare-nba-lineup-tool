@@ -2,3 +2,5 @@
 .ipynb_checkpoints
 __pycache__
 data/*.json
+data/*.txt
+config/NBACards.json
