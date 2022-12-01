@@ -38,7 +38,7 @@ def divide(a, b):
         return round(a / b, 2)
 
 
-def exclude_best_and_worst(stats_arr):
+def exclude_best_and_worst(stats_arr: list[float]) -> list[float]:
     worst = 0
     worst_index = 0
     best = 0

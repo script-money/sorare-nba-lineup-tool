@@ -4,6 +4,7 @@ from pytz import timezone
 from datetime import datetime, timedelta, date
 import json
 import time
+from types_ import NBAPlayerPosition
 
 
 class MatchData:
@@ -58,11 +59,16 @@ def get_injure_data():
         position = element.xpath("./td[3]/text()")[0].strip()
         status_text = element.xpath("./td[5]/text()")[0].strip()
         status = False if "Expected to be out" in status_text else True
+        format_position: NBAPlayerPosition = NBAPlayerPosition.g
+        if position == "SF" or position == "PF":
+            format_position: NBAPlayerPosition = NBAPlayerPosition.f
+        if position == "C":
+            format_position: NBAPlayerPosition = NBAPlayerPosition.c
         injured_data.append(
             {
                 "team": team,
                 "player": player,
-                "position": position,
+                "position": format_position.value,
                 "game_time_decision": status,
             }
         )
