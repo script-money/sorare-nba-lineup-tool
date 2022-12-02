@@ -42,13 +42,8 @@ class NBAGame(TypedDict):
     awayScore: int
 
 
-class NBAPlayerGameStats(TypedDict):
-    game: NBAGame
-
-
 class NBAPlayerInFixtureStatus(TypedDict):
-    statusIconType: PlayerInFixtureStatusIconType
-    gameStats: list[NBAPlayerGameStats]
+    statusIconType: str
 
 
 class NBAPlayerInFixture(TypedDict):
@@ -60,7 +55,7 @@ class NBAPlayerInFixture(TypedDict):
 class NBAPlayer(TypedDict):
     displayName: str
     tenGameAverage: int
-    positions: list[NBAPlayerPosition]
+    positions: list[str]
     latestFinalFixtureStats: list[NBAPlayerInFixture]
 
 
@@ -132,5 +127,5 @@ western_teams: list[str] = [
     "Dallas Mavericks",
     "Portland Trail Blazers",
     "Houston Rockets",
-    "Los Angeles Clippers",
+    "LA Clippers",
 ]

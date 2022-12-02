@@ -1,6 +1,5 @@
 import json
 import math
-from typing import Literal
 
 import numpy as np
 from pandas import DataFrame
@@ -19,7 +18,6 @@ warnings.filterwarnings("ignore")
 
 today: datetime = datetime.now(timezone("US/Eastern"))
 today_str: str = today.strftime("%Y-%m-%d")
-today_str = "2022-11-28"
 
 with open(f"data/cards-{today_str}.json", "r") as f:
     cards: list[NBACard] = json.load(f)
@@ -86,14 +84,24 @@ def predict(
     matches: list[Match] = matches,
     team_rank: TeamRank = team_rank,
 ) -> float:
-    all_card_scores = card["player"]["latestFinalFixtureStats"]
-    last_game: PlayerInFixtureStatusIconType = all_card_scores[2]["status"][
-        "statusIconType"
+    all_card_scores: list[NBAPlayerInFixture] = card["player"][
+        "latestFinalFixtureStats"
     ]
+    # get first not pending index
+    last_game_index: int = next(
+        (
+            i
+            for i, v in enumerate(all_card_scores)
+            if v["status"]["statusIconType"]
+            != PlayerInFixtureStatusIconType.pending.value
+        )
+    )
+    last_game: str = all_card_scores[last_game_index]["status"]["statusIconType"]
     card_average: int = card["player"]["tenGameAverage"]
     team: str = card["team"]["fullName"]
     if player_name in game_decision_players and (
-        last_game == "NO_GAME" or last_game == "DID_NOT_PLAY"
+        last_game == PlayerInFixtureStatusIconType.no_game.value
+        or last_game == PlayerInFixtureStatusIconType.did_not_play.value
     ):  # 如果在game_decision，但上一比赛没上的，就不要上了
         return 0
     next_matches: int = len(
@@ -102,18 +110,20 @@ def predict(
     if next_matches == 0 or player_name in out_players:  # 去掉下周没有比赛的球员和确定受伤不打的球员
         return 0
     total_bonus: float = card["totalBonus"]
-    all_card_scores: list[NBAPlayerInFixture] = card["player"][
-        "latestFinalFixtureStats"
-    ]
     card_scores: list[NBAPlayerInFixture] = list(
         filter(
             lambda g: g["status"]["statusIconType"] != "NO_GAME",
-            all_card_scores[2 : 2 + compute_by_recent_n_weeks_games],  # 取最近7周比赛
+            all_card_scores[
+                last_game_index : last_game_index + compute_by_recent_n_weeks_games
+            ],  # 取最近7周比赛
         )
     )
     stats_arr: list[float] = list(
         map(
-            lambda s: divide(s["score"] - s["tenGameAverage"], s["tenGameAverage"]),
+            lambda s: divide(
+                s["score"] - s["tenGameAverage"],
+                all_card_scores[last_game_index]["tenGameAverage"],
+            ),
             card_scores,
         )
     )  # 计算每场比赛的表现变化率，应该0上下浮动
@@ -181,8 +191,8 @@ if __name__ == "__main__":
         player_name: str = card["player"]["displayName"]
         # ------------check single player--------------
         # if (
-        #     player_name != "Bones Hyland"
-        # ):  # TODO 类似Paul Reed这种连续爆发后，平均分已经上来了，预期表现会被计算过高，同理MVP球员 Giannis Antetokounmpo 的分数会被估计低，需要修改算法。Bryce McGowens这种突然爆发的列入研究。球员算法也提取成函数。Marcus Morris Sr.没打？
+        #     player_name != "Bryce McGowens"
+        # ):  # TODO 类似Paul Reed这种连续爆发后，平均分已经上来了，预期表现会被计算过高，同理MVP球员 Giannis Antetokounmpo 的分数会被估计低，需要修改算法。Bryce McGowens这种突然爆发的列入研究。球员算法也提取成函数。
         #     continue
 
         future_performance: float = predict(card)
@@ -212,14 +222,21 @@ if __name__ == "__main__":
 
     for tournaments in all_tournaments:
         # TODO: check suggest_player is valid
+        if tournaments["name"] in suggest_players:
+            suggest_players_id: list[str] = suggest_players[tournaments["name"]]
+            pre_select: int = len(suggest_players_id)
+        else:
+            pre_select = 0
 
-        select_cards: list[SelectCard] = []
         stats_dist_list: list[SelectCard] = all_stats_dist_list.copy()
-        high_rarity_count: int = 0
 
-        allowed_rarities: list[CardRarity] = [
-            t.value for t in tournaments["allowedRarities"]
-        ]
+        pre_select_cards: list[SelectCard] = (
+            list(filter(lambda c: c["id"] in suggest_players_id, stats_dist_list))
+            if pre_select != 0
+            else []
+        )
+
+        allowed_rarities: list[str] = [t.value for t in tournaments["allowedRarities"]]
         allow_mvp: bool = tournaments["allowMVP"]
         allowed_conference: NBAConference | None = tournaments["allowedConference"]
         is_common: bool = tournaments["minRarity"] is None
@@ -246,36 +263,33 @@ if __name__ == "__main__":
                     )
                 )
 
-        avaliable_cards_with_condition: list[SelectCard] = list(
+        card_pool: list[SelectCard] = list(
             filter(
                 lambda c: c["rarity"] in allowed_rarities
                 and c not in used_cards
-                and c["id"] not in blacklist_players[tournaments["name"]],
+                and c["id"] not in blacklist_players[tournaments["name"]]
+                and c not in pre_select_cards,
                 stats_dist_list,
             )
         )
 
-        tmp_best_card: SelectCard | None = None  # type: ignore
-        if allow_mvp:  # 选择mvp
-            best_card: SelectCard = max(
-                avaliable_cards_with_condition,
-                key=lambda c: c["expect"] and c["average"] >= mvp_threshold,
-            )
-            if best_card["rarity"] == min_rarity and min_rarity != None:  # TODO check mvp is work
-                high_rarity_count += 1
-            select_cards.append(best_card)
-            used_cards.append(best_card)
-            tmp_best_card: SelectCard = best_card
-
-        # exclude used cards
-        card_pool: list[SelectCard] = list(
-            filter(lambda c: c not in used_cards, avaliable_cards_with_condition)
-        )
-        to_select_card_count: Literal[4, 5] = 4 if tournaments["allowMVP"] else 5
-        possible_group: list[tuple[SelectCard]] = []
+        to_select_card_count: int = 5 - pre_select
+        possible_group: list[list[SelectCard]] = []
         for possible in combinations(card_pool, to_select_card_count):
             # check total points
-            total_point: int = sum([card["average"] for card in possible])
+            all_5_cards: list[SelectCard] = list(possible) + pre_select_cards
+            total_point: int = (
+                sum([card["average"] for card in all_5_cards])
+                if not allow_mvp
+                else sum(
+                    [
+                        card["average"]
+                        for card in sorted(
+                            all_5_cards, key=lambda c: c["average"], reverse=True
+                        )[1:]
+                    ]
+                )
+            )
             if total_point > tournaments["tenGameAverageTotalLimit"]:
                 continue
 
@@ -286,55 +300,51 @@ if __name__ == "__main__":
                 else len(
                     list(
                         filter(
-                            lambda card: card["rarity"] == min_rarity.value, possible  # type: ignore
+                            lambda card: card["rarity"] == min_rarity.value,  # type: ignore
+                            all_5_cards,
                         )
                     )
                 )
             )
-            if rarities_count + high_rarity_count < min_count:
+            if rarities_count < min_count:
                 continue
 
             # check player duplicate
-            players: list[str] = []
-            other_players: list[str] = list(map(lambda card: card["name"], possible))
-            players = (
-                [tmp_best_card["name"]] + other_players
-                if tmp_best_card != None
-                else other_players
-            )
+            players: list[str] = list(map(lambda card: card["name"], all_5_cards))
             unique_players: int = len(set(players))
             if unique_players != len(players):
                 continue
 
-            possible_group.append(possible)
+            possible_group.append(all_5_cards)
 
         if len(possible_group) == 0:
             result_lines.append(f"{tournaments['name']} no possible lineup")
             continue
 
-        sorted_possible_group = sorted(
+        sorted_possible_group: list[list[SelectCard]] = sorted(
             possible_group,
             key=lambda p: sum([card["expect"] for card in p]),
             reverse=True,
-        )
+        )  # TODO 消除顺序和重复的影响
 
-        group_to_select = []
+        group_to_select: list[list[SelectCard]] = []
 
         if len(possible_group) > suggestion_count:
             group_to_select = sorted_possible_group[:suggestion_count]
         else:
             group_to_select = sorted_possible_group
 
+        print(f"\n")
         print(f"Selecting {tournaments['name']}")
         for index, group in enumerate(group_to_select):
             print(f"Group: {index}, total: {sum([card['average'] for card in group])}")
-            for card in group:
+            for select_card in group:
                 print(
-                    f"{card['name']}({card['rarity']},{card['average']}) {show_opposite_team(card['team'])}"
-                ) 
+                    f"{select_card['name']}({select_card['rarity']},{select_card['average']}) {show_opposite_team(select_card['team'])}"
+                )
             print("\n")
 
-        group_index = -1
+        group_index: str = "-1"
         while True:
             group_index = input("Please select group (input Group number): ")
             if group_index.isdigit() and int(group_index) < len(group_to_select):
@@ -342,18 +352,21 @@ if __name__ == "__main__":
             else:
                 print("Invalid group index")
 
-        for card in group_to_select[int(group_index)]:
-            select_cards.append(card)
-            used_cards.append(card)
+        select_cards: list[SelectCard] = []
+        for select_card in group_to_select[int(group_index)]:
+            select_cards.append(select_card)
+            used_cards.append(select_card)
 
         if len(select_cards) == 5:
             result_lines.append(f"{tournaments['name']}")
-            expect_sum = 0
-            for card in select_cards:
+            expect_sum: float = 0.0
+            for select_card in select_cards:
                 result_lines.append(
-                    f"{card['name']}({card['rarity']},{card['average']})"
+                    f"{select_card['name']}({select_card['rarity']},{select_card['average']})"
                 )
-                expect_sum += card["expect"]
+                expect_sum += select_card["expect"]
+            for select_card in select_cards:
+                result_lines.append(f'"{select_card["id"]}"')
             result_lines.append(f"expect: {expect_sum:.2f}")
         else:
             result_lines.append(f"{tournaments['name']} no possible lineup")

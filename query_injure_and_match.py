@@ -40,7 +40,13 @@ class MatchData:
 def stash_team_rename(
     stash_name,
 ):  # /nba/teams/MIN/minnesota-timberwolves/ to Minnesota Timberwolves
-    return stash_name.split("/")[4].replace("-", " ").title().replace("76Ers", "76ers")
+    return (
+        stash_name.split("/")[4]
+        .replace("-", " ")
+        .title()
+        .replace("76Ers", "76ers")
+        .replace("Los Angeles", "LA")
+    )
 
 
 def get_injure_data():

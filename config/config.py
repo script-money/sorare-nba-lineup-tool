@@ -158,40 +158,62 @@ mu_of_home_b2b: float = -0.01  # 主场打背靠背表现变化率均值的扣�
 mu_of_away_b2b: float = -0.02  # 客场打背靠背表现变化率均值的扣减
 mu_of_single_game_bonus: float = -0.25  # 只打单场表现变化率均值的扣减
 mu_of_multiple_games_bonus: float = 0.15  # 打3场及以上的比赛的表现变化率均值的加成
-mvp_threshold: int = 40  # MVP选择的最低阈值
 suggestion_count: int = 10
 
 all_tournaments: list[Tournaments] = [
-    common_champion,
-    common_contender,
+    # common_champion,
+    # common_contender,
     # common_western_conference,
-    common_eastern_conference,
-    super_rare_contender,
-    rare_contender,
+    # common_eastern_conference,
+    # super_rare_contender,
+    # rare_contender,
     limited_contender,
-    super_rare_champion,
-    rare_champion,
+    # rare_champion,
+    # super_rare_champion,
     limited_champion,
     # limited_western_conference,
-    # limited_eastern_conference,
+    limited_eastern_conference,
 ]  # 更改联赛优先级，越前的会优先选卡
 
 blacklist_players: dict[str, list[str]] = {
+    "common_champion": [],
+    "common_contender": [],
+    "common_western_conference": [],
+    "common_eastern_conference": [],
     "super_rare_contender": [
         "dbb7d8a8-4a7d-4097-b8b7-77f4faed2350",
         "839244ed-a59c-4b46-b13b-b124b49a8038",
         "aa34b029-d04c-43de-8b3f-9f5ea58814dd",
         "9754710e-0cea-4372-8d41-743781ca3ffb",
         "aa3a4968-2d2d-419b-8e5b-85f3fbaae634",
-    ]
+        "a6cca7ff-4832-4a1e-887d-35216e2c310e",
+    ],
+    "rare_contender": [],
+    "limited_contender": [],
+    "super_rare_champion": [],
+    "rare_champion": [],
+    "limited_champion": [],
+    "limited_western_conference": [],
+    "limited_eastern_conference": [],
 }  # 设置不会被选中的id，重复卡建议设置
 
 suggest_players: dict[str, list[str]] = {
+    "common_champion": [],
+    "common_contender": [],
+    "common_western_conference": [],
+    "common_eastern_conference": [],
     "super_rare_contender": [
         "5d079338-2293-47b7-9373-d33dbeac79f7",  # Nic Claxton
         "da82a46b-3265-4861-958f-5d13da220269",  # Bruce Brown
-        "dd4aa087-0e2f-4ed3-bb88-e88f98c3fe51",  # Bol Bol
         "a936c841-4039-4a09-82af-3b4e80b691fb",  # Marcus Smart
-        "a26700a2-1dd2-4c3b-a406-a40401bb9c0d",  #  Paul Reed rare
-    ]
-}  # TODO 设置会被优先选中的id
+    ],
+    "rare_contender": [],
+    "limited_contender": [
+        "6cf4ed29-a5fc-4f4c-a935-79978daa5a16",  # Wendell Moore Jr.
+    ],
+    "super_rare_champion": [],
+    "rare_champion": [],
+    "limited_champion": [],
+    "limited_western_conference": [],
+    "limited_eastern_conference": [],
+}  # 设置会被优先选中的id

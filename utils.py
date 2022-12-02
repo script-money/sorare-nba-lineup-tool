@@ -39,9 +39,9 @@ def divide(a, b):
 
 
 def exclude_best_and_worst(stats_arr: list[float]) -> list[float]:
-    worst = 0
+    worst = 0.0
     worst_index = 0
-    best = 0
+    best = 0.0
     best_index = 0
     for index, game in enumerate(stats_arr):
         if game < worst:
