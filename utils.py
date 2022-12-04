@@ -39,15 +39,24 @@ def divide(a, b):
 
 
 def exclude_best_and_worst(stats_arr: list[float]) -> list[float]:
+    """计算表现是去除最好最差的（除了最近一场）
+
+    Args:
+        stats_arr (list[float]): 统计
+
+    Returns:
+        list[float]: 过滤后的统计
+    """
     worst = 0.0
     worst_index = 0
     best = 0.0
     best_index = 0
-    for index, game in enumerate(stats_arr):
+    other_games = stats_arr[1:]
+    for index, game in enumerate(other_games):
         if game < worst:
             worst = game
-            worst_index = index
+            worst_index = index + 1
         if game > best:
             best = game
-            best_index = index
+            best_index = index + 1
     return [k for i, k in enumerate(stats_arr) if i != worst_index and i != best_index]
