@@ -83,7 +83,7 @@ def predict(
     out_players: list[str] = out_players,
     matches: list[Match] = matches,
     team_rank: TeamRank = team_rank,
-) -> float:
+) -> NormalDist:
     all_card_scores: list[NBAPlayerInFixture] = card["player"][
         "latestFinalFixtureStats"
     ]
@@ -103,12 +103,12 @@ def predict(
         last_game == PlayerInFixtureStatusIconType.no_game.value
         or last_game == PlayerInFixtureStatusIconType.did_not_play.value
     ):  # 如果在game_decision，但上一比赛没上的，就不要上了
-        return 0
+        return NormalDist(0, 0)
     next_matches: int = len(
         list(filter(lambda m: m["away"] == team or m["home"] == team, matches))
     )  # 下一周的比赛场数
     if next_matches == 0 or player_name in out_players:  # 去掉下周没有比赛的球员和确定受伤不打的球员
-        return 0
+        return NormalDist(0, 0)
     total_bonus: float = card["totalBonus"]
     card_scores: list[NBAPlayerInFixture] = list(
         filter(
@@ -129,12 +129,12 @@ def predict(
     )  # 计算每场比赛的表现变化率，应该0上下浮动
     clean_stats_arr: list[float] = exclude_best_and_worst(stats_arr)
     if len(clean_stats_arr) == 0:  # 如果没有比赛数据，直接返回0
-        return 0
+        return NormalDist(0, 0)
     ewma_: list[float] = ewma(clean_stats_arr, 0.5)  # 用ewma平滑结果，系数可以调整，该数值越小，历史数据的影响越小
     mu: float = np.mean(ewma_).__float__()
     sigma: float = np.std(ewma_, ddof=1).__float__()
     if math.isnan(sigma):  # 如果标准差为0，直接返回0
-        return 0
+        return NormalDist(0, 0)
     if player_name in game_decision_players:
         mu += mu_of_game_decision
 
@@ -144,8 +144,9 @@ def predict(
     k_list: list[float] = []
     bonus: float = 0
     # 1. 获取对手攻防实力，按标准化加成
+    # TODO 改为按位置分类，如果是打攻击弱的C、F加成，打防守弱的F、G加成；反之亦然
     if len(match_join) == 0:
-        return 0
+        return NormalDist(0, 0)
     for match in match_join:
         opponent: str = match["away"] if match["home"] == team else match["home"]
         offense_rank: int = team_rank["team_offense_rank"].index(opponent)
@@ -181,7 +182,7 @@ def predict(
     future_performance: NormalDist = (
         NormalDist(mu, sigma) * card_average + card_average
     ) * (1 + total_bonus)
-    return future_performance.mean
+    return future_performance
 
 
 if __name__ == "__main__":
@@ -190,12 +191,10 @@ if __name__ == "__main__":
     for card in avaliable_cards:
         player_name: str = card["player"]["displayName"]
         # ------------check single player--------------
-        # if (
-        #     player_name != "Bryce McGowens"
-        # ):  # TODO 类似Paul Reed这种连续爆发后，平均分已经上来了，预期表现会被计算过高，同理MVP球员 Giannis Antetokounmpo 的分数会被估计低，需要修改算法。Bryce McGowens这种突然爆发的列入研究。球员算法也提取成函数。
+        # if player_name != "Bryce McGowens":
         #     continue
 
-        future_performance: float = predict(card)
+        future_performance: NormalDist = predict(card)
 
         card_dist: SelectCard = {
             "name": player_name,
@@ -209,8 +208,8 @@ if __name__ == "__main__":
 
     # convert all_stats_dist_list to dataframe
     df: DataFrame = DataFrame(all_stats_dist_list)
-    df["outperform"] = (df["expect"] - df["average"]).astype(int)
-    print(df.sort_values(by="outperform", ascending=False).to_string())
+    df["mean"] = df["expect"].apply(lambda x: x.mean)
+    print(df.sort_values(by="mean", ascending=False).to_string())
 
     # user input Y to continue
     input(
@@ -238,6 +237,7 @@ if __name__ == "__main__":
 
         allowed_rarities: list[str] = [t.value for t in tournaments["allowedRarities"]]
         allow_mvp: bool = tournaments["allowMVP"]
+        target: int = tournaments["target"]
         allowed_conference: NBAConference | None = tournaments["allowedConference"]
         is_common: bool = tournaments["minRarity"] is None
         min_rarity: CardRarity | None = (
@@ -276,8 +276,9 @@ if __name__ == "__main__":
         to_select_card_count: int = 5 - pre_select
         possible_group: list[list[SelectCard]] = []
         for possible in combinations(card_pool, to_select_card_count):
-            # check total points
             all_5_cards: list[SelectCard] = list(possible) + pre_select_cards
+
+            # check total points
             total_point: int = (
                 sum([card["average"] for card in all_5_cards])
                 if not allow_mvp
@@ -321,19 +322,31 @@ if __name__ == "__main__":
             result_lines.append(f"{tournaments['name']} no possible lineup")
             continue
 
-        sorted_possible_group: list[list[SelectCard]] = sorted(
-            possible_group,
-            key=lambda p: sum([card["expect"] for card in p]),
-            reverse=True,
-        )  # TODO 消除顺序和重复的影响
+        group_index_to_cdf: dict[int, float] = {}
+
+        for index, group in enumerate(possible_group):
+            total_dist: NormalDist = NormalDist(0, 0)
+            for card in group:
+                total_dist += card["expect"]
+            p_of_reach_target = total_dist.cdf(target)
+            if p_of_reach_target < 0.99:
+                group_index_to_cdf[index] = p_of_reach_target
 
         group_to_select: list[list[SelectCard]] = []
-
-        if len(possible_group) > suggestion_count:
-            group_to_select = sorted_possible_group[:suggestion_count]
+        sorted_possible_group: list[tuple[int, float]] = sorted(
+            group_index_to_cdf.items(), key=lambda item: item[1]
+        )
+        if len(sorted_possible_group) > suggestion_count:
+            group_to_select = list(
+                map(
+                    lambda item: possible_group[item[0]],
+                    sorted_possible_group[:suggestion_count],
+                )
+            )
         else:
-            group_to_select = sorted_possible_group
-
+            group_to_select = list(
+                map(lambda item: possible_group[item[0]], sorted_possible_group)
+            )
         print(f"\n")
         print(f"Selecting {tournaments['name']}")
         for index, group in enumerate(group_to_select):
@@ -364,7 +377,7 @@ if __name__ == "__main__":
                 result_lines.append(
                     f"{select_card['name']}({select_card['rarity']},{select_card['average']})"
                 )
-                expect_sum += select_card["expect"]
+                expect_sum += select_card["expect"].mean
             for select_card in select_cards:
                 result_lines.append(f'"{select_card["id"]}"')
             result_lines.append(f"expect: {expect_sum:.2f}")

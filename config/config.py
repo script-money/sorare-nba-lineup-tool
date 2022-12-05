@@ -53,7 +53,7 @@ rare_champion: Tournaments = {
         "minCount": 3,
         "rarity": CardRarity.rare,
     },
-    "target": 180,
+    "target": 240,
 }
 
 rare_contender: Tournaments = {
@@ -66,7 +66,7 @@ rare_contender: Tournaments = {
         "minCount": 3,
         "rarity": CardRarity.rare,
     },
-    "target": 240,
+    "target": 180,
 }
 
 super_rare_contender: Tournaments = {
@@ -79,7 +79,7 @@ super_rare_contender: Tournaments = {
         "minCount": 3,
         "rarity": CardRarity.super_rare,
     },
-    "target": 180,
+    "target": 190,
 }
 
 super_rare_champion: Tournaments = {
@@ -105,7 +105,7 @@ limited_champion: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 250,
+    "target": 230,
 }
 
 limited_contender: Tournaments = {
@@ -118,7 +118,7 @@ limited_contender: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 220,
+    "target": 170,
 }
 
 limited_western_conference: Tournaments = {
@@ -174,6 +174,7 @@ all_tournaments: list[Tournaments] = [
     # limited_western_conference,
     limited_eastern_conference,
 ]  # 更改联赛优先级，越前的会优先选卡
+# TODO 添加无上限的联赛
 
 blacklist_players: dict[str, list[str]] = {
     "common_champion": [],
@@ -181,12 +182,12 @@ blacklist_players: dict[str, list[str]] = {
     "common_western_conference": [],
     "common_eastern_conference": [],
     "super_rare_contender": [
-        "dbb7d8a8-4a7d-4097-b8b7-77f4faed2350",
-        "839244ed-a59c-4b46-b13b-b124b49a8038",
-        "aa34b029-d04c-43de-8b3f-9f5ea58814dd",
-        "9754710e-0cea-4372-8d41-743781ca3ffb",
-        "aa3a4968-2d2d-419b-8e5b-85f3fbaae634",
-        "a6cca7ff-4832-4a1e-887d-35216e2c310e",
+        # "dbb7d8a8-4a7d-4097-b8b7-77f4faed2350",  # Sam Hauser
+        # "839244ed-a59c-4b46-b13b-b124b49a8038",  # Kevin Huerter
+        # "aa34b029-d04c-43de-8b3f-9f5ea58814dd",  # Kevin Huerter
+        # "9754710e-0cea-4372-8d41-743781ca3ffb",  # Kevin Huerter
+        # "aa3a4968-2d2d-419b-8e5b-85f3fbaae634",  # Brandon Ingram
+        # "a6cca7ff-4832-4a1e-887d-35216e2c310e",  # Paul Reed
     ],
     "rare_contender": [],
     "limited_contender": [],
@@ -203,13 +204,11 @@ suggest_players: dict[str, list[str]] = {
     "common_western_conference": [],
     "common_eastern_conference": [],
     "super_rare_contender": [
-        "5d079338-2293-47b7-9373-d33dbeac79f7",  # Nic Claxton
-        "da82a46b-3265-4861-958f-5d13da220269",  # Bruce Brown
-        "a936c841-4039-4a09-82af-3b4e80b691fb",  # Marcus Smart
+        # "da82a46b-3265-4861-958f-5d13da220269",  # Bruce Brown
     ],
     "rare_contender": [],
     "limited_contender": [
-        "6cf4ed29-a5fc-4f4c-a935-79978daa5a16",  # Wendell Moore Jr.
+        # "6cf4ed29-a5fc-4f4c-a935-79978daa5a16",  # Wendell Moore Jr.
     ],
     "super_rare_champion": [],
     "rare_champion": [],

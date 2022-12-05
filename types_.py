@@ -1,5 +1,6 @@
 from typing import TypedDict
 from enum import Enum
+from statistics import NormalDist
 
 
 class NBATeam(TypedDict):
@@ -107,7 +108,7 @@ class SelectCard(TypedDict):
     name: str
     average: int
     rarity: CardRarity
-    expect: float
+    expect: NormalDist
     team: str
     id: str
 
