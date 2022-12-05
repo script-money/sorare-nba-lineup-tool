@@ -45,7 +45,7 @@ def stash_team_rename(
         .replace("-", " ")
         .title()
         .replace("76Ers", "76ers")
-        .replace("Los Angeles", "LA")
+        .replace("Los Angeles Clippers", "LA Clippers")
     )
 
 
