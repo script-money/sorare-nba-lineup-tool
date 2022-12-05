@@ -43,6 +43,16 @@ common_eastern_conference: Tournaments = {
     "target": 280,
 }
 
+common_underdog: Tournaments = {
+    "name": "common_underdog",
+    "tenGameAverageTotalLimit": 60,
+    "allowMVP": False,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.common],
+    "minRarity": None,
+    "target": 100,
+}
+
 rare_champion: Tournaments = {
     "name": "rare_champion",
     "tenGameAverageTotalLimit": 120,
@@ -150,7 +160,7 @@ limited_eastern_conference: Tournaments = {
 
 # 球员表现和评分差异服从正态分布，mu是该分布的均值，例如球员评分30，mu=0.1，则表现的期望均值是33
 # 下面设置的mu加成（或削减）都是经验值，不保证100%准确，可以自己微调
-compute_by_recent_n_weeks_games: int = 8  # 计算最近n周比赛的表现变化率
+compute_by_recent_n_weeks_games: int = 10  # 计算最近n周比赛的表现变化率
 mu_of_game_decision: float = -0.1  # 伤病报告里面game_decision的可能会打也可能不打，表现变化率均值的加该负值
 mu_of_max_rank_team_bonus_ratio: float = 0.2  # 如果对手是攻防最弱球队，表现变化率均值的最大加成，反之打强队削减
 mu_of_home_bonus: float = 0.04  # 表现变化率均值的主场加成
@@ -159,6 +169,7 @@ mu_of_away_b2b: float = -0.02  # 客场打背靠背表现变化率均值的扣�
 mu_of_single_game_bonus: float = -0.25  # 只打单场表现变化率均值的扣减
 mu_of_multiple_games_bonus: float = 0.15  # 打3场及以上的比赛的表现变化率均值的加成
 suggestion_count: int = 10
+probability_reach_target: float = 0.05  # 从有该概率达到目标分数的结果中排序
 
 all_tournaments: list[Tournaments] = [
     # common_champion,

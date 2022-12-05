@@ -7,9 +7,10 @@ from statistics import NormalDist
 from datetime import datetime
 from itertools import combinations
 from types_ import *
+from scipy.stats import t
 
 from pytz import timezone
-from utils import ewma, divide, exclude_best_and_worst
+from utils import ewma
 from config.config import *
 import warnings
 
@@ -18,6 +19,7 @@ warnings.filterwarnings("ignore")
 
 today: datetime = datetime.now(timezone("US/Eastern"))
 today_str: str = today.strftime("%Y-%m-%d")
+# today_str = "2022-12-05"
 
 with open(f"data/cards-{today_str}.json", "r") as f:
     cards: list[NBACard] = json.load(f)
@@ -115,28 +117,27 @@ def predict(
             lambda g: g["status"]["statusIconType"] != "NO_GAME",
             all_card_scores[
                 last_game_index : last_game_index + compute_by_recent_n_weeks_games
-            ],  # 取最近7周比赛
+            ],  # 取最近9周比赛
         )
     )
     stats_arr: list[float] = list(
         map(
-            lambda s: divide(
-                s["score"] - s["tenGameAverage"],
-                all_card_scores[last_game_index]["tenGameAverage"],
-            ),
+            lambda s: s["score"],
             card_scores,
         )
     )  # 计算每场比赛的表现变化率，应该0上下浮动
-    clean_stats_arr: list[float] = exclude_best_and_worst(stats_arr)
-    if len(clean_stats_arr) == 0:  # 如果没有比赛数据，直接返回0
+
+    if len(stats_arr) == 0:  # 如果没有比赛数据，直接返回0
         return NormalDist(0, 0)
-    ewma_: list[float] = ewma(clean_stats_arr, 0.5)  # 用ewma平滑结果，系数可以调整，该数值越小，历史数据的影响越小
-    mu: float = np.mean(ewma_).__float__()
-    sigma: float = np.std(ewma_, ddof=1).__float__()
+    ewma_: list[float] = ewma(stats_arr, 0.5)  # 用ewma平滑结果，系数可以调整，该数值越小，历史数据的影响越小
+    _, mu, sigma = t.fit(ewma_, fdf=len(ewma_))
+
     if math.isnan(sigma):  # 如果标准差为0，直接返回0
         return NormalDist(0, 0)
+
+    game_decision_bonus: float = 0
     if player_name in game_decision_players:
-        mu += mu_of_game_decision
+        game_decision_bonus = mu_of_game_decision
 
     match_join: list[Match] = list(
         filter(lambda m: m["away"] == team or m["home"] == team, matches)
@@ -176,12 +177,17 @@ def predict(
         match_count_bonus += mu_of_single_game_bonus
     if len(match_join) > 2:
         match_count_bonus += mu_of_multiple_games_bonus
-    bonus = opponent_bonus + home_bonus + b2b_bonus + match_count_bonus
-    mu += bonus
+    bonus = (
+        game_decision_bonus
+        + opponent_bonus
+        + home_bonus
+        + b2b_bonus
+        + match_count_bonus
+    )
+    mu += bonus * card_average
+    # TODO 预测容易打出垃圾时间的比赛，给替补更高的权重
 
-    future_performance: NormalDist = (
-        NormalDist(mu, sigma) * card_average + card_average
-    ) * (1 + total_bonus)
+    future_performance: NormalDist = NormalDist(mu, sigma) * (1 + total_bonus)
     return future_performance
 
 
@@ -191,7 +197,7 @@ if __name__ == "__main__":
     for card in avaliable_cards:
         player_name: str = card["player"]["displayName"]
         # ------------check single player--------------
-        # if player_name != "Bryce McGowens":
+        # if player_name != "Troy Brown Jr.":
         #     continue
 
         future_performance: NormalDist = predict(card)
@@ -329,7 +335,7 @@ if __name__ == "__main__":
             for card in group:
                 total_dist += card["expect"]
             p_of_reach_target = total_dist.cdf(target)
-            if p_of_reach_target < 0.99:
+            if p_of_reach_target < 1 - probability_reach_target:
                 group_index_to_cdf[index] = p_of_reach_target
 
         group_to_select: list[list[SelectCard]] = []
