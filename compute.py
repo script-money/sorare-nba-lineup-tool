@@ -1,14 +1,11 @@
 import json
 import math
-
-import numpy as np
 from pandas import DataFrame
 from statistics import NormalDist
 from datetime import datetime
 from itertools import combinations
 from types_ import *
 from scipy.stats import t
-
 from pytz import timezone
 from utils import ewma
 from config.config import *
@@ -41,8 +38,9 @@ super_rare_cards: list[NBACard] = list(
 )
 
 print(
-    f"Load {len(common_cards)} common, {len(limited_cards)} limited, {len(rare_cards)} rare, {len(super_rare_cards)} super rare cards."
+    f"\nLoad {len(common_cards)} common, {len(limited_cards)} limited, {len(rare_cards)} rare, {len(super_rare_cards)} super rare cards."
 )
+print()
 
 out_players: list[str] = list(
     map(lambda j: j["player"], filter(lambda i: not i["game_time_decision"], injure))
@@ -127,41 +125,50 @@ def predict(
         )
     )  # 计算每场比赛的表现变化率，应该0上下浮动
 
-    if len(stats_arr) == 0:  # 如果没有比赛数据，直接返回0
+    if len(stats_arr) == 0:  # 对于万年不打的饮水机球员，没有比赛数据，直接返回0
         return NormalDist(0, 0)
     ewma_: list[float] = ewma(stats_arr, 0.5)  # 用ewma平滑结果，系数可以调整，该数值越小，历史数据的影响越小
-    _, mu, sigma = t.fit(ewma_, fdf=len(ewma_))
-
-    if math.isnan(sigma):  # 如果标准差为0，直接返回0
-        return NormalDist(0, 0)
+    _, mu, sigma = t.fit(
+        ewma_, fdf=len(ewma_)
+    )  # 用t分布拟合数据，得到均值和标准差。对于不怎么打的球员，用norm有可能sigma为0
 
     game_decision_bonus: float = 0
     if player_name in game_decision_players:
+        print(
+            f"{player_name} may not play in the next game, he has {next_matches} matches in next week"
+        )
         game_decision_bonus = mu_of_game_decision
 
     match_join: list[Match] = list(
         filter(lambda m: m["away"] == team or m["home"] == team, matches)
     )
+
+    # 1. 获取对手攻防实力，按标准化加成
+    positions = card["player"]["positions"]
     k_list: list[float] = []
     bonus: float = 0
-    # 1. 获取对手攻防实力，按标准化加成
-    # TODO 改为按位置分类，如果是打攻击弱的C、F加成，打防守弱的F、G加成；反之亦然
-    if len(match_join) == 0:
-        return NormalDist(0, 0)
     for match in match_join:
         opponent: str = match["away"] if match["home"] == team else match["home"]
         offense_rank: int = team_rank["team_offense_rank"].index(opponent)
         defense_rank: int = team_rank["team_defense_rank"].index(opponent)
-        k: float = (
-            (offense_rank - 15) / 30 + (defense_rank - 15) / 30
-        ) * mu_of_max_rank_team_bonus_ratio
+        k_o: float = 0.0
+        k_d: float = 0.0
+        # offense bonus
+        if "NBA_FORWARD" in positions or "NBA_CENTER" in positions:
+            k_o = (offense_rank - 15) / 30 * mu_of_max_rank_team_bonus_ratio
+        # defense bonus
+        if "NBA_FORWARD" in positions or "NBA_GUARD" in positions:
+            k_d = (defense_rank - 15) / 30 * mu_of_max_rank_team_bonus_ratio
+        k: float = k_o + k_d
         k_list.append(k)
     opponent_bonus: float = sum(k_list) / len(k_list) if len(k_list) != 0.0 else 0.0
+
     # 2. 主客场加成
     home_bonus: float = 0
     for match in match_join:
         if match["home"] == team:
             home_bonus += mu_of_home_bonus
+
     # 3. 背靠背
     b2b_bonus: float = 0
     for match in match_join:
@@ -171,12 +178,14 @@ def predict(
             b2b_bonus -= mu_of_away_b2b
         if match["home"] == team and match["home_is_b2b"] and not match["away_is_b2b"]:
             b2b_bonus -= mu_of_home_b2b
+
     # 4. 比赛场数
     match_count_bonus: float = 0
     if len(match_join) == 1:
         match_count_bonus += mu_of_single_game_bonus
     if len(match_join) > 2:
         match_count_bonus += mu_of_multiple_games_bonus
+
     bonus = (
         game_decision_bonus
         + opponent_bonus
@@ -185,7 +194,6 @@ def predict(
         + match_count_bonus
     )
     mu += bonus * card_average
-    # TODO 预测容易打出垃圾时间的比赛，给替补更高的权重
 
     future_performance: NormalDist = NormalDist(mu, sigma) * (1 + total_bonus)
     return future_performance
@@ -194,10 +202,17 @@ def predict(
 if __name__ == "__main__":
     all_stats_dist_list: list[SelectCard] = []
 
+    # TODO: check configs (for example: suggest_player) is valid
+    if len(all_tournaments) == 0:
+        print(
+            'No tournaments found, please check "all_tournaments" in config/config.py'
+        )
+        exit(1)
+
     for card in avaliable_cards:
         player_name: str = card["player"]["displayName"]
         # ------------check single player--------------
-        # if player_name != "Troy Brown Jr.":
+        # if player_name != "Bones Hyland":
         #     continue
 
         future_performance: NormalDist = predict(card)
@@ -215,7 +230,10 @@ if __name__ == "__main__":
     # convert all_stats_dist_list to dataframe
     df: DataFrame = DataFrame(all_stats_dist_list)
     df["mean"] = df["expect"].apply(lambda x: x.mean)
-    print(df.sort_values(by="mean", ascending=False).to_string())
+    df_show: DataFrame = df.sort_values(by="mean", ascending=False)
+    print("\nAll players stats:")
+    df_show = df_show.drop(columns=["id", "mean"])
+    print(df_show.to_string(index=True))
 
     # user input Y to continue
     input(
@@ -226,7 +244,6 @@ if __name__ == "__main__":
     used_cards = []
 
     for tournaments in all_tournaments:
-        # TODO: check suggest_player is valid
         if tournaments["name"] in suggest_players:
             suggest_players_id: list[str] = suggest_players[tournaments["name"]]
             pre_select: int = len(suggest_players_id)
@@ -355,6 +372,9 @@ if __name__ == "__main__":
             )
         print(f"\n")
         print(f"Selecting {tournaments['name']}")
+        if len(group_to_select) == 0:
+            result_lines.append(f"{tournaments['name']} no possible lineup")
+            continue
         for index, group in enumerate(group_to_select):
             print(f"Group: {index}, total: {sum([card['average'] for card in group])}")
             for select_card in group:

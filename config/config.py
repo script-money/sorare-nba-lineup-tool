@@ -172,24 +172,26 @@ suggestion_count: int = 10
 probability_reach_target: float = 0.05  # 从有该概率达到目标分数的结果中排序
 
 all_tournaments: list[Tournaments] = [
-    # common_champion,
-    # common_contender,
+    common_champion,
+    common_contender,
+    # common_underdog,
     # common_western_conference,
     # common_eastern_conference,
     # super_rare_contender,
     # rare_contender,
-    limited_contender,
+    # limited_contender,
     # rare_champion,
     # super_rare_champion,
-    limited_champion,
+    # limited_champion,
     # limited_western_conference,
-    limited_eastern_conference,
+    # limited_eastern_conference,
 ]  # 更改联赛优先级，越前的会优先选卡
 # TODO 添加无上限的联赛
 
 blacklist_players: dict[str, list[str]] = {
     "common_champion": [],
     "common_contender": [],
+    "common_underdog": [],
     "common_western_conference": [],
     "common_eastern_conference": [],
     "super_rare_contender": [
@@ -212,6 +214,7 @@ blacklist_players: dict[str, list[str]] = {
 suggest_players: dict[str, list[str]] = {
     "common_champion": [],
     "common_contender": [],
+    "common_underdog": [],
     "common_western_conference": [],
     "common_eastern_conference": [],
     "super_rare_contender": [
