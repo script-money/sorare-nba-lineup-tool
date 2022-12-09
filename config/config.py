@@ -10,7 +10,7 @@ common_champion: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.common],
     "minRarity": None,
-    "target": 280,
+    "target": 265,
 }
 
 common_contender: Tournaments = {
@@ -20,7 +20,7 @@ common_contender: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.common],
     "minRarity": None,
-    "target": 250,
+    "target": 220,
 }
 
 common_western_conference: Tournaments = {
@@ -30,7 +30,7 @@ common_western_conference: Tournaments = {
     "allowedConference": NBAConference.west,
     "allowedRarities": [CardRarity.common],
     "minRarity": None,
-    "target": 280,
+    "target": 260,
 }
 
 common_eastern_conference: Tournaments = {
@@ -40,7 +40,7 @@ common_eastern_conference: Tournaments = {
     "allowedConference": NBAConference.east,
     "allowedRarities": [CardRarity.common],
     "minRarity": None,
-    "target": 280,
+    "target": 260,
 }
 
 common_underdog: Tournaments = {
@@ -63,7 +63,7 @@ rare_champion: Tournaments = {
         "minCount": 3,
         "rarity": CardRarity.rare,
     },
-    "target": 240,
+    "target": 250,
 }
 
 rare_contender: Tournaments = {
@@ -76,7 +76,7 @@ rare_contender: Tournaments = {
         "minCount": 3,
         "rarity": CardRarity.rare,
     },
-    "target": 180,
+    "target": 185,
 }
 
 super_rare_contender: Tournaments = {
@@ -89,7 +89,7 @@ super_rare_contender: Tournaments = {
         "minCount": 3,
         "rarity": CardRarity.super_rare,
     },
-    "target": 190,
+    "target": 180,
 }
 
 super_rare_champion: Tournaments = {
@@ -141,7 +141,7 @@ limited_western_conference: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 250,
+    "target": 200,
 }
 
 limited_eastern_conference: Tournaments = {
@@ -154,7 +154,7 @@ limited_eastern_conference: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 250,
+    "target": 200,
 }
 
 
@@ -166,7 +166,7 @@ mu_of_max_rank_team_bonus_ratio: float = 0.2  # 如果对手是攻防最弱球�
 mu_of_home_bonus: float = 0.04  # 表现变化率均值的主场加成
 mu_of_home_b2b: float = -0.01  # 主场打背靠背表现变化率均值的扣减
 mu_of_away_b2b: float = -0.02  # 客场打背靠背表现变化率均值的扣减
-mu_of_single_game_bonus: float = -0.25  # 只打单场表现变化率均值的扣减
+mu_of_single_game_bonus: float = -0.2  # 只打单场表现变化率均值的扣减
 mu_of_multiple_games_bonus: float = 0.15  # 打3场及以上的比赛的表现变化率均值的加成
 suggestion_count: int = 10
 probability_reach_target: float = 0.05  # 从有该概率达到目标分数的结果中排序
