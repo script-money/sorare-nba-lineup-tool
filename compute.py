@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore")
 
 today: datetime = datetime.now(timezone("US/Eastern"))
 today_str: str = today.strftime("%Y-%m-%d")
-# today_str = "2022-12-05"
+# today_str = "2022-12-09"
 
 with open(f"data/cards-{today_str}.json", "r") as f:
     cards: list[NBACard] = json.load(f)
@@ -50,7 +50,8 @@ game_decision_players: list[str] = list(
 )
 avaliable_cards: list[NBACard] = list(
     filter(
-        lambda t: t["player"]["displayName"] not in out_players,
+        lambda t: t["player"]["displayName"] not in out_players
+        and t["id"] not in blacklist_cards,
         cards,
     )
 )
@@ -110,24 +111,18 @@ def predict(
     if next_matches == 0 or player_name in out_players:  # 去掉下周没有比赛的球员和确定受伤不打的球员
         return NormalDist(0, 0)
     total_bonus: float = card["totalBonus"]
-    card_scores: list[NBAPlayerInFixture] = list(
-        filter(
-            lambda g: g["status"]["statusIconType"] != "NO_GAME",
-            all_card_scores[
-                last_game_index : last_game_index + compute_by_recent_n_weeks_games
-            ],  # 取最近9周比赛
-        )
-    )
     stats_arr: list[float] = list(
         map(
             lambda s: s["score"],
-            card_scores,
+            all_card_scores[
+                last_game_index : last_game_index + compute_by_recent_n_weeks_games
+            ],  # 取最近n周比赛
         )
     )  # 计算每场比赛的表现变化率，应该0上下浮动
 
     if len(stats_arr) == 0:  # 对于万年不打的饮水机球员，没有比赛数据，直接返回0
         return NormalDist(0, 0)
-    ewma_: list[float] = ewma(stats_arr, 0.5)  # 用ewma平滑结果，系数可以调整，该数值越小，历史数据的影响越小
+    ewma_: list[float] = ewma(stats_arr, 0.2)  # 用ewma平滑结果，系数可以调整，该数值越小，历史数据的影响越小
     _, mu, sigma = t.fit(
         ewma_, fdf=len(ewma_)
     )  # 用t分布拟合数据，得到均值和标准差。对于不怎么打的球员，用norm有可能sigma为0
@@ -212,7 +207,7 @@ if __name__ == "__main__":
     for card in avaliable_cards:
         player_name: str = card["player"]["displayName"]
         # ------------check single player--------------
-        # if player_name != "Bones Hyland":
+        # if player_name != "T.J. Warren":
         #     continue
 
         future_performance: NormalDist = predict(card)
@@ -244,8 +239,8 @@ if __name__ == "__main__":
     used_cards = []
 
     for tournaments in all_tournaments:
-        if tournaments["name"] in suggest_players:
-            suggest_players_id: list[str] = suggest_players[tournaments["name"]]
+        if tournaments["name"] in suggest_cards:
+            suggest_players_id: list[str] = suggest_cards[tournaments["name"]]
             pre_select: int = len(suggest_players_id)
         else:
             pre_select = 0
@@ -290,7 +285,6 @@ if __name__ == "__main__":
             filter(
                 lambda c: c["rarity"] in allowed_rarities
                 and c not in used_cards
-                and c["id"] not in blacklist_players[tournaments["name"]]
                 and c not in pre_select_cards,
                 stats_dist_list,
             )
@@ -373,7 +367,9 @@ if __name__ == "__main__":
         print(f"\n")
         print(f"Selecting {tournaments['name']}")
         if len(group_to_select) == 0:
-            result_lines.append(f"{tournaments['name']} no possible lineup")
+            result = f"{tournaments['name']} no possible lineup"
+            print(result)
+            result_lines.append(result)
             continue
         for index, group in enumerate(group_to_select):
             print(f"Group: {index}, total: {sum([card['average'] for card in group])}")
@@ -408,7 +404,9 @@ if __name__ == "__main__":
                 result_lines.append(f'"{select_card["id"]}"')
             result_lines.append(f"expect: {expect_sum:.2f}")
         else:
-            result_lines.append(f"{tournaments['name']} no possible lineup")
+            result_lines.append(
+                f"{tournaments['name']} no possible lineup"
+            )  # TODO 查一下champion为什么没有结果，也没显示no possible lineup
 
         result_lines.append("\n")
 

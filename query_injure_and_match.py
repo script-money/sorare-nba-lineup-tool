@@ -58,9 +58,11 @@ def get_injure_data():
             element.xpath('./td[1]//span[@class="TeamName"]/a/@href')[0]
         )
 
-        player = element.xpath('./td[2]/span[@class="CellPlayerName--long"]//a/text()')[
-            0
-        ].replace("Nah'Shon Hyland", "Bones Hyland")
+        player = (
+            element.xpath('./td[2]/span[@class="CellPlayerName--long"]//a/text()')[0]
+            .replace("Nah'Shon Hyland", "Bones Hyland")
+            .replace("Nicolas Claxton", "Nic Claxton")
+        )  # TODO 对一下两个网站大名单的球员名，避免出现名字不同的
 
         position = element.xpath("./td[3]/text()")[0].strip()
         status_text = element.xpath("./td[5]/text()")[0].strip()

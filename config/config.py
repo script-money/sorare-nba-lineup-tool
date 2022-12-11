@@ -20,7 +20,7 @@ common_contender: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.common],
     "minRarity": None,
-    "target": 220,
+    "target": 180,
 }
 
 common_western_conference: Tournaments = {
@@ -76,7 +76,7 @@ rare_contender: Tournaments = {
         "minCount": 3,
         "rarity": CardRarity.rare,
     },
-    "target": 185,
+    "target": 175,
 }
 
 super_rare_contender: Tournaments = {
@@ -115,7 +115,7 @@ limited_champion: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 230,
+    "target": 240,
 }
 
 limited_contender: Tournaments = {
@@ -169,49 +169,36 @@ mu_of_away_b2b: float = -0.02  # 客场打背靠背表现变化率均值的扣�
 mu_of_single_game_bonus: float = -0.2  # 只打单场表现变化率均值的扣减
 mu_of_multiple_games_bonus: float = 0.15  # 打3场及以上的比赛的表现变化率均值的加成
 suggestion_count: int = 10
-probability_reach_target: float = 0.05  # 从有该概率达到目标分数的结果中排序
+probability_reach_target: float = 0.03  # 从有该概率达到目标分数的结果中排序
 
 all_tournaments: list[Tournaments] = [
-    common_champion,
-    common_contender,
+    # common_champion,
+    # common_contender,
     # common_underdog,
     # common_western_conference,
     # common_eastern_conference,
     # super_rare_contender,
     # rare_contender,
-    # limited_contender,
     # rare_champion,
-    # super_rare_champion,
     # limited_champion,
+    # limited_contender,
+    # super_rare_champion,
     # limited_western_conference,
     # limited_eastern_conference,
 ]  # 更改联赛优先级，越前的会优先选卡
 # TODO 添加无上限的联赛
 
-blacklist_players: dict[str, list[str]] = {
-    "common_champion": [],
-    "common_contender": [],
-    "common_underdog": [],
-    "common_western_conference": [],
-    "common_eastern_conference": [],
-    "super_rare_contender": [
-        # "dbb7d8a8-4a7d-4097-b8b7-77f4faed2350",  # Sam Hauser
-        # "839244ed-a59c-4b46-b13b-b124b49a8038",  # Kevin Huerter
-        # "aa34b029-d04c-43de-8b3f-9f5ea58814dd",  # Kevin Huerter
-        # "9754710e-0cea-4372-8d41-743781ca3ffb",  # Kevin Huerter
-        # "aa3a4968-2d2d-419b-8e5b-85f3fbaae634",  # Brandon Ingram
-        # "a6cca7ff-4832-4a1e-887d-35216e2c310e",  # Paul Reed
-    ],
-    "rare_contender": [],
-    "limited_contender": [],
-    "super_rare_champion": [],
-    "rare_champion": [],
-    "limited_champion": [],
-    "limited_western_conference": [],
-    "limited_eastern_conference": [],
-}  # 设置不会被选中的id，重复卡建议设置
+blacklist_cards: list[str] = [
+    # "dbb7d8a8-4a7d-4097-b8b7-77f4faed2350",  # Sam Hauser
+    # "839244ed-a59c-4b46-b13b-b124b49a8038",  # Kevin Huerter
+    # "aa34b029-d04c-43de-8b3f-9f5ea58814dd",  # Kevin Huerter
+    # "9754710e-0cea-4372-8d41-743781ca3ffb",  # Kevin Huerter
+    # "aa3a4968-2d2d-419b-8e5b-85f3fbaae634",  # Brandon Ingram
+    # "a6cca7ff-4832-4a1e-887d-35216e2c310e",  # Paul Reed
+    # "ca553b45-5402-4541-a032-a6578da8c200",  # Eugene Omoruyi
+]  # 设置不会被选中的id，重复卡建议设置
 
-suggest_players: dict[str, list[str]] = {
+suggest_cards: dict[str, list[str]] = {
     "common_champion": [],
     "common_contender": [],
     "common_underdog": [],
@@ -221,12 +208,10 @@ suggest_players: dict[str, list[str]] = {
         # "da82a46b-3265-4861-958f-5d13da220269",  # Bruce Brown
     ],
     "rare_contender": [],
-    "limited_contender": [
-        # "6cf4ed29-a5fc-4f4c-a935-79978daa5a16",  # Wendell Moore Jr.
-    ],
+    "limited_contender": [],
     "super_rare_champion": [],
     "rare_champion": [],
     "limited_champion": [],
     "limited_western_conference": [],
     "limited_eastern_conference": [],
-}  # 设置会被优先选中的id
+}  # 设置会被优先选中的卡的id
