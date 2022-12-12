@@ -404,9 +404,7 @@ if __name__ == "__main__":
                 result_lines.append(f'"{select_card["id"]}"')
             result_lines.append(f"expect: {expect_sum:.2f}")
         else:
-            result_lines.append(
-                f"{tournaments['name']} no possible lineup"
-            )  # TODO 查一下champion为什么没有结果，也没显示no possible lineup
+            result_lines.append(f"{tournaments['name']} no possible lineup")
 
         result_lines.append("\n")
 
