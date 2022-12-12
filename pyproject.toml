@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "sorare-nba-lineup"
+version = "0.1.0"
+description = "A tool help set team lineup for sorare nba"
+authors = ["script-money <hello@script.money>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "sorare_nba_lineup"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+gql = {extras = ["aiohttp"], version = "^3.4.0"}
+asyncio = "^3.4.3"
+pytz = "^2022.6"
+requests = "^2.28.1"
+lxml = "^4.9.1"
+numpy = "^1.23.5"
+pandas = "^1.5.2"
+scipy = "^1.9.3"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.12.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
