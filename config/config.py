@@ -50,7 +50,17 @@ common_underdog: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.common],
     "minRarity": None,
-    "target": 100,
+    "target": 110,
+}
+
+common_no_cap: Tournaments = {
+    "name": "common_no_cap",
+    "tenGameAverageTotalLimit": 0,
+    "allowMVP": False,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.common],
+    "minRarity": None,
+    "target": 285,
 }
 
 rare_champion: Tournaments = {
@@ -131,6 +141,32 @@ limited_contender: Tournaments = {
     "target": 170,
 }
 
+limited_no_cap: Tournaments = {
+    "name": "limited_no_cap",
+    "tenGameAverageTotalLimit": 0,
+    "allowMVP": False,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.limited],
+    "minRarity": {
+        "minCount": 5,
+        "rarity": CardRarity.limited,
+    },
+    "target": 285,
+}
+
+limited_underdog: Tournaments = {
+    "name": "limited_underdog",
+    "tenGameAverageTotalLimit": 60,
+    "allowMVP": False,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.limited],
+    "minRarity": {
+        "minCount": 5,
+        "rarity": CardRarity.limited,
+    },
+    "target": 110,
+}
+
 limited_western_conference: Tournaments = {
     "name": "limited_western_conference",
     "tenGameAverageTotalLimit": 120,
@@ -177,6 +213,7 @@ all_tournaments: list[Tournaments] = [
     # common_underdog,
     # common_western_conference,
     # common_eastern_conference,
+    # common_no_cap,
     # super_rare_contender,
     # rare_contender,
     # rare_champion,
@@ -185,8 +222,9 @@ all_tournaments: list[Tournaments] = [
     # super_rare_champion,
     # limited_western_conference,
     # limited_eastern_conference,
+    # limited_no_cap,
+    # limited_underdog,
 ]  # 更改联赛优先级，越前的会优先选卡
-# TODO 添加无上限的联赛
 
 blacklist_cards: list[str] = [
     # "dbb7d8a8-4a7d-4097-b8b7-77f4faed2350",  # Sam Hauser
@@ -204,6 +242,7 @@ suggest_cards: dict[str, list[str]] = {
     "common_underdog": [],
     "common_western_conference": [],
     "common_eastern_conference": [],
+    "common_no_cap": [],
     "super_rare_contender": [
         # "da82a46b-3265-4861-958f-5d13da220269",  # Bruce Brown
     ],
@@ -214,4 +253,6 @@ suggest_cards: dict[str, list[str]] = {
     "limited_champion": [],
     "limited_western_conference": [],
     "limited_eastern_conference": [],
+    "limited_no_cap": [],
+    "limited_underdog": [],
 }  # 设置会被优先选中的卡的id
