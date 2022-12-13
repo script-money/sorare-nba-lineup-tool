@@ -60,3 +60,73 @@ def exclude_best_and_worst(stats_arr: list[float]) -> list[float]:
             best = game
             best_index = index + 1
     return [k for i, k in enumerate(stats_arr) if i != worst_index and i != best_index]
+
+
+def rename_player(
+    name,
+):
+    match name:
+        case "David Duke":
+            return "David Duke Jr."
+        case "Nicolas Claxton":
+            return "Nic Claxton"
+        case "Cameron Thomas":
+            return "Cam Thomas"
+        case "Jeff Dowtin":
+            return "Jeff Dowtin Jr."
+        case "Ishmail Wainright":
+            return "Ish Wainright"
+        case "Dario Saric":
+            return "Dario Šarić"
+        case "John Butler":
+            return "John Butler Jr."
+        case "Greg Brown":
+            return "Greg Brown III"
+        case "Jusuf Nurkic":
+            return "Jusuf Nurkić"
+        case "Bojan Bogdanovic":
+            return "Bojan Bogdanović"
+        case "Moe Wagner":
+            return "Moritz Wagner"
+        case "Brandon Boston Jr.":
+            return "Brandon Boston"
+        case "Marcus Morris":
+            return "Marcus Morris Sr."
+        case "Davis Bertans":
+            return "Davis Bertāns"
+        case "Luka Doncic":
+            return "Luka Dončić"
+        case "Jabari Smith":
+            return "Jabari Smith Jr."
+        case "Boban Marjanovic":
+            return "Boban Marjanović"
+        case "Kevin Porter":
+            return "Kevin Porter Jr."
+        case "Trevor  Hudgins":
+            return "Trevor Hudgins"
+        case "Dennis Schroder":
+            return "Dennis Schröder"
+        case "Nah'Shon Hyland":
+            return "Bones Hyland"
+        case "Nikola Jokic":
+            return "Nikola Jokić"
+        case "Vlatko Cancar":
+            return "Vlatko Čančar"
+        case "Nikola Vucevic":
+            return "Nikola Vučević"
+        case "Goran Dragic":
+            return "Goran Dragić"
+        case "Marko Simonovic":
+            return "Marko Simonović"
+        case "Dom Barlow":
+            return "Dominick Barlow"
+        case "Nikola Jovic":
+            return "Nikola Jović"
+        case "R.J. Barrett":
+            return "RJ Barrett"
+        case "Bogdan Bogdanovic":
+            return "Bogdan Bogdanović"
+        case "AJ Green":
+            return "A.J. Green"
+        case _:
+            return name

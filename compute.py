@@ -1,5 +1,4 @@
 import json
-import math
 from pandas import DataFrame
 from statistics import NormalDist
 from datetime import datetime
@@ -78,6 +77,19 @@ def show_opposite_team(team: str) -> str:
     return info
 
 
+def player_is_starter(player: str, team: str) -> tuple[bool, str | None]:
+    with open("./data/player_positions.json", "r") as f:
+        team_to_position: dict = json.load(f)
+        players: dict[str, str | list[str]] = team_to_position[team]
+        starters: list[str] = list(map(lambda l: l[0], list(players.values())))
+        seconds: list[str] = list(map(lambda l: l[1], list(players.values())))
+        if player in starters:
+            index = starters.index(player)
+            return (True, seconds[index])
+        else:
+            return False, None
+
+
 def predict(
     card: NBACard,
     game_decision_players: list[str] = game_decision_players,
@@ -85,6 +97,9 @@ def predict(
     matches: list[Match] = matches,
     team_rank: TeamRank = team_rank,
 ) -> NormalDist:
+    is_starter, second_choose = player_is_starter(
+        card["player"]["displayName"], card["team"]["abbreviation"]
+    )
     all_card_scores: list[NBAPlayerInFixture] = card["player"][
         "latestFinalFixtureStats"
     ]
@@ -120,8 +135,12 @@ def predict(
         )
     )  # 计算每场比赛的表现变化率，应该0上下浮动
 
-    if len(stats_arr) == 0:  # 对于万年不打的饮水机球员，没有比赛数据，直接返回0
+    if is_starter:  # 主力球员不打可能是伤病管理，不影响评分，所以过滤掉0
+        stats_arr = list(filter(lambda s: s != 0, stats_arr))
+
+    if len(stats_arr) == 0 or all(stats_arr) == 0:  # 对于万年不打的饮水机球员，没有比赛数据，直接返回0
         return NormalDist(0, 0)
+
     ewma_: list[float] = ewma(stats_arr, 0.2)  # 用ewma平滑结果，系数可以调整，该数值越小，历史数据的影响越小
     _, mu, sigma = t.fit(
         ewma_, fdf=len(ewma_)
@@ -131,6 +150,9 @@ def predict(
     if player_name in game_decision_players:
         print(
             f"{player_name} may not play in the next game, he has {next_matches} matches in next week"
+            + f", reserve player is {second_choose}"
+            if is_starter
+            else ""
         )
         game_decision_bonus = mu_of_game_decision
 
@@ -207,7 +229,7 @@ if __name__ == "__main__":
     for card in avaliable_cards:
         player_name: str = card["player"]["displayName"]
         # ------------check single player--------------
-        # if player_name != "T.J. Warren":
+        # if player_name != "Cade Cunningham":
         #     continue
 
         future_performance: NormalDist = predict(card)
@@ -308,7 +330,11 @@ if __name__ == "__main__":
                     ]
                 )
             )
-            if total_point > tournaments["tenGameAverageTotalLimit"]:
+
+            if (
+                tournaments["tenGameAverageTotalLimit"] > 0
+                and total_point > tournaments["tenGameAverageTotalLimit"]
+            ):
                 continue
 
             # check card rarity min count

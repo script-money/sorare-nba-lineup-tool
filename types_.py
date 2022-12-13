@@ -5,6 +5,7 @@ from statistics import NormalDist
 
 class NBATeam(TypedDict):
     fullName: str
+    abbreviation: str
 
 
 class NBAPlayerPosition(Enum):

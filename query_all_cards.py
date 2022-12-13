@@ -7,11 +7,6 @@ from datetime import datetime
 from pytz import timezone
 
 
-def load_query(path):
-    with open(path) as f:
-        return gql(f.read())
-
-
 async def main():
 
     transport = AIOHTTPTransport(
@@ -20,8 +15,8 @@ async def main():
     )
 
     async with Client(transport=transport) as session:
-
-        query = load_query("query/NBACardsByIdsQuery.graphql")
+        with open("query/NBACardsByIdsQuery.graphql") as f:
+            query = gql(f.read())
         with open("config/NBACards.json") as f:
             data = json.load(f)
             card_ids = list(

@@ -5,6 +5,7 @@ query NBACardsByIdsQuery($input: NBACardsInput!) {
     totalBonus
     team {
       fullName
+      abbreviation
     }
     player {
       displayName
