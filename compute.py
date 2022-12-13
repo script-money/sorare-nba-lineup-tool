@@ -1,5 +1,6 @@
 import json
 from pandas import DataFrame
+from numpy import array
 from statistics import NormalDist
 from datetime import datetime
 from itertools import combinations
@@ -49,8 +50,7 @@ game_decision_players: list[str] = list(
 )
 avaliable_cards: list[NBACard] = list(
     filter(
-        lambda t: t["player"]["displayName"] not in out_players
-        and t["id"] not in blacklist_cards,
+        lambda t: t["id"] not in blacklist_cards,
         cards,
     )
 )
@@ -77,17 +77,27 @@ def show_opposite_team(team: str) -> str:
     return info
 
 
-def player_is_starter(player: str, team: str) -> tuple[bool, str | None]:
+def player_is_main(player: str, team: str) -> tuple[bool, list[str]]:
     with open("./data/player_positions.json", "r") as f:
         team_to_position: dict = json.load(f)
         players: dict[str, str | list[str]] = team_to_position[team]
         starters: list[str] = list(map(lambda l: l[0], list(players.values())))
         seconds: list[str] = list(map(lambda l: l[1], list(players.values())))
+        thirds: list[str] = list(map(lambda l: l[2], list(players.values())))
+        next_choose: list[str] = []
         if player in starters:
             index = starters.index(player)
-            return (True, seconds[index])
+            next_choose.append(seconds[index])
+            for third in thirds[index]:
+                next_choose.append(third)
+            return True, next_choose
+        elif player in seconds:
+            index = seconds.index(player)
+            for third in thirds[index]:
+                next_choose.append(third)
+            return True, next_choose
         else:
-            return False, None
+            return False, next_choose
 
 
 def predict(
@@ -97,9 +107,17 @@ def predict(
     matches: list[Match] = matches,
     team_rank: TeamRank = team_rank,
 ) -> NormalDist:
-    is_starter, second_choose = player_is_starter(
+    is_main, next_chooses = player_is_main(
         card["player"]["displayName"], card["team"]["abbreviation"]
     )
+    # next_chooses exclude players who are not main
+    next_chooses = list(
+        filter(
+            lambda n: n not in out_players and n not in game_decision_players,
+            next_chooses,
+        )
+    )
+
     all_card_scores: list[NBAPlayerInFixture] = card["player"][
         "latestFinalFixtureStats"
     ]
@@ -113,6 +131,18 @@ def predict(
         )
     )
     last_game: str = all_card_scores[last_game_index]["status"]["statusIconType"]
+
+    if player_name in out_players and (
+        last_game != PlayerInFixtureStatusIconType.no_game.value
+        and last_game != PlayerInFixtureStatusIconType.did_not_play.value
+    ):  # 新受伤的球员
+        print(
+            f"『{player_name}』is out for the next game"
+            + f", reserve players are 2️⃣『{'』,『'.join(next_chooses)}』"
+            if is_main
+            else ""
+        )
+
     card_average: int = card["player"]["tenGameAverage"]
     team: str = card["team"]["fullName"]
     if player_name in game_decision_players and (
@@ -135,10 +165,12 @@ def predict(
         )
     )  # 计算每场比赛的表现变化率，应该0上下浮动
 
-    if is_starter:  # 主力球员不打可能是伤病管理，不影响评分，所以过滤掉0
+    if is_main:  # 主力球员不打可能是伤病管理，不影响评分，所以过滤掉0
         stats_arr = list(filter(lambda s: s != 0, stats_arr))
 
-    if len(stats_arr) == 0 or all(stats_arr) == 0:  # 对于万年不打的饮水机球员，没有比赛数据，直接返回0
+    if (
+        len(stats_arr) == 0 or (array(stats_arr) == 0).all()
+    ):  # 对于万年不打的饮水机球员，没有比赛数据，直接返回0
         return NormalDist(0, 0)
 
     ewma_: list[float] = ewma(stats_arr, 0.2)  # 用ewma平滑结果，系数可以调整，该数值越小，历史数据的影响越小
@@ -147,11 +179,12 @@ def predict(
     )  # 用t分布拟合数据，得到均值和标准差。对于不怎么打的球员，用norm有可能sigma为0
 
     game_decision_bonus: float = 0
+
     if player_name in game_decision_players:
         print(
-            f"{player_name} may not play in the next game, he has {next_matches} matches in next week"
-            + f", reserve player is {second_choose}"
-            if is_starter
+            f"『{player_name}』may not play in the next game, he has {next_matches} matches in next week"
+            + f", reserve players are 2️⃣『{'』,『'.join(next_chooses)}』"
+            if is_main
             else ""
         )
         game_decision_bonus = mu_of_game_decision
