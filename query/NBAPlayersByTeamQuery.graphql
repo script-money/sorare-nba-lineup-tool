@@ -1,0 +1,8 @@
+query NBAPlayersByTeamQuery($input: String!) {
+  nbaTeam(slug: $input) {
+    id
+    players {
+      slug
+    }
+  }
+}

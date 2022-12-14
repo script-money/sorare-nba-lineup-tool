@@ -2,39 +2,8 @@ import requests as rq
 from lxml import etree
 import json
 from utils import rename_player
+from types_ import source_team_names
 
-source_team_names: dict[str, str] = {
-    "BOS": "Boston Celtics",
-    "BKN": "Brooklyn Nets",
-    "NY": "New York Knicks",
-    "PHI": "Philadelphia 76ers",
-    "TOR": "Toronto Raptors",
-    "CHI": "Chicago Bulls",
-    "CLE": "Cleveland Cavaliers",
-    "DET": "Detroit Pistons",
-    "IND": "Indiana Pacers",
-    "MIL": "Milwaukee Bucks",
-    "ATL": "Atlanta Hawks",
-    "CHA": "Charlotte Hornets",
-    "MIA": "Miami Heat",
-    "ORL": "Orlando Magic",
-    "WAS": "Washington Wizards",
-    "DEN": "Denver Nuggets",
-    "MIN": "Minnesota Timberwolves",
-    "OKC": "Oklahoma City Thunder",
-    "POR": "Portland Trail Blazers",
-    "UTA": "Utah Jazz",
-    "GS": "Golden State Warriors",
-    "LAC": "Los Angeles Clippers",
-    "LAL": "Los Angeles Lakers",
-    "PHO": "Phoenix Suns",
-    "SAC": "Sacramento Kings",
-    "DAL": "Dallas Mavericks",
-    "HOU": "Houston Rockets",
-    "MEM": "Memphis Grizzlies",
-    "NO": "New Orleans Pelicans",
-    "SA": "San Antonio Spurs",
-}
 
 all_players: dict[str, dict[str, str | list[str]]] = {}
 

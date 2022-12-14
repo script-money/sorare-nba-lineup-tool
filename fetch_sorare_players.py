@@ -2,40 +2,7 @@ import asyncio
 import json
 from gql import Client, gql
 from gql.transport.aiohttp import AIOHTTPTransport
-
-
-team_slugs = [
-    "brooklyn-nets",
-    "indiana-pacers",
-    "cleveland-cavaliers",
-    "toronto-raptors",
-    "phoenix-suns",
-    "portland-trail-blazers",
-    "detroit-pistons",
-    "orlando-magic",
-    "la-clippers",
-    "boston-celtics",
-    "memphis-grizzlies",
-    "oklahoma-city-thunder",
-    "dallas-mavericks",
-    "minnesota-timberwolves",
-    "houston-rockets",
-    "utah-jazz",
-    "los-angeles-lakers",
-    "denver-nuggets",
-    "chicago-bulls",
-    "san-antonio-spurs",
-    "sacramento-kings",
-    "miami-heat",
-    "golden-state-warriors",
-    "new-york-knicks",
-    "new-orleans-pelicans",
-    "washington-wizards",
-    "atlanta-hawks",
-    "milwaukee-bucks",
-    "philadelphia-76ers",
-    "charlotte-hornets",
-]
+from types_ import team_slugs
 
 
 async def main():

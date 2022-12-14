@@ -6,5 +6,6 @@ data/cards-*.json
 data/next-week-*.json
 data/injure-*.json
 data/team-rank-*.json
+data/all-players-data-*.json
 data/*.txt
 config/NBACards.json

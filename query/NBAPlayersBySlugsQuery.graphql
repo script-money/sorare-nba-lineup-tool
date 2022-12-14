@@ -1,0 +1,18 @@
+query NBAPlayerQuery($input: [String!]) {
+  nbaPlayers(slugs: $input) {
+    displayName
+    tenGameAverage
+    positions
+    latestFinalFixtureStats(last: 24) {
+      score
+      tenGameAverage
+      status {
+        statusIconType
+      }
+    }
+    team {
+      fullName
+      abbreviation
+    }
+  }
+}

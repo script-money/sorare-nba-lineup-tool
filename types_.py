@@ -59,13 +59,13 @@ class NBAPlayer(TypedDict):
     tenGameAverage: int
     positions: list[str]
     latestFinalFixtureStats: list[NBAPlayerInFixture]
+    team: NBATeam
 
 
 class NBACard(TypedDict):
     id: str
     slug: str
     totalBonus: float
-    team: NBATeam
     player: NBAPlayer
     rarity: CardRarity
 
@@ -108,10 +108,10 @@ class Injure(TypedDict):
 class SelectCard(TypedDict):
     name: str
     average: int
-    rarity: CardRarity
+    rarity: CardRarity | None
     expect: NormalDist
     team: str
-    id: str
+    id: str | None
 
 
 western_teams: list[str] = [
@@ -130,4 +130,70 @@ western_teams: list[str] = [
     "Portland Trail Blazers",
     "Houston Rockets",
     "LA Clippers",
+]
+
+source_team_names: dict[str, str] = {
+    "BOS": "Boston Celtics",
+    "BKN": "Brooklyn Nets",
+    "NY": "New York Knicks",
+    "PHI": "Philadelphia 76ers",
+    "TOR": "Toronto Raptors",
+    "CHI": "Chicago Bulls",
+    "CLE": "Cleveland Cavaliers",
+    "DET": "Detroit Pistons",
+    "IND": "Indiana Pacers",
+    "MIL": "Milwaukee Bucks",
+    "ATL": "Atlanta Hawks",
+    "CHA": "Charlotte Hornets",
+    "MIA": "Miami Heat",
+    "ORL": "Orlando Magic",
+    "WAS": "Washington Wizards",
+    "DEN": "Denver Nuggets",
+    "MIN": "Minnesota Timberwolves",
+    "OKC": "Oklahoma City Thunder",
+    "POR": "Portland Trail Blazers",
+    "UTA": "Utah Jazz",
+    "GS": "Golden State Warriors",
+    "LAC": "Los Angeles Clippers",
+    "LAL": "Los Angeles Lakers",
+    "PHO": "Phoenix Suns",
+    "SAC": "Sacramento Kings",
+    "DAL": "Dallas Mavericks",
+    "HOU": "Houston Rockets",
+    "MEM": "Memphis Grizzlies",
+    "NO": "New Orleans Pelicans",
+    "SA": "San Antonio Spurs",
+}
+
+team_slugs = [
+    "brooklyn-nets",
+    "indiana-pacers",
+    "cleveland-cavaliers",
+    "toronto-raptors",
+    "phoenix-suns",
+    "portland-trail-blazers",
+    "detroit-pistons",
+    "orlando-magic",
+    "la-clippers",
+    "boston-celtics",
+    "memphis-grizzlies",
+    "oklahoma-city-thunder",
+    "dallas-mavericks",
+    "minnesota-timberwolves",
+    "houston-rockets",
+    "utah-jazz",
+    "los-angeles-lakers",
+    "denver-nuggets",
+    "chicago-bulls",
+    "san-antonio-spurs",
+    "sacramento-kings",
+    "miami-heat",
+    "golden-state-warriors",
+    "new-york-knicks",
+    "new-orleans-pelicans",
+    "washington-wizards",
+    "atlanta-hawks",
+    "milwaukee-bucks",
+    "philadelphia-76ers",
+    "charlotte-hornets",
 ]

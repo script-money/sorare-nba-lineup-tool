@@ -3,10 +3,6 @@ query NBACardsByIdsQuery($input: NBACardsInput!) {
     id
     slug
     totalBonus
-    team {
-      fullName
-      abbreviation
-    }
     player {
       displayName
       tenGameAverage
@@ -17,6 +13,10 @@ query NBACardsByIdsQuery($input: NBACardsInput!) {
         status {
           statusIconType
         }
+      }
+      team {
+        fullName
+        abbreviation
       }
     }
     rarity

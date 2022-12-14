@@ -10,53 +10,12 @@ from pytz import timezone
 from utils import ewma
 from config.config import *
 import warnings
+import argparse
 
 warnings.filterwarnings("ignore")
 
 
-today: datetime = datetime.now(timezone("US/Eastern"))
-today_str: str = today.strftime("%Y-%m-%d")
-# today_str = "2022-12-09"
-
-with open(f"data/cards-{today_str}.json", "r") as f:
-    cards: list[NBACard] = json.load(f)
-
-with open(f"data/injure-{today_str}.json", "r") as g:
-    injure: list[Injure] = json.load(g)
-
-with open(f"data/next-week-{today_str}.json", "r") as h:
-    matches: list[Match] = json.load(h)
-
-with open(f"data/team-rank-{today_str}.json", "r") as i:
-    team_rank: TeamRank = json.load(i)
-
-common_cards: list[NBACard] = list(filter(lambda c: c["rarity"] == "common", cards))
-limited_cards: list[NBACard] = list(filter(lambda c: c["rarity"] == "limited", cards))
-rare_cards: list[NBACard] = list(filter(lambda c: c["rarity"] == "rare", cards))
-super_rare_cards: list[NBACard] = list(
-    filter(lambda c: c["rarity"] == "super_rare", cards)
-)
-
-print(
-    f"\nLoad {len(common_cards)} common, {len(limited_cards)} limited, {len(rare_cards)} rare, {len(super_rare_cards)} super rare cards."
-)
-print()
-
-out_players: list[str] = list(
-    map(lambda j: j["player"], filter(lambda i: not i["game_time_decision"], injure))
-)
-game_decision_players: list[str] = list(
-    map(lambda j: j["player"], filter(lambda i: i["game_time_decision"], injure))
-)
-avaliable_cards: list[NBACard] = list(
-    filter(
-        lambda t: t["id"] not in blacklist_cards,
-        cards,
-    )
-)
-
-
-def show_opposite_team(team: str) -> str:
+def show_opposite_team(team: str, matches: list[Match]) -> str:
     matches_join: list[Match] = list(
         filter(lambda m: m["away"] == team or m["home"] == team, matches)
     )
@@ -71,7 +30,7 @@ def show_opposite_team(team: str) -> str:
         is_away_b2b = match["away"] == team and match["away_is_b2b"]
         is_home_b2b = match["home"] == team and match["home_is_b2b"]
         match_info.append(
-            f"{'back to back ' if is_away_b2b or is_home_b2b else ''}vs {off_team} on {match['date']} {'at home' if at_home else 'at away'}"
+            f"{'B2B ' if is_away_b2b or is_home_b2b else ''}vs {off_team} on {match['date']} {'at HOME' if at_home else 'at AWAY'}"
         )
     info = " and ".join(match_info)
     return info
@@ -101,14 +60,14 @@ def player_is_main(player: str, team: str) -> tuple[bool, list[str]]:
 
 
 def predict(
-    card: NBACard,
-    game_decision_players: list[str] = game_decision_players,
-    out_players: list[str] = out_players,
-    matches: list[Match] = matches,
-    team_rank: TeamRank = team_rank,
+    player: NBAPlayer,
+    game_decision_players: list[str],
+    out_players: list[str],
+    matches: list[Match],
+    team_rank: TeamRank,
 ) -> NormalDist:
     is_main, next_chooses = player_is_main(
-        card["player"]["displayName"], card["team"]["abbreviation"]
+        player["displayName"], player["team"]["abbreviation"]
     )
     # next_chooses exclude players who are not main
     next_chooses = list(
@@ -118,9 +77,7 @@ def predict(
         )
     )
 
-    all_card_scores: list[NBAPlayerInFixture] = card["player"][
-        "latestFinalFixtureStats"
-    ]
+    all_card_scores: list[NBAPlayerInFixture] = player["latestFinalFixtureStats"]
     # get first not pending index
     last_game_index: int = next(
         (
@@ -132,6 +89,7 @@ def predict(
     )
     last_game: str = all_card_scores[last_game_index]["status"]["statusIconType"]
 
+    player_name: str = player["displayName"]
     if player_name in out_players and (
         last_game != PlayerInFixtureStatusIconType.no_game.value
         and last_game != PlayerInFixtureStatusIconType.did_not_play.value
@@ -143,8 +101,8 @@ def predict(
             else ""
         )
 
-    card_average: int = card["player"]["tenGameAverage"]
-    team: str = card["team"]["fullName"]
+    card_average: int = player["tenGameAverage"]
+    team: str = player["team"]["fullName"]
     if player_name in game_decision_players and (
         last_game == PlayerInFixtureStatusIconType.no_game.value
         or last_game == PlayerInFixtureStatusIconType.did_not_play.value
@@ -155,7 +113,6 @@ def predict(
     )  # 下一周的比赛场数
     if next_matches == 0 or player_name in out_players:  # 去掉下周没有比赛的球员和确定受伤不打的球员
         return NormalDist(0, 0)
-    total_bonus: float = card["totalBonus"]
     stats_arr: list[float] = list(
         map(
             lambda s: s["score"],
@@ -181,11 +138,14 @@ def predict(
     game_decision_bonus: float = 0
 
     if player_name in game_decision_players:
+        second_str = (
+            f", reserve players are 2️⃣『{'』,『'.join(next_chooses)}』"
+            if is_main and len(next_chooses) != 0
+            else ""
+        )
         print(
             f"『{player_name}』may not play in the next game, he has {next_matches} matches in next week"
-            + f", reserve players are 2️⃣『{'』,『'.join(next_chooses)}』"
-            if is_main
-            else ""
+            + second_str
         )
         game_decision_bonus = mu_of_game_decision
 
@@ -194,7 +154,7 @@ def predict(
     )
 
     # 1. 获取对手攻防实力，按标准化加成
-    positions = card["player"]["positions"]
+    positions = player["positions"]
     k_list: list[float] = []
     bonus: float = 0
     for match in match_join:
@@ -245,11 +205,78 @@ def predict(
     )
     mu += bonus * card_average
 
-    future_performance: NormalDist = NormalDist(mu, sigma) * (1 + total_bonus)
+    future_performance: NormalDist = NormalDist(mu, sigma)
     return future_performance
 
 
 if __name__ == "__main__":
+    p = argparse.ArgumentParser()
+
+    p.add_argument("-r", "--recommend", required=False)
+    args = p.parse_args()
+
+    is_recommend = False
+
+    if args.recommend:
+        is_recommend = True
+
+    today: datetime = datetime.now(timezone("US/Eastern"))
+    today_str: str = today.strftime("%Y-%m-%d")
+    # today_str = "2022-12-14"
+
+    with open(f"data/cards-{today_str}.json", "r") as f:
+        cards: list[NBACard] = json.load(f)
+
+    with open(f"data/injure-{today_str}.json", "r") as g:
+        injure: list[Injure] = json.load(g)
+
+    with open(f"data/next-week-{today_str}.json", "r") as h:
+        matches: list[Match] = json.load(h)
+
+    with open(f"data/team-rank-{today_str}.json", "r") as i:
+        team_rank: TeamRank = json.load(i)
+
+    common_cards: list[NBACard] = list(filter(lambda c: c["rarity"] == "common", cards))
+    limited_cards: list[NBACard] = list(
+        filter(lambda c: c["rarity"] == "limited", cards)
+    )
+    rare_cards: list[NBACard] = list(filter(lambda c: c["rarity"] == "rare", cards))
+    super_rare_cards: list[NBACard] = list(
+        filter(lambda c: c["rarity"] == "super_rare", cards)
+    )
+
+    print(
+        f"\nLoad {len(common_cards)} common, {len(limited_cards)} limited, {len(rare_cards)} rare, {len(super_rare_cards)} super rare cards."
+    )
+    print()
+
+    out_players: list[str] = list(
+        map(
+            lambda j: j["player"], filter(lambda i: not i["game_time_decision"], injure)
+        )
+    )
+    game_decision_players: list[str] = list(
+        map(lambda j: j["player"], filter(lambda i: i["game_time_decision"], injure))
+    )
+    avaliable_cards: list[NBACard] = list(
+        filter(
+            lambda t: t["id"] not in blacklist_cards,
+            cards,
+        )
+    )
+
+    avaliable_players = []
+    if is_recommend:
+        with open(f"data/all-players-data-{today_str}.json", "r") as f:
+            players: list[NBAPlayer] = json.load(f)
+
+        avaliable_players: list[NBAPlayer] = list(
+            filter(
+                lambda t: t["displayName"] not in blacklist_players,
+                players,
+            )
+        )
+
     all_stats_dist_list: list[SelectCard] = []
 
     # TODO: check configs (for example: suggest_player) is valid
@@ -259,23 +286,47 @@ if __name__ == "__main__":
         )
         exit(1)
 
-    for card in avaliable_cards:
-        player_name: str = card["player"]["displayName"]
-        # ------------check single player--------------
-        # if player_name != "Cade Cunningham":
-        #     continue
+    # ------------predict--------------
+    if is_recommend:
+        for player in avaliable_players:
+            player_name: str = player["displayName"]
+            # ------------check single player for recommend--------------
+            # if player_name != "Josh Richardson":
+            #     continue
 
-        future_performance: NormalDist = predict(card)
+            future_performance: NormalDist = predict(
+                player, game_decision_players, out_players, matches, team_rank
+            )
 
-        card_dist: SelectCard = {
-            "name": player_name,
-            "average": card["player"]["tenGameAverage"],
-            "rarity": card["rarity"],
-            "expect": future_performance,
-            "team": card["team"]["fullName"],
-            "id": card["id"],
-        }
-        all_stats_dist_list.append(card_dist)
+            card_dist: SelectCard = {
+                "name": player_name,
+                "average": player["tenGameAverage"],
+                "rarity": None,
+                "expect": future_performance,
+                "team": player["team"]["fullName"],
+                "id": None,
+            }
+            all_stats_dist_list.append(card_dist)
+    else:
+        for card in avaliable_cards:
+            player_name: str = card["player"]["displayName"]
+            # ------------check single player for holding cards--------------
+            # if player_name != "Josh Richardson":
+            #     continue
+
+            future_performance: NormalDist = predict(
+                card["player"], game_decision_players, out_players, matches, team_rank
+            ) * (1 + card["totalBonus"])
+
+            card_dist: SelectCard = {
+                "name": player_name,
+                "average": card["player"]["tenGameAverage"],
+                "rarity": card["rarity"],
+                "expect": future_performance,
+                "team": card["player"]["team"]["fullName"],
+                "id": card["id"],
+            }
+            all_stats_dist_list.append(card_dist)
 
     # convert all_stats_dist_list to dataframe
     df: DataFrame = DataFrame(all_stats_dist_list)
@@ -295,18 +346,42 @@ if __name__ == "__main__":
 
     for tournaments in all_tournaments:
         if tournaments["name"] in suggest_cards:
-            suggest_players_id: list[str] = suggest_cards[tournaments["name"]]
-            pre_select: int = len(suggest_players_id)
+            suggest_players_id_to_name: dict[str, str] = suggest_cards[
+                tournaments["name"]
+            ]
+            pre_select: int = len(suggest_players_id_to_name)
         else:
             pre_select = 0
 
         stats_dist_list: list[SelectCard] = all_stats_dist_list.copy()
 
-        pre_select_cards: list[SelectCard] = (
-            list(filter(lambda c: c["id"] in suggest_players_id, stats_dist_list))
-            if pre_select != 0
-            else []
-        )
+        if is_recommend:
+            pre_select_cards: list[SelectCard] = (
+                list(
+                    filter(
+                        lambda c: c["name"] in suggest_players_id_to_name.values(),
+                        stats_dist_list,
+                    )
+                )
+                if pre_select != 0
+                else []
+            )
+        else:
+            pre_select_cards: list[SelectCard] = (
+                list(
+                    filter(
+                        lambda c: c["id"] in suggest_players_id_to_name.keys(),
+                        stats_dist_list,
+                    )
+                )
+                if pre_select != 0
+                else []
+            )
+
+        if is_recommend:
+            assert (
+                len(pre_select_cards) >= 2
+            ), f"You need set at least 2 cards for {tournaments['name']} because compute limit"
 
         allowed_rarities: list[str] = [t.value for t in tournaments["allowedRarities"]]
         allow_mvp: bool = tournaments["allowMVP"]
@@ -336,14 +411,22 @@ if __name__ == "__main__":
                     )
                 )
 
-        card_pool: list[SelectCard] = list(
-            filter(
-                lambda c: c["rarity"] in allowed_rarities
-                and c not in used_cards
-                and c not in pre_select_cards,
-                stats_dist_list,
+        if is_recommend:
+            card_pool: list[SelectCard] = list(
+                filter(
+                    lambda c: c not in pre_select_cards,
+                    stats_dist_list,
+                )
             )
-        )
+        else:
+            card_pool: list[SelectCard] = list(
+                filter(
+                    lambda c: c["rarity"] in allowed_rarities
+                    and c not in used_cards
+                    and c not in pre_select_cards,
+                    stats_dist_list,
+                )
+            )
 
         to_select_card_count: int = 5 - pre_select
         possible_group: list[list[SelectCard]] = []
@@ -364,33 +447,36 @@ if __name__ == "__main__":
                 )
             )
 
-            if (
+            if total_point <= tournaments["tenGameAverageTotalLimit"] - 5 or (
                 tournaments["tenGameAverageTotalLimit"] > 0
                 and total_point > tournaments["tenGameAverageTotalLimit"]
             ):
                 continue
 
-            # check card rarity min count
-            rarities_count: int = (
-                5
-                if is_common
-                else len(
-                    list(
-                        filter(
-                            lambda card: card["rarity"] == min_rarity.value,  # type: ignore
-                            all_5_cards,
+            if not is_recommend:
+                # check card rarity min count
+                rarities_count: int = (
+                    5
+                    if is_common
+                    else len(
+                        list(
+                            filter(
+                                lambda card: card["rarity"] == min_rarity.value,  # type: ignore
+                                all_5_cards,
+                            )
                         )
                     )
                 )
-            )
-            if rarities_count < min_count:
-                continue
+                if rarities_count < min_count:
+                    continue
 
-            # check player duplicate
-            players: list[str] = list(map(lambda card: card["name"], all_5_cards))
-            unique_players: int = len(set(players))
-            if unique_players != len(players):
-                continue
+                # check player duplicate
+                tmp_selected_players: list[str] = list(
+                    map(lambda card: card["name"], all_5_cards)
+                )
+                unique_players: int = len(set(tmp_selected_players))
+                if unique_players != len(tmp_selected_players):
+                    continue
 
             possible_group.append(all_5_cards)
 
@@ -400,11 +486,21 @@ if __name__ == "__main__":
 
         group_index_to_cdf: dict[int, float] = {}
 
+        divisor = 1
+        match min_rarity:
+            case CardRarity.limited:
+                divisor = 1.05
+            case CardRarity.rare:
+                divisor = 1.15
+            case CardRarity.super_rare:
+                divisor = 1.25
+            case _:
+                divisor = 1
         for index, group in enumerate(possible_group):
             total_dist: NormalDist = NormalDist(0, 0)
             for card in group:
                 total_dist += card["expect"]
-            p_of_reach_target = total_dist.cdf(target)
+            p_of_reach_target = total_dist.cdf(target / divisor if is_recommend else 1)
             if p_of_reach_target < 1 - probability_reach_target:
                 group_index_to_cdf[index] = p_of_reach_target
 
@@ -434,7 +530,7 @@ if __name__ == "__main__":
             print(f"Group: {index}, total: {sum([card['average'] for card in group])}")
             for select_card in group:
                 print(
-                    f"{select_card['name']}({select_card['rarity']},{select_card['average']}) {show_opposite_team(select_card['team'])}"
+                    f"{select_card['name']}({select_card['rarity'] if select_card['rarity'] != None else min_rarity.value},{select_card['average']}) {show_opposite_team(select_card['team'], matches=matches)}"  # type: ignore
                 )
             print("\n")
 

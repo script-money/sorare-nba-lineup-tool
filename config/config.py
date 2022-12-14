@@ -236,23 +236,38 @@ blacklist_cards: list[str] = [
     # "ca553b45-5402-4541-a032-a6578da8c200",  # Eugene Omoruyi
 ]  # 设置不会被选中的id，重复卡建议设置
 
-suggest_cards: dict[str, list[str]] = {
-    "common_champion": [],
-    "common_contender": [],
-    "common_underdog": [],
-    "common_western_conference": [],
-    "common_eastern_conference": [],
-    "common_no_cap": [],
-    "super_rare_contender": [
-        # "da82a46b-3265-4861-958f-5d13da220269",  # Bruce Brown
-    ],
-    "rare_contender": [],
-    "limited_contender": [],
-    "super_rare_champion": [],
-    "rare_champion": [],
-    "limited_champion": [],
-    "limited_western_conference": [],
-    "limited_eastern_conference": [],
-    "limited_no_cap": [],
-    "limited_underdog": [],
-}  # 设置会被优先选中的卡的id
+blacklist_players: list[str] = ["Duncan Robinson"]  # 把不查询的球员放在这里，只对recommend模式有效
+
+suggest_cards: dict[str, dict[str, str]] = {
+    "common_champion": {},
+    "common_contender": {},
+    "common_underdog": {},
+    "common_western_conference": {},
+    "common_eastern_conference": {},
+    "common_no_cap": {},
+    "super_rare_contender": {
+        # "da82a46b-3265-4861-958f-5d13da220269": "Bruce Brown",
+        # "306c2ecf-5fd3-4fc8-8bce-521d48705c57": "Nic Claxton",
+        # "c8f7be3b-884c-4ba6-83c5-3a4ec08cb279": "Kentavious Caldwell-Pope",
+        # "3b9c8713-2e0d-4fcc-89e5-2c3c892e24e8": "Trendon Watford",
+    },
+    "rare_contender": {
+        # "a936c841-4039-4a09-82af-3b4e80b691fb": "Marcus Smart",
+        # "5df4f5e8-7e52-4ee4-96a0-3cffafca2a02": "Buddy Hield",
+    },
+    "limited_contender": {},
+    "super_rare_champion": {},
+    "rare_champion": {
+        # "3a4425d7-06f6-4382-86fc-ac29baadf125": "Ja Morant",
+        # "ccacb679-5d6a-4539-b6d6-5392e4b39edf": "Giannis Antetokounmpo",
+    },
+    "limited_champion": {
+        # "10c74499-37d5-4170-a952-3401588a3f8a": "Nikola Joki\u0107",
+        # "93b7eca8-f70e-4720-bbac-3a9ccff3f970": "Jayson Tatum",
+        # "7ff1a297-9236-4ca5-8295-a7a2b45dd7a1": "Russell Westbrook",
+    },
+    "limited_western_conference": {},
+    "limited_eastern_conference": {},
+    "limited_no_cap": {},
+    "limited_underdog": {},
+}  # 设置会被优先选中的卡的id，在 data/cards-xxxx-xx-xx.json 中发现 card 的 id 和 name
