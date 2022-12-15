@@ -1,7 +1,5 @@
 # sorare nba up tool
 
-invite link: [https://sorare.com/r/scriptmoney](https://sorare.com/r/scriptmoney)
-
 ## install
 
 1. install poetry, then use `poetry install` to install dependencies
@@ -30,3 +28,7 @@ invite link: [https://sorare.com/r/scriptmoney](https://sorare.com/r/scriptmoney
 1. `poetry run python query_all_players.py` will query all nba players and save in data folder
 2. `poetry run python query_injure_and_match.py`  will request all injure and matches in data folder
 3. change `config/config.py` if need, then `poetry run python compute.py -r True` will compute results.txt to data folder
+
+## invite link
+
+[https://sorare.pxf.io/4eQk5r](https://sorare.pxf.io/4eQk5r)
