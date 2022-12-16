@@ -500,7 +500,9 @@ if __name__ == "__main__":
             total_dist: NormalDist = NormalDist(0, 0)
             for card in group:
                 total_dist += card["expect"]
-            p_of_reach_target = total_dist.cdf(target / divisor if is_recommend else 1)
+            p_of_reach_target = total_dist.cdf(
+                target / (divisor if is_recommend else 1)
+            )
             if p_of_reach_target < 1 - probability_reach_target:
                 group_index_to_cdf[index] = p_of_reach_target
 
