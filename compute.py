@@ -260,7 +260,7 @@ if __name__ == "__main__":
     )
     avaliable_cards: list[NBACard] = list(
         filter(
-            lambda t: t["id"] not in blacklist_cards,
+            lambda t: t["id"] not in blacklist_cards,  # TODO not work
             cards,
         )
     )
@@ -391,11 +391,8 @@ if __name__ == "__main__":
         min_rarity: CardRarity | None = (
             None if is_common else tournaments["minRarity"]["rarity"]  # type: ignore
         )
-        min_count: int = (
-            5 if is_common else tournaments["minRarity"]["minCount"]  # type: ignore
-        )
 
-        if allowed_conference != None:
+        if allowed_conference != None:  # TODO All-Offense and Defense，提前考虑单项乘上比例的评分
             if allowed_conference == "WESTERN":
                 stats_dist_list = list(
                     filter(
@@ -454,22 +451,6 @@ if __name__ == "__main__":
                 continue
 
             if not is_recommend:
-                # check card rarity min count
-                rarities_count: int = (
-                    5
-                    if is_common
-                    else len(
-                        list(
-                            filter(
-                                lambda card: card["rarity"] == min_rarity.value,  # type: ignore
-                                all_5_cards,
-                            )
-                        )
-                    )
-                )
-                if rarities_count < min_count:
-                    continue
-
                 # check player duplicate
                 tmp_selected_players: list[str] = list(
                     map(lambda card: card["name"], all_5_cards)
@@ -481,7 +462,7 @@ if __name__ == "__main__":
             possible_group.append(all_5_cards)
 
         if len(possible_group) == 0:
-            result_lines.append(f"{tournaments['name']} no possible lineup")
+            result_lines.append(f"{tournaments['name']} no possible lineup\n")
             continue
 
         group_index_to_cdf: dict[int, float] = {}
@@ -500,7 +481,7 @@ if __name__ == "__main__":
             total_dist: NormalDist = NormalDist(0, 0)
             for card in group:
                 total_dist += card["expect"]
-            p_of_reach_target = total_dist.cdf(
+            p_of_reach_target = total_dist.cdf(  # TODO raise StatisticsError('cdf() not defined when sigma is zero')
                 target / (divisor if is_recommend else 1)
             )
             if p_of_reach_target < 1 - probability_reach_target:
@@ -529,7 +510,9 @@ if __name__ == "__main__":
             result_lines.append(result)
             continue
         for index, group in enumerate(group_to_select):
-            print(f"Group: {index}, total: {sum([card['average'] for card in group])}")
+            print(
+                f"Group: {index}, total: {sum([card['average'] for card in group])}, expect: {sum([card['expect']*divisor if is_recommend else card['expect'] for card in group])}"
+            )
             for select_card in group:
                 print(
                     f"{select_card['name']}({select_card['rarity'] if select_card['rarity'] != None else min_rarity.value},{select_card['average']}) {show_opposite_team(select_card['team'], matches=matches)}"  # type: ignore
@@ -561,7 +544,7 @@ if __name__ == "__main__":
                 result_lines.append(f'"{select_card["id"]}"')
             result_lines.append(f"expect: {expect_sum:.2f}")
         else:
-            result_lines.append(f"{tournaments['name']} no possible lineup")
+            result_lines.append(f"{tournaments['name']} no possible lineup\n")
 
         result_lines.append("\n")
 

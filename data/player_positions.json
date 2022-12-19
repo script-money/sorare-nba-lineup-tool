@@ -1,1678 +1,1677 @@
 {
-  "BOS": {
-    "Point Guard": [
-      "Marcus Smart",
-      "Malcolm Brogdon",
-      [
-        "Payton Pritchard",
-        "Derrick White",
-        "JD Davison"
-      ]
-    ],
-    "Shooting Guard": [
-      "Jaylen Brown",
-      "Derrick White",
-      [
-        "Malcolm Brogdon",
-        "Marcus Smart",
-        "Justin Jackson",
-        "JD Davison"
-      ]
-    ],
-    "Small Forward": [
-      "Jayson Tatum",
-      "Jaylen Brown",
-      [
-        "Sam Hauser",
-        "Grant Williams",
-        "Marcus Smart",
-        "Justin Jackson",
-        "Danilo Gallinari"
-      ]
-    ],
-    "Power Forward": [
-      "Grant Williams",
-      "Sam Hauser",
-      [
-        "Jayson Tatum",
-        "Luke Kornet",
-        "Noah Vonleh",
-        "Blake Griffin",
-        "Al Horford",
-        "Mfiondu Kabengele",
-        "Danilo Gallinari"
-      ]
-    ],
-    "Center": [
-      "Al Horford",
-      "Luke Kornet",
-      [
-        "Blake Griffin",
-        "Noah Vonleh",
-        "Grant Williams",
-        "Mfiondu Kabengele",
-        "Robert Williams III"
-      ]
-    ]
-  },
-  "BKN": {
-    "Point Guard": [
-      "Kyrie Irving",
-      "Edmond Sumner",
-      [
-        "Patty Mills",
-        "Cam Thomas",
-        "Ben Simmons",
-        "Seth Curry",
-        "Alondes Williams",
-        "David Duke Jr."
-      ]
-    ],
-    "Shooting Guard": [
-      "Royce O'Neale",
-      "Seth Curry",
-      [
-        "Joe Harris",
-        "Cam Thomas",
-        "Patty Mills",
-        "Edmond Sumner",
-        "David Duke Jr.",
-        "T.J. Warren",
-        "Alondes Williams"
-      ]
-    ],
-    "Small Forward": [
-      "Kevin Durant",
-      "Joe Harris",
-      [
-        "T.J. Warren",
-        "Yuta Watanabe",
-        "Royce O'Neale",
-        "Edmond Sumner",
-        "Cam Thomas",
-        "Kessler Edwards",
-        "Seth Curry",
-        "Patty Mills",
-        "David Duke Jr."
-      ]
-    ],
-    "Power Forward": [
-      "Ben Simmons",
-      "T.J. Warren",
-      [
-        "Yuta Watanabe",
-        "Kevin Durant",
-        "Markieff Morris",
-        "Royce O'Neale",
-        "Kessler Edwards"
-      ]
-    ],
-    "Center": [
-      "Nic Claxton",
-      "Ben Simmons",
-      [
-        "Day'Ron Sharpe",
-        "Markieff Morris",
-        "Kevin Durant"
-      ]
-    ]
-  },
-  "NYK": {
-    "Point Guard": [
-      "Jalen Brunson",
-      "Miles McBride",
-      [
-        "Derrick Rose",
-        "Immanuel Quickley",
-        "Ryan Arcidiacono",
-        "Quentin Grimes"
-      ]
-    ],
-    "Shooting Guard": [
-      "Quentin Grimes",
-      "Immanuel Quickley",
-      [
-        "Miles McBride",
-        "Cam Reddish",
-        "Derrick Rose",
-        "Evan Fournier",
-        "Ryan Arcidiacono",
-        "Svi Mykhailiuk",
-        "RJ Barrett",
-        "Trevor Keels",
-        "DaQuan Jeffries"
-      ]
-    ],
-    "Small Forward": [
-      "RJ Barrett",
-      "Cam Reddish",
-      [
-        "Quentin Grimes",
-        "Evan Fournier",
-        "Svi Mykhailiuk",
-        "Trevor Keels",
-        "DaQuan Jeffries"
-      ]
-    ],
-    "Power Forward": [
-      "Julius Randle",
-      "Obi Toppin",
-      [
-        "Jericho Sims",
-        "Cam Reddish",
-        "RJ Barrett"
-      ]
-    ],
-    "Center": [
-      "Mitchell Robinson",
-      "Isaiah Hartenstein",
-      [
-        "Jericho Sims",
-        "Obi Toppin",
-        "Julius Randle"
-      ]
-    ]
-  },
-  "PHI": {
-    "Point Guard": [
-      "Tyrese Maxey",
-      "Shake Milton",
-      [
-        "James Harden",
-        "De'Anthony Melton",
-        "Saben Lee"
-      ]
-    ],
-    "Shooting Guard": [
-      "James Harden",
-      "De'Anthony Melton",
-      [
-        "Furkan Korkmaz",
-        "Matisse Thybulle",
-        "Shake Milton",
-        "Danuel House Jr.",
-        "Tyrese Maxey",
-        "Jaden Springer",
-        "Julian Champagnie",
-        "Saben Lee"
-      ]
-    ],
-    "Small Forward": [
-      "Tobias Harris",
-      "Danuel House Jr.",
-      [
-        "Matisse Thybulle",
-        "Furkan Korkmaz",
-        "P.J. Tucker",
-        "Georges Niang",
-        "Julian Champagnie"
-      ]
-    ],
-    "Power Forward": [
-      "P.J. Tucker",
-      "Georges Niang",
-      [
-        "Tobias Harris",
-        "Danuel House Jr.",
-        "Paul Reed",
-        "Matisse Thybulle"
-      ]
-    ],
-    "Center": [
-      "Joel Embiid",
-      "Paul Reed",
-      [
-        "Montrezl Harrell",
-        "P.J. Tucker"
-      ]
-    ]
-  },
-  "TOR": {
-    "Point Guard": [
-      "Fred VanVleet",
-      "Dalano Banton",
-      [
-        "Malachi Flynn",
-        "Scottie Barnes",
-        "Jeff Dowtin Jr."
-      ]
-    ],
-    "Shooting Guard": [
-      "OG Anunoby",
-      "Gary Trent Jr.",
-      [
-        "Dalano Banton",
-        "Malachi Flynn",
-        "Fred VanVleet",
-        "Jeff Dowtin Jr.",
-        "Ron Harper Jr."
-      ]
-    ],
-    "Small Forward": [
-      "Scottie Barnes",
-      "Otto Porter Jr.",
-      [
-        "Juancho Hernangomez",
-        "OG Anunoby",
-        "Gary Trent Jr.",
-        "Justin Champagnie",
-        "Thaddeus Young",
-        "Ron Harper Jr."
-      ]
-    ],
-    "Power Forward": [
-      "Pascal Siakam",
-      "Chris Boucher",
-      [
-        "Juancho Hernangomez",
-        "Scottie Barnes",
-        "Otto Porter Jr.",
-        "Justin Champagnie",
-        "OG Anunoby",
-        "Thaddeus Young",
-        "Ron Harper Jr.",
-        "Precious Achiuwa"
-      ]
-    ],
-    "Center": [
-      "Christian Koloko",
-      "Thaddeus Young",
-      [
-        "Pascal Siakam",
-        "Khem Birch",
-        "Chris Boucher",
-        "OG Anunoby",
-        "Precious Achiuwa"
-      ]
-    ]
-  },
-  "CHI": {
-    "Point Guard": [
-      "Alex Caruso",
-      "Ayo Dosunmu",
-      [
-        "Goran Dragi\u0107",
-        "Coby White",
-        "Lonzo Ball"
-      ]
-    ],
-    "Shooting Guard": [
-      "Zach LaVine",
-      "Coby White",
-      [
-        "Goran Dragi\u0107",
-        "Alex Caruso",
-        "Ayo Dosunmu",
-        "Dalen Terry",
-        "Javonte Green",
-        "DeMar DeRozan",
-        "Malcolm Hill"
-      ]
-    ],
-    "Small Forward": [
-      "DeMar DeRozan",
-      "Javonte Green",
-      [
-        "Patrick Williams",
-        "Derrick Jones Jr.",
-        "Zach LaVine",
-        "Dalen Terry",
-        "Malcolm Hill",
-        "Kostas Antetokounmpo"
-      ]
-    ],
-    "Power Forward": [
-      "Patrick Williams",
-      "Derrick Jones Jr.",
-      [
-        "Javonte Green",
-        "DeMar DeRozan",
-        "Marko Simonovi\u0107",
-        "Kostas Antetokounmpo"
-      ]
-    ],
-    "Center": [
-      "Nikola Vu\u010devi\u0107",
-      "Andre Drummond",
-      [
-        "Derrick Jones Jr.",
-        "Tony Bradley",
-        "Marko Simonovi\u0107"
-      ]
-    ]
-  },
-  "CLE": {
-    "Point Guard": [
-      "Darius Garland",
-      "Donovan Mitchell",
-      [
-        "Raul Neto",
-        "Caris LeVert",
-        "Cedi Osman",
-        "Ricky Rubio"
-      ]
-    ],
-    "Shooting Guard": [
-      "Donovan Mitchell",
-      "Caris LeVert",
-      [
-        "Isaac Okoro",
-        "Cedi Osman",
-        "Raul Neto",
-        "Darius Garland",
-        "Dylan Windler"
-      ]
-    ],
-    "Small Forward": [
-      "Lamar Stevens",
-      "Caris LeVert",
-      [
-        "Cedi Osman",
-        "Isaac Okoro",
-        "Mamadi Diakite",
-        "Dean Wade",
-        "Dylan Windler"
-      ]
-    ],
-    "Power Forward": [
-      "Evan Mobley",
-      "Cedi Osman",
-      [
-        "Kevin Love",
-        "Mamadi Diakite",
-        "Lamar Stevens",
-        "Isaac Okoro",
-        "Isaiah Mobley",
-        "Dean Wade"
-      ]
-    ],
-    "Center": [
-      "Jarrett Allen",
-      "Kevin Love",
-      [
-        "Evan Mobley",
-        "Robin Lopez",
-        "Mamadi Diakite",
-        "Isaiah Mobley",
-        "Dean Wade"
-      ]
-    ]
-  },
-  "DET": {
-    "Point Guard": [
-      "Killian Hayes",
-      "Cory Joseph",
-      [
-        "Alec Burks",
-        "Jaden Ivey",
-        "Cade Cunningham"
-      ]
-    ],
-    "Shooting Guard": [
-      "Jaden Ivey",
-      "Alec Burks",
-      [
-        "Rodney McGruder",
-        "Hamidou Diallo",
-        "Cory Joseph",
-        "Buddy Boeheim",
-        "Cade Cunningham"
-      ]
-    ],
-    "Small Forward": [
-      "Bojan Bogdanovi\u0107",
-      "Saddiq Bey",
-      [
-        "Hamidou Diallo",
-        "Isaiah Livers",
-        "Rodney McGruder",
-        "Kevin Knox II",
-        "Braxton Key",
-        "Buddy Boeheim"
-      ]
-    ],
-    "Power Forward": [
-      "Isaiah Stewart",
-      "Isaiah Livers",
-      [
-        "Kevin Knox II",
-        "Bojan Bogdanovi\u0107",
-        "Saddiq Bey",
-        "Marvin Bagley III",
-        "Braxton Key"
-      ]
-    ],
-    "Center": [
-      "Jalen Duren",
-      "Marvin Bagley III",
-      [
-        "Nerlens Noel",
-        "Isaiah Stewart"
-      ]
-    ]
-  },
-  "IND": {
-    "Point Guard": [
-      "Tyrese Haliburton",
-      "T.J. McConnell",
-      [
-        "Andrew Nembhard",
-        "Trevelin Queen",
-        "Chris Duarte"
-      ]
-    ],
-    "Shooting Guard": [
-      "Andrew Nembhard",
-      "Bennedict Mathurin",
-      [
-        "Buddy Hield",
-        "Aaron Nesmith",
-        "Tyrese Haliburton",
-        "Kendall Brown",
-        "Trevelin Queen",
-        "Chris Duarte"
-      ]
-    ],
-    "Small Forward": [
-      "Buddy Hield",
-      "Aaron Nesmith",
-      [
-        "Bennedict Mathurin",
-        "Oshae Brissett",
-        "Terry Taylor",
-        "Kendall Brown",
-        "Chris Duarte"
-      ]
-    ],
-    "Power Forward": [
-      "Jalen Smith",
-      "Oshae Brissett",
-      [
-        "Isaiah Jackson",
-        "James Johnson",
-        "Terry Taylor",
-        "Daniel Theis"
-      ]
-    ],
-    "Center": [
-      "Myles Turner",
-      "Isaiah Jackson",
-      [
-        "Goga Bitadze",
-        "Terry Taylor",
-        "Jalen Smith",
-        "James Johnson",
-        "Oshae Brissett",
-        "Daniel Theis"
-      ]
-    ]
-  },
-  "MIL": {
-    "Point Guard": [
-      "Jrue Holiday",
-      "George Hill",
-      [
-        "Jevon Carter",
-        "Grayson Allen",
-        "A.J. Green"
-      ]
-    ],
-    "Shooting Guard": [
-      "Grayson Allen",
-      "Jevon Carter",
-      [
-        "Pat Connaughton",
-        "Wesley Matthews",
-        "George Hill",
-        "Khris Middleton",
-        "Jrue Holiday",
-        "MarJon Beauchamp",
-        "A.J. Green",
-        "Joe Ingles"
-      ]
-    ],
-    "Small Forward": [
-      "Khris Middleton",
-      "Pat Connaughton",
-      [
-        "Wesley Matthews",
-        "Grayson Allen",
-        "Jordan Nwora",
-        "MarJon Beauchamp",
-        "Giannis Antetokounmpo",
-        "Thanasis Antetokounmpo",
-        "Joe Ingles"
-      ]
-    ],
-    "Power Forward": [
-      "Giannis Antetokounmpo",
-      "Jordan Nwora",
-      [
-        "Bobby Portis",
-        "Thanasis Antetokounmpo",
-        "Serge Ibaka",
-        "Pat Connaughton",
-        "Sandro Mamukelashvili",
-        "Joe Ingles"
-      ]
-    ],
-    "Center": [
-      "Brook Lopez",
-      "Bobby Portis",
-      [
-        "Serge Ibaka",
-        "Giannis Antetokounmpo",
-        "Sandro Mamukelashvili"
-      ]
-    ]
-  },
-  "ATL": {
-    "Point Guard": [
-      "Trae Young",
-      "Aaron Holiday",
-      [
-        "Dejounte Murray",
-        "Vit Krejci",
-        "Bogdan Bogdanovi\u0107",
-        "Trent Forrest"
-      ]
-    ],
-    "Shooting Guard": [
-      "Dejounte Murray",
-      "Bogdan Bogdanovi\u0107",
-      [
-        "Aaron Holiday",
-        "Trent Forrest",
-        "Justin Holiday",
-        "Jarrett Culver",
-        "AJ Griffin",
-        "Vit Krejci",
-        "Tyrese Martin"
-      ]
-    ],
-    "Small Forward": [
-      "De'Andre Hunter",
-      "AJ Griffin",
-      [
-        "Trent Forrest",
-        "Bogdan Bogdanovi\u0107",
-        "Justin Holiday",
-        "Jarrett Culver",
-        "Jalen Johnson",
-        "Tyrese Martin"
-      ]
-    ],
-    "Power Forward": [
-      "John Collins",
-      "Jalen Johnson",
-      [
-        "De'Andre Hunter",
-        "Justin Holiday",
-        "Jarrett Culver",
-        "Frank Kaminsky",
-        "Onyeka Okongwu"
-      ]
-    ],
-    "Center": [
-      "Clint Capela",
-      "Onyeka Okongwu",
-      [
-        "Frank Kaminsky",
-        "John Collins"
-      ]
-    ]
-  },
-  "CHA": {
-    "Point Guard": [
-      "LaMelo Ball",
-      "Dennis Smith Jr.",
-      [
-        "Theo Maledon",
-        "Terry Rozier",
-        "James Bouknight",
-        "Cody Martin"
-      ]
-    ],
-    "Shooting Guard": [
-      "Terry Rozier",
-      "Bryce McGowens",
-      [
-        "Kelly Oubre Jr.",
-        "James Bouknight",
-        "Cody Martin"
-      ]
-    ],
-    "Small Forward": [
-      "Jalen McDaniels",
-      "Kelly Oubre Jr.",
-      [
-        "Terry Rozier",
-        "Bryce McGowens",
-        "Gordon Hayward",
-        "Cody Martin"
-      ]
-    ],
-    "Power Forward": [
-      "P.J. Washington",
-      "Kai Jones",
-      [
-        "Jalen McDaniels",
-        "JT Thor",
-        "Kelly Oubre Jr.",
-        "Gordon Hayward"
-      ]
-    ],
-    "Center": [
-      "Mason Plumlee",
-      "Nick Richards",
-      [
-        "Mark Williams",
-        "Kai Jones",
-        "P.J. Washington"
-      ]
-    ]
-  },
-  "MIA": {
-    "Point Guard": [
-      "Kyle Lowry",
-      "Gabe Vincent",
-      [
-        "Victor Oladipo",
-        "Tyler Herro"
-      ]
-    ],
-    "Shooting Guard": [
-      "Tyler Herro",
-      "Victor Oladipo",
-      [
-        "Gabe Vincent",
-        "Max Strus",
-        "Duncan Robinson",
-        "Caleb Martin",
-        "Jamal Cain"
-      ]
-    ],
-    "Small Forward": [
-      "Caleb Martin",
-      "Max Strus",
-      [
-        "Haywood Highsmith",
-        "Duncan Robinson",
-        "Jimmy Butler",
-        "Tyler Herro",
-        "Victor Oladipo",
-        "Jamal Cain"
-      ]
-    ],
-    "Power Forward": [
-      "Jimmy Butler",
-      "Duncan Robinson",
-      [
-        "Haywood Highsmith",
-        "Max Strus",
-        "Caleb Martin",
-        "Nikola Jovi\u0107",
-        "Jamal Cain",
-        "Orlando Robinson"
-      ]
-    ],
-    "Center": [
-      "Bam Adebayo",
-      "Dewayne Dedmon",
-      [
-        "Orlando Robinson",
-        "Udonis Haslem",
-        "Nikola Jovi\u0107",
-        "Omer Yurtseven"
-      ]
-    ]
-  },
-  "ORL": {
-    "Point Guard": [
-      "Jalen Suggs",
-      "Markelle Fultz",
-      [
-        "Cole Anthony",
-        "R.J. Hampton"
-      ]
-    ],
-    "Shooting Guard": [
-      "Franz Wagner",
-      "Cole Anthony",
-      [
-        "Terrence Ross",
-        "Jalen Suggs",
-        "Gary Harris",
-        "Kevon Harris",
-        "R.J. Hampton"
-      ]
-    ],
-    "Small Forward": [
-      "Paolo Banchero",
-      "Gary Harris",
-      [
-        "Terrence Ross",
-        "Chuma Okeke",
-        "Franz Wagner",
-        "Caleb Houstan",
-        "Bol Bol",
-        "Kevon Harris",
-        "Admiral Schofield",
-        "Jonathan Isaac"
-      ]
-    ],
-    "Power Forward": [
-      "Bol Bol",
-      "Chuma Okeke",
-      [
-        "Moritz Wagner",
-        "Paolo Banchero",
-        "Caleb Houstan",
-        "Admiral Schofield",
-        "Franz Wagner",
-        "Wendell Carter Jr.",
-        "Jonathan Isaac"
-      ]
-    ],
-    "Center": [
-      "Wendell Carter Jr.",
-      "Moritz Wagner",
-      [
-        "Mo Bamba",
-        "Bol Bol",
-        "Chuma Okeke",
-        "Jonathan Isaac"
-      ]
-    ]
-  },
-  "WAS": {
-    "Point Guard": [
-      "Monte Morris",
-      "Jordan Goodwin",
-      [
-        "Devon Dotson",
-        "Johnny Davis",
-        "Bradley Beal",
-        "Delon Wright"
-      ]
-    ],
-    "Shooting Guard": [
-      "Bradley Beal",
-      "Corey Kispert",
-      [
-        "Will Barton",
-        "Jordan Goodwin",
-        "Johnny Davis",
-        "Deni Avdija",
-        "Delon Wright"
-      ]
-    ],
-    "Small Forward": [
-      "Deni Avdija",
-      "Will Barton",
-      [
-        "Anthony Gill",
-        "Corey Kispert",
-        "Kyle Kuzma",
-        "Rui Hachimura",
-        "Johnny Davis",
-        "Bradley Beal"
-      ]
-    ],
-    "Power Forward": [
-      "Kyle Kuzma",
-      "Rui Hachimura",
-      [
-        "Anthony Gill",
-        "Deni Avdija",
-        "Kristaps Porzingis",
-        "Isaiah Todd"
-      ]
-    ],
-    "Center": [
-      "Kristaps Porzingis",
-      "Daniel Gafford",
-      [
-        "Taj Gibson",
-        "Vernon Carey Jr.",
-        "Isaiah Todd",
-        "Kyle Kuzma",
-        "Rui Hachimura"
-      ]
-    ]
-  },
-  "DEN": {
-    "Point Guard": [
-      "Jamal Murray",
-      "Bones Hyland",
-      [
-        "Ish Smith",
-        "Bruce Brown",
-        "Collin Gillespie"
-      ]
-    ],
-    "Shooting Guard": [
-      "Kentavious Caldwell-Pope",
-      "Christian Braun",
-      [
-        "Bones Hyland",
-        "Bruce Brown",
-        "Davon Reed",
-        "Jamal Murray",
-        "Peyton Watson"
-      ]
-    ],
-    "Small Forward": [
-      "Michael Porter Jr.",
-      "Bruce Brown",
-      [
-        "Vlatko \u010can\u010dar",
-        "Davon Reed",
-        "Christian Braun",
-        "Aaron Gordon",
-        "Jeff Green",
-        "Kentavious Caldwell-Pope",
-        "Peyton Watson",
-        "Jack White"
-      ]
-    ],
-    "Power Forward": [
-      "Aaron Gordon",
-      "Jeff Green",
-      [
-        "Vlatko \u010can\u010dar",
-        "Bruce Brown",
-        "Zeke Nnaji",
-        "Michael Porter Jr.",
-        "Jack White"
-      ]
-    ],
-    "Center": [
-      "Nikola Joki\u0107",
-      "DeAndre Jordan",
-      [
-        "Zeke Nnaji",
-        "Jeff Green"
-      ]
-    ]
-  },
-  "MIN": {
-    "Point Guard": [
-      "D'Angelo Russell",
-      "Jordan McLaughlin",
-      [
-        "Austin Rivers",
-        "Jaylen Nowell",
-        "Bryn Forbes",
-        "Anthony Edwards"
-      ]
-    ],
-    "Shooting Guard": [
-      "Anthony Edwards",
-      "Jaylen Nowell",
-      [
-        "Austin Rivers",
-        "Bryn Forbes",
-        "D'Angelo Russell",
-        "Wendell Moore Jr.",
-        "Josh Minott",
-        "Matt Ryan"
-      ]
-    ],
-    "Small Forward": [
-      "Jaden McDaniels",
-      "Taurean Prince",
-      [
-        "Kyle Anderson",
-        "Anthony Edwards",
-        "Wendell Moore Jr.",
-        "Matt Ryan",
-        "Josh Minott"
-      ]
-    ],
-    "Power Forward": [
-      "Karl-Anthony Towns",
-      "Kyle Anderson",
-      [
-        "Taurean Prince",
-        "Jaden McDaniels",
-        "Naz Reid",
-        "Anthony Edwards"
-      ]
-    ],
-    "Center": [
-      "Rudy Gobert",
-      "Karl-Anthony Towns",
-      [
-        "Naz Reid",
-        "Nathan Knight",
-        "Luka Garza"
-      ]
-    ]
-  },
-  "OKC": {
-    "Point Guard": [
-      "Shai Gilgeous-Alexander",
-      "Tre Mann",
-      [
-        "Josh Giddey"
-      ]
-    ],
-    "Shooting Guard": [
-      "Josh Giddey",
-      "Isaiah Joe",
-      [
-        "Aaron Wiggins",
-        "Tre Mann",
-        "Jalen Williams",
-        "Lindy Waters III",
-        "Ousmane Dieng",
-        "Luguentz Dort",
-        "Shai Gilgeous-Alexander"
-      ]
-    ],
-    "Small Forward": [
-      "Luguentz Dort",
-      "Kenrich Williams",
-      [
-        "Jalen Williams",
-        "Aaron Wiggins",
-        "Ousmane Dieng",
-        "Eugene Omoruyi",
-        "Lindy Waters III",
-        "Aleksej Pokusevski",
-        "Darius Bazley",
-        "Josh Giddey"
-      ]
-    ],
-    "Power Forward": [
-      "Jalen Williams",
-      "Darius Bazley",
-      [
-        "Aleksej Pokusevski",
-        "Kenrich Williams",
-        "Luguentz Dort",
-        "Eugene Omoruyi",
-        "Jeremiah Robinson-Earl",
-        "Jaylin Williams",
-        "Chet Holmgren"
-      ]
-    ],
-    "Center": [
-      "Jeremiah Robinson-Earl",
-      "Aleksej Pokusevski",
-      [
-        "Mike Muscala",
-        "Darius Bazley",
-        "Jaylin Williams",
-        "Chet Holmgren"
-      ]
-    ]
-  },
-  "POR": {
-    "Point Guard": [
-      "Damian Lillard",
-      "Shaedon Sharpe",
-      [
-        "Anfernee Simons",
-        "Gary Payton II"
-      ]
-    ],
-    "Shooting Guard": [
-      "Anfernee Simons",
-      "Keon Johnson",
-      [
-        "Shaedon Sharpe",
-        "Josh Hart",
-        "Gary Payton II"
-      ]
-    ],
-    "Small Forward": [
-      "Josh Hart",
-      "Justise Winslow",
-      [
-        "Keon Johnson",
-        "Jerami Grant",
-        "Greg Brown III",
-        "Gary Payton II",
-        "Nassir Little"
-      ]
-    ],
-    "Power Forward": [
-      "Jerami Grant",
-      "Trendon Watford",
-      [
-        "Justise Winslow",
-        "Josh Hart",
-        "Greg Brown III",
-        "Jabari Walker",
-        "John Butler Jr.",
-        "Drew Eubanks",
-        "Nassir Little"
-      ]
-    ],
-    "Center": [
-      "Jusuf Nurki\u0107",
-      "Drew Eubanks",
-      [
-        "Justise Winslow",
-        "Trendon Watford",
-        "Greg Brown III",
-        "John Butler Jr.",
-        "Ibou Badji",
-        "Jerami Grant"
-      ]
-    ]
-  },
-  "UTA": {
-    "Point Guard": [
-      "Mike Conley",
-      "Collin Sexton",
-      [
-        "Jordan Clarkson",
-        "Nickeil Alexander-Walker",
-        "Leandro Bolmaro"
-      ]
-    ],
-    "Shooting Guard": [
-      "Jordan Clarkson",
-      "Malik Beasley",
-      [
-        "Collin Sexton",
-        "Nickeil Alexander-Walker",
-        "Talen Horton-Tucker",
-        "Ochai Agbaji",
-        "Leandro Bolmaro",
-        "Johnny Juzang"
-      ]
-    ],
-    "Small Forward": [
-      "Lauri Markkanen",
-      "Talen Horton-Tucker",
-      [
-        "Simone Fontecchio",
-        "Malik Beasley",
-        "Rudy Gay",
-        "Ochai Agbaji",
-        "Leandro Bolmaro",
-        "Johnny Juzang"
-      ]
-    ],
-    "Power Forward": [
-      "Kelly Olynyk",
-      "Rudy Gay",
-      [
-        "Jarred Vanderbilt",
-        "Lauri Markkanen",
-        "Simone Fontecchio"
-      ]
-    ],
-    "Center": [
-      "Jarred Vanderbilt",
-      "Walker Kessler",
-      [
-        "Kelly Olynyk",
-        "Udoka Azubuike",
-        "Rudy Gay",
-        "Micah Potter"
-      ]
-    ]
-  },
-  "GSW": {
-    "Point Guard": [
-      "Stephen Curry",
-      "Donte DiVincenzo",
-      [
-        "Jordan Poole",
-        "Ryan Rollins",
-        "Ty Jerome"
-      ]
-    ],
-    "Shooting Guard": [
-      "Klay Thompson",
-      "Jordan Poole",
-      [
-        "Donte DiVincenzo",
-        "Moses Moody",
-        "Andrew Wiggins",
-        "Ty Jerome",
-        "Ryan Rollins",
-        "Andre Iguodala"
-      ]
-    ],
-    "Small Forward": [
-      "Andrew Wiggins",
-      "Anthony Lamb",
-      [
-        "Moses Moody",
-        "Donte DiVincenzo",
-        "Jonathan Kuminga",
-        "Klay Thompson",
-        "Jordan Poole",
-        "Patrick Baldwin Jr.",
-        "Andre Iguodala"
-      ]
-    ],
-    "Power Forward": [
-      "Draymond Green",
-      "Jonathan Kuminga",
-      [
-        "Anthony Lamb",
-        "Andrew Wiggins",
-        "JaMychal Green",
-        "Patrick Baldwin Jr.",
-        "Andre Iguodala"
-      ]
-    ],
-    "Center": [
-      "Kevon Looney",
-      "JaMychal Green",
-      [
-        "Jonathan Kuminga",
-        "James Wiseman",
-        "Draymond Green"
-      ]
-    ]
-  },
-  "LAC": {
-    "Point Guard": [
-      "Reggie Jackson",
-      "John Wall",
-      [
-        "Terance Mann",
-        "Jason Preston",
-        "Brandon Boston",
-        "Norman Powell",
-        "Luke Kennard"
-      ]
-    ],
-    "Shooting Guard": [
-      "Paul George",
-      "Luke Kennard",
-      [
-        "Terance Mann",
-        "Norman Powell",
-        "Amir Coffey",
-        "Jason Preston",
-        "Reggie Jackson",
-        "Brandon Boston"
-      ]
-    ],
-    "Small Forward": [
-      "Kawhi Leonard",
-      "Norman Powell",
-      [
-        "Paul George",
-        "Terance Mann",
-        "Luke Kennard",
-        "Robert Covington",
-        "Marcus Morris Sr.",
-        "Amir Coffey",
-        "Nicolas Batum",
-        "Brandon Boston"
-      ]
-    ],
-    "Power Forward": [
-      "Marcus Morris Sr.",
-      "Nicolas Batum",
-      [
-        "Kawhi Leonard",
-        "Robert Covington",
-        "Moussa Diabate",
-        "Amir Coffey",
-        "Terance Mann",
-        "Paul George"
-      ]
-    ],
-    "Center": [
-      "Ivica Zubac",
-      "Robert Covington",
-      [
-        "Moses Brown",
-        "Nicolas Batum",
-        "Moussa Diabate"
-      ]
-    ]
-  },
-  "LAL": {
-    "Point Guard": [
-      "Dennis Schr\u00f6der",
-      "Russell Westbrook",
-      [
-        "Patrick Beverley",
-        "Kendrick Nunn",
-        "Austin Reaves",
-        "LeBron James",
-        "Scotty Pippen Jr."
-      ]
-    ],
-    "Shooting Guard": [
-      "Patrick Beverley",
-      "Austin Reaves",
-      [
-        "Lonnie Walker IV",
-        "Kendrick Nunn",
-        "Dennis Schr\u00f6der",
-        "Troy Brown Jr.",
-        "Max Christie"
-      ]
-    ],
-    "Small Forward": [
-      "Lonnie Walker IV",
-      "Troy Brown Jr.",
-      [
-        "Austin Reaves",
-        "LeBron James",
-        "Juan Toscano-Anderson",
-        "Wenyen Gabriel",
-        "Max Christie",
-        "Cole Swider"
-      ]
-    ],
-    "Power Forward": [
-      "LeBron James",
-      "Wenyen Gabriel",
-      [
-        "Juan Toscano-Anderson",
-        "Troy Brown Jr.",
-        "Anthony Davis",
-        "Thomas Bryant",
-        "Cole Swider"
-      ]
-    ],
-    "Center": [
-      "Anthony Davis",
-      "Thomas Bryant",
-      [
-        "Wenyen Gabriel",
-        "Damian Jones",
-        "LeBron James"
-      ]
-    ]
-  },
-  "PHX": {
-    "Point Guard": [
-      "Chris Paul",
-      "Cameron Payne",
-      [
-        "Devin Booker",
-        "Duane Washington Jr.",
-        "Damion Lee"
-      ]
-    ],
-    "Shooting Guard": [
-      "Devin Booker",
-      "Landry Shamet",
-      [
-        "Duane Washington Jr.",
-        "Damion Lee",
-        "Josh Okogie",
-        "Cameron Payne",
-        "Mikal Bridges"
-      ]
-    ],
-    "Small Forward": [
-      "Mikal Bridges",
-      "Damion Lee",
-      [
-        "Josh Okogie",
-        "Landry Shamet",
-        "Ish Wainright",
-        "Torrey Craig",
-        "Cameron Johnson",
-        "Jae Crowder"
-      ]
-    ],
-    "Power Forward": [
-      "Torrey Craig",
-      "Dario \u0160ari\u0107",
-      [
-        "Josh Okogie",
-        "Ish Wainright",
-        "Cameron Johnson",
-        "Jae Crowder"
-      ]
-    ],
-    "Center": [
-      "Deandre Ayton",
-      "Jock Landale",
-      [
-        "Bismack Biyombo",
-        "Torrey Craig",
-        "Dario \u0160ari\u0107",
-        "Ish Wainright"
-      ]
-    ]
-  },
-  "SAC": {
-    "Point Guard": [
-      "De'Aaron Fox",
-      "Davion Mitchell",
-      [
-        "Matthew Dellavedova",
-        "Malik Monk"
-      ]
-    ],
-    "Shooting Guard": [
-      "Kevin Huerter",
-      "Malik Monk",
-      [
-        "Terence Davis",
-        "Davion Mitchell",
-        "Keon Ellis",
-        "Matthew Dellavedova"
-      ]
-    ],
-    "Small Forward": [
-      "Harrison Barnes",
-      "Terence Davis",
-      [
-        "Kevin Huerter",
-        "Keegan Murray",
-        "KZ Okpala",
-        "Keon Ellis"
-      ]
-    ],
-    "Power Forward": [
-      "Keegan Murray",
-      "Trey Lyles",
-      [
-        "KZ Okpala",
-        "Harrison Barnes",
-        "Terence Davis",
-        "Chima Moneke",
-        "Chimezie Metu",
-        "Domantas Sabonis"
-      ]
-    ],
-    "Center": [
-      "Domantas Sabonis",
-      "Chimezie Metu",
-      [
-        "Richaun Holmes",
-        "Trey Lyles",
-        "Alex Len",
-        "Neemias Queta"
-      ]
-    ]
-  },
-  "DAL": {
-    "Point Guard": [
-      "Luka Don\u010di\u0107",
-      "Kemba Walker",
-      [
-        "Spencer Dinwiddie",
-        "Frank Ntilikina",
-        "Jaden Hardy",
-        "Tyler Dorsey",
-        "McKinley Wright IV"
-      ]
-    ],
-    "Shooting Guard": [
-      "Spencer Dinwiddie",
-      "Reggie Bullock",
-      [
-        "Frank Ntilikina",
-        "Tim Hardaway Jr.",
-        "Jaden Hardy",
-        "Theo Pinson",
-        "Tyler Dorsey",
-        "Josh Green",
-        "Luka Don\u010di\u0107"
-      ]
-    ],
-    "Small Forward": [
-      "Tim Hardaway Jr.",
-      "Josh Green",
-      [
-        "Reggie Bullock",
-        "Dorian Finney-Smith",
-        "Davis Bert\u0101ns",
-        "Spencer Dinwiddie",
-        "Theo Pinson"
-      ]
-    ],
-    "Power Forward": [
-      "Dorian Finney-Smith",
-      "Maxi Kleber",
-      [
-        "Davis Bert\u0101ns",
-        "Reggie Bullock",
-        "Christian Wood"
-      ]
-    ],
-    "Center": [
-      "Dwight Powell",
-      "Christian Wood",
-      [
-        "JaVale McGee",
-        "Maxi Kleber"
-      ]
-    ]
-  },
-  "HOU": {
-    "Point Guard": [
-      "Kevin Porter Jr.",
-      "Daishen Nix",
-      [
-        "Josh Christopher",
-        "Jalen Green",
-        "TyTy Washington Jr.",
-        "Trevor Hudgins"
-      ]
-    ],
-    "Shooting Guard": [
-      "Jalen Green",
-      "Garrison Mathews",
-      [
-        "Josh Christopher",
-        "Daishen Nix",
-        "Eric Gordon",
-        "Kevin Porter Jr.",
-        "Jae'Sean Tate"
-      ]
-    ],
-    "Small Forward": [
-      "Eric Gordon",
-      "Kenyon Martin Jr.",
-      [
-        "Jae'Sean Tate",
-        "Garrison Mathews",
-        "Tari Eason",
-        "Josh Christopher"
-      ]
-    ],
-    "Power Forward": [
-      "Jabari Smith Jr.",
-      "Tari Eason",
-      [
-        "Kenyon Martin Jr.",
-        "Jae'Sean Tate",
-        "Usman Garuba",
-        "Bruno Fernando",
-        "Alperen Sengun",
-        "Darius Days"
-      ]
-    ],
-    "Center": [
-      "Alperen Sengun",
-      "Bruno Fernando",
-      [
-        "Usman Garuba",
-        "Jabari Smith Jr.",
-        "Boban Marjanovi\u0107",
-        "Tari Eason",
-        "Kenyon Martin Jr.",
-        "Darius Days"
-      ]
-    ]
-  },
-  "MEM": {
-    "Point Guard": [
-      "Ja Morant",
-      "Tyus Jones",
-      [
-        "John Konchar",
-        "Kennedy Chandler"
-      ]
-    ],
-    "Shooting Guard": [
-      "Dillon Brooks",
-      "David Roddy",
-      [
-        "John Konchar",
-        "Ziaire Williams",
-        "Vince Williams Jr.",
-        "Desmond Bane",
-        "Danny Green"
-      ]
-    ],
-    "Small Forward": [
-      "John Konchar",
-      "Ziaire Williams",
-      [
-        "Jake LaRavia",
-        "David Roddy",
-        "Dillon Brooks",
-        "Vince Williams Jr.",
-        "Desmond Bane",
-        "Danny Green"
-      ]
-    ],
-    "Power Forward": [
-      "Jaren Jackson Jr.",
-      "Santi Aldama",
-      [
-        "Jake LaRavia",
-        "Brandon Clarke",
-        "Xavier Tillman",
-        "David Roddy",
-        "Kenneth Lofton Jr.",
-        "Ziaire Williams"
-      ]
-    ],
-    "Center": [
-      "Steven Adams",
-      "Brandon Clarke",
-      [
-        "Xavier Tillman",
-        "Jaren Jackson Jr.",
-        "Santi Aldama",
-        "Kenneth Lofton Jr."
-      ]
-    ]
-  },
-  "NOP": {
-    "Point Guard": [
-      "CJ McCollum",
-      "Jose Alvarado",
-      [
-        "Devonte' Graham",
-        "Kira Lewis Jr.",
-        "Dyson Daniels",
-        "Garrett Temple"
-      ]
-    ],
-    "Shooting Guard": [
-      "Brandon Ingram",
-      "Trey Murphy III",
-      [
-        "Devonte' Graham",
-        "Dyson Daniels",
-        "Garrett Temple",
-        "CJ McCollum",
-        "Kira Lewis Jr.",
-        "Herbert Jones",
-        "Dereon Seabron"
-      ]
-    ],
-    "Small Forward": [
-      "Herbert Jones",
-      "Dyson Daniels",
-      [
-        "Trey Murphy III",
-        "Naji Marshall",
-        "Garrett Temple",
-        "Brandon Ingram",
-        "Dereon Seabron"
-      ]
-    ],
-    "Power Forward": [
-      "Zion Williamson",
-      "Naji Marshall",
-      [
-        "Larry Nance Jr.",
-        "Herbert Jones",
-        "Jaxson Hayes",
-        "Brandon Ingram",
-        "Trey Murphy III",
-        "E.J. Liddell"
-      ]
-    ],
-    "Center": [
-      "Jonas Valanciunas",
-      "Larry Nance Jr.",
-      [
-        "Jaxson Hayes",
-        "Willy Hernangomez",
-        "Zion Williamson",
-        "Herbert Jones"
-      ]
-    ]
-  },
-  "SAS": {
-    "Point Guard": [
-      "Tre Jones",
-      "Josh Richardson",
-      [
-        "Blake Wesley"
-      ]
-    ],
-    "Shooting Guard": [
-      "Devin Vassell",
-      "Doug McDermott",
-      [
-        "Josh Richardson",
-        "Malaki Branham",
-        "Romeo Langford",
-        "Blake Wesley"
-      ]
-    ],
-    "Small Forward": [
-      "Keldon Johnson",
-      "Romeo Langford",
-      [
-        "Doug McDermott",
-        "Devin Vassell",
-        "Keita Bates-Diop",
-        "Josh Richardson",
-        "Malaki Branham",
-        "Dominick Barlow"
-      ]
-    ],
-    "Power Forward": [
-      "Jeremy Sochan",
-      "Keita Bates-Diop",
-      [
-        "Isaiah Roby",
-        "Doug McDermott",
-        "Keldon Johnson",
-        "Alize Johnson",
-        "Zach Collins",
-        "Devin Vassell",
-        "Dominick Barlow"
-      ]
-    ],
-    "Center": [
-      "Jakob Poeltl",
-      "Zach Collins",
-      [
-        "Charles Bassey",
-        "Gorgui Dieng",
-        "Isaiah Roby",
-        "Alize Johnson",
-        "Jeremy Sochan"
-      ]
-    ]
-  }
+    "BOS": {
+        "Point Guard": [
+            "Marcus Smart",
+            "Malcolm Brogdon",
+            [
+                "Payton Pritchard",
+                "Derrick White",
+                "JD Davison"
+            ]
+        ],
+        "Shooting Guard": [
+            "Jaylen Brown",
+            "Derrick White",
+            [
+                "Malcolm Brogdon",
+                "Marcus Smart",
+                "Justin Jackson",
+                "JD Davison"
+            ]
+        ],
+        "Small Forward": [
+            "Jayson Tatum",
+            "Jaylen Brown",
+            [
+                "Sam Hauser",
+                "Grant Williams",
+                "Marcus Smart",
+                "Justin Jackson",
+                "Danilo Gallinari"
+            ]
+        ],
+        "Power Forward": [
+            "Grant Williams",
+            "Sam Hauser",
+            [
+                "Jayson Tatum",
+                "Al Horford",
+                "Luke Kornet",
+                "Noah Vonleh",
+                "Blake Griffin",
+                "Mfiondu Kabengele",
+                "Danilo Gallinari"
+            ]
+        ],
+        "Center": [
+            "Al Horford",
+            "Robert Williams III",
+            [
+                "Luke Kornet",
+                "Blake Griffin",
+                "Noah Vonleh",
+                "Grant Williams",
+                "Mfiondu Kabengele"
+            ]
+        ]
+    },
+    "BKN": {
+        "Point Guard": [
+            "Kyrie Irving",
+            "Edmond Sumner",
+            [
+                "Patty Mills",
+                "Cam Thomas",
+                "Ben Simmons",
+                "Seth Curry",
+                "Alondes Williams",
+                "David Duke Jr."
+            ]
+        ],
+        "Shooting Guard": [
+            "Royce O'Neale",
+            "Seth Curry",
+            [
+                "Joe Harris",
+                "Cam Thomas",
+                "Patty Mills",
+                "Edmond Sumner",
+                "David Duke Jr.",
+                "T.J. Warren",
+                "Alondes Williams"
+            ]
+        ],
+        "Small Forward": [
+            "Kevin Durant",
+            "Joe Harris",
+            [
+                "T.J. Warren",
+                "Yuta Watanabe",
+                "Royce O'Neale",
+                "Edmond Sumner",
+                "Cam Thomas",
+                "Kessler Edwards",
+                "Seth Curry",
+                "Patty Mills",
+                "David Duke Jr."
+            ]
+        ],
+        "Power Forward": [
+            "Ben Simmons",
+            "T.J. Warren",
+            [
+                "Yuta Watanabe",
+                "Kevin Durant",
+                "Markieff Morris",
+                "Royce O'Neale",
+                "Kessler Edwards"
+            ]
+        ],
+        "Center": [
+            "Nic Claxton",
+            "Ben Simmons",
+            [
+                "Day'Ron Sharpe",
+                "Markieff Morris",
+                "Kevin Durant"
+            ]
+        ]
+    },
+    "NYK": {
+        "Point Guard": [
+            "Jalen Brunson",
+            "Miles McBride",
+            [
+                "Derrick Rose",
+                "Immanuel Quickley",
+                "Ryan Arcidiacono",
+                "Quentin Grimes"
+            ]
+        ],
+        "Shooting Guard": [
+            "Quentin Grimes",
+            "Immanuel Quickley",
+            [
+                "Miles McBride",
+                "Cam Reddish",
+                "Derrick Rose",
+                "Evan Fournier",
+                "Ryan Arcidiacono",
+                "Svi Mykhailiuk",
+                "RJ Barrett",
+                "Trevor Keels",
+                "DaQuan Jeffries"
+            ]
+        ],
+        "Small Forward": [
+            "RJ Barrett",
+            "Cam Reddish",
+            [
+                "Quentin Grimes",
+                "Evan Fournier",
+                "Svi Mykhailiuk",
+                "Trevor Keels",
+                "DaQuan Jeffries"
+            ]
+        ],
+        "Power Forward": [
+            "Julius Randle",
+            "Obi Toppin",
+            [
+                "Jericho Sims",
+                "Cam Reddish",
+                "RJ Barrett"
+            ]
+        ],
+        "Center": [
+            "Mitchell Robinson",
+            "Isaiah Hartenstein",
+            [
+                "Jericho Sims",
+                "Obi Toppin",
+                "Julius Randle"
+            ]
+        ]
+    },
+    "PHI": {
+        "Point Guard": [
+            "Tyrese Maxey",
+            "Shake Milton",
+            [
+                "James Harden",
+                "De'Anthony Melton",
+                "Saben Lee"
+            ]
+        ],
+        "Shooting Guard": [
+            "James Harden",
+            "De'Anthony Melton",
+            [
+                "Furkan Korkmaz",
+                "Matisse Thybulle",
+                "Shake Milton",
+                "Danuel House Jr.",
+                "Tyrese Maxey",
+                "Jaden Springer",
+                "Julian Champagnie",
+                "Saben Lee"
+            ]
+        ],
+        "Small Forward": [
+            "Tobias Harris",
+            "Danuel House Jr.",
+            [
+                "Matisse Thybulle",
+                "Furkan Korkmaz",
+                "P.J. Tucker",
+                "Georges Niang",
+                "Julian Champagnie"
+            ]
+        ],
+        "Power Forward": [
+            "P.J. Tucker",
+            "Georges Niang",
+            [
+                "Tobias Harris",
+                "Danuel House Jr.",
+                "Paul Reed",
+                "Matisse Thybulle"
+            ]
+        ],
+        "Center": [
+            "Joel Embiid",
+            "Paul Reed",
+            [
+                "Montrezl Harrell",
+                "P.J. Tucker"
+            ]
+        ]
+    },
+    "TOR": {
+        "Point Guard": [
+            "Fred VanVleet",
+            "Dalano Banton",
+            [
+                "Malachi Flynn",
+                "Scottie Barnes",
+                "Jeff Dowtin Jr."
+            ]
+        ],
+        "Shooting Guard": [
+            "OG Anunoby",
+            "Gary Trent Jr.",
+            [
+                "Dalano Banton",
+                "Malachi Flynn",
+                "Fred VanVleet",
+                "Jeff Dowtin Jr.",
+                "Ron Harper Jr."
+            ]
+        ],
+        "Small Forward": [
+            "Scottie Barnes",
+            "Otto Porter Jr.",
+            [
+                "Juancho Hernangomez",
+                "OG Anunoby",
+                "Gary Trent Jr.",
+                "Justin Champagnie",
+                "Thaddeus Young",
+                "Ron Harper Jr."
+            ]
+        ],
+        "Power Forward": [
+            "Pascal Siakam",
+            "Chris Boucher",
+            [
+                "Juancho Hernangomez",
+                "Scottie Barnes",
+                "Otto Porter Jr.",
+                "Justin Champagnie",
+                "OG Anunoby",
+                "Thaddeus Young",
+                "Ron Harper Jr.",
+                "Precious Achiuwa"
+            ]
+        ],
+        "Center": [
+            "Christian Koloko",
+            "Thaddeus Young",
+            [
+                "Pascal Siakam",
+                "Khem Birch",
+                "Chris Boucher",
+                "OG Anunoby",
+                "Precious Achiuwa"
+            ]
+        ]
+    },
+    "CHI": {
+        "Point Guard": [
+            "Alex Caruso",
+            "Ayo Dosunmu",
+            [
+                "Goran Dragi\u0107",
+                "Coby White",
+                "Carlik Jones",
+                "Lonzo Ball"
+            ]
+        ],
+        "Shooting Guard": [
+            "Zach LaVine",
+            "Coby White",
+            [
+                "Goran Dragi\u0107",
+                "Alex Caruso",
+                "Ayo Dosunmu",
+                "Dalen Terry",
+                "Javonte Green",
+                "DeMar DeRozan",
+                "Malcolm Hill",
+                "Carlik Jones"
+            ]
+        ],
+        "Small Forward": [
+            "DeMar DeRozan",
+            "Javonte Green",
+            [
+                "Patrick Williams",
+                "Derrick Jones Jr.",
+                "Zach LaVine",
+                "Dalen Terry",
+                "Malcolm Hill"
+            ]
+        ],
+        "Power Forward": [
+            "Patrick Williams",
+            "Derrick Jones Jr.",
+            [
+                "Javonte Green",
+                "DeMar DeRozan",
+                "Marko Simonovi\u0107"
+            ]
+        ],
+        "Center": [
+            "Nikola Vu\u010devi\u0107",
+            "Andre Drummond",
+            [
+                "Derrick Jones Jr.",
+                "Tony Bradley",
+                "Marko Simonovi\u0107"
+            ]
+        ]
+    },
+    "CLE": {
+        "Point Guard": [
+            "Darius Garland",
+            "Donovan Mitchell",
+            [
+                "Raul Neto",
+                "Caris LeVert",
+                "Cedi Osman",
+                "Ricky Rubio"
+            ]
+        ],
+        "Shooting Guard": [
+            "Donovan Mitchell",
+            "Caris LeVert",
+            [
+                "Isaac Okoro",
+                "Cedi Osman",
+                "Raul Neto",
+                "Darius Garland",
+                "Dylan Windler"
+            ]
+        ],
+        "Small Forward": [
+            "Lamar Stevens",
+            "Caris LeVert",
+            [
+                "Cedi Osman",
+                "Isaac Okoro",
+                "Mamadi Diakite",
+                "Dean Wade",
+                "Dylan Windler"
+            ]
+        ],
+        "Power Forward": [
+            "Evan Mobley",
+            "Cedi Osman",
+            [
+                "Kevin Love",
+                "Mamadi Diakite",
+                "Lamar Stevens",
+                "Isaac Okoro",
+                "Isaiah Mobley",
+                "Dean Wade"
+            ]
+        ],
+        "Center": [
+            "Jarrett Allen",
+            "Kevin Love",
+            [
+                "Evan Mobley",
+                "Robin Lopez",
+                "Mamadi Diakite",
+                "Isaiah Mobley",
+                "Dean Wade"
+            ]
+        ]
+    },
+    "DET": {
+        "Point Guard": [
+            "Killian Hayes",
+            "Cory Joseph",
+            [
+                "Alec Burks",
+                "Jaden Ivey",
+                "Cade Cunningham"
+            ]
+        ],
+        "Shooting Guard": [
+            "Jaden Ivey",
+            "Alec Burks",
+            [
+                "Rodney McGruder",
+                "Hamidou Diallo",
+                "Cory Joseph",
+                "Buddy Boeheim",
+                "Cade Cunningham"
+            ]
+        ],
+        "Small Forward": [
+            "Bojan Bogdanovi\u0107",
+            "Saddiq Bey",
+            [
+                "Hamidou Diallo",
+                "Rodney McGruder",
+                "Kevin Knox II",
+                "Braxton Key",
+                "Buddy Boeheim",
+                "Isaiah Livers"
+            ]
+        ],
+        "Power Forward": [
+            "Isaiah Stewart",
+            "Kevin Knox II",
+            [
+                "Bojan Bogdanovi\u0107",
+                "Saddiq Bey",
+                "Marvin Bagley III",
+                "Braxton Key",
+                "Isaiah Livers"
+            ]
+        ],
+        "Center": [
+            "Jalen Duren",
+            "Marvin Bagley III",
+            [
+                "Nerlens Noel",
+                "Isaiah Stewart"
+            ]
+        ]
+    },
+    "IND": {
+        "Point Guard": [
+            "Tyrese Haliburton",
+            "T.J. McConnell",
+            [
+                "Andrew Nembhard",
+                "Trevelin Queen",
+                "Chris Duarte"
+            ]
+        ],
+        "Shooting Guard": [
+            "Andrew Nembhard",
+            "Bennedict Mathurin",
+            [
+                "Buddy Hield",
+                "Aaron Nesmith",
+                "Tyrese Haliburton",
+                "Kendall Brown",
+                "Trevelin Queen",
+                "Chris Duarte"
+            ]
+        ],
+        "Small Forward": [
+            "Buddy Hield",
+            "Aaron Nesmith",
+            [
+                "Bennedict Mathurin",
+                "Oshae Brissett",
+                "Terry Taylor",
+                "Kendall Brown",
+                "Chris Duarte"
+            ]
+        ],
+        "Power Forward": [
+            "Aaron Nesmith",
+            "Oshae Brissett",
+            [
+                "Jalen Smith",
+                "Isaiah Jackson",
+                "James Johnson",
+                "Terry Taylor",
+                "Daniel Theis"
+            ]
+        ],
+        "Center": [
+            "Myles Turner",
+            "Jalen Smith",
+            [
+                "Isaiah Jackson",
+                "Goga Bitadze",
+                "Terry Taylor",
+                "James Johnson",
+                "Oshae Brissett",
+                "Daniel Theis"
+            ]
+        ]
+    },
+    "MIL": {
+        "Point Guard": [
+            "Jrue Holiday",
+            "George Hill",
+            [
+                "Jevon Carter",
+                "Grayson Allen",
+                "A.J. Green"
+            ]
+        ],
+        "Shooting Guard": [
+            "Grayson Allen",
+            "Jevon Carter",
+            [
+                "Pat Connaughton",
+                "Wesley Matthews",
+                "George Hill",
+                "Joe Ingles",
+                "Khris Middleton",
+                "Jrue Holiday",
+                "MarJon Beauchamp",
+                "A.J. Green"
+            ]
+        ],
+        "Small Forward": [
+            "Khris Middleton",
+            "Pat Connaughton",
+            [
+                "Joe Ingles",
+                "Wesley Matthews",
+                "Grayson Allen",
+                "Jordan Nwora",
+                "MarJon Beauchamp",
+                "Giannis Antetokounmpo",
+                "Thanasis Antetokounmpo"
+            ]
+        ],
+        "Power Forward": [
+            "Giannis Antetokounmpo",
+            "Bobby Portis",
+            [
+                "Joe Ingles",
+                "Jordan Nwora",
+                "Thanasis Antetokounmpo",
+                "Serge Ibaka",
+                "Pat Connaughton",
+                "Sandro Mamukelashvili"
+            ]
+        ],
+        "Center": [
+            "Brook Lopez",
+            "Bobby Portis",
+            [
+                "Serge Ibaka",
+                "Giannis Antetokounmpo",
+                "Sandro Mamukelashvili"
+            ]
+        ]
+    },
+    "ATL": {
+        "Point Guard": [
+            "Trae Young",
+            "Aaron Holiday",
+            [
+                "Dejounte Murray",
+                "Vit Krejci",
+                "Bogdan Bogdanovi\u0107",
+                "Trent Forrest"
+            ]
+        ],
+        "Shooting Guard": [
+            "Dejounte Murray",
+            "Bogdan Bogdanovi\u0107",
+            [
+                "Trent Forrest",
+                "Aaron Holiday",
+                "Justin Holiday",
+                "Jarrett Culver",
+                "AJ Griffin",
+                "Vit Krejci",
+                "Tyrese Martin"
+            ]
+        ],
+        "Small Forward": [
+            "De'Andre Hunter",
+            "AJ Griffin",
+            [
+                "Trent Forrest",
+                "Bogdan Bogdanovi\u0107",
+                "Justin Holiday",
+                "Jarrett Culver",
+                "Jalen Johnson",
+                "Tyrese Martin"
+            ]
+        ],
+        "Power Forward": [
+            "John Collins",
+            "Jalen Johnson",
+            [
+                "De'Andre Hunter",
+                "Justin Holiday",
+                "Jarrett Culver",
+                "Frank Kaminsky",
+                "Onyeka Okongwu"
+            ]
+        ],
+        "Center": [
+            "Clint Capela",
+            "Onyeka Okongwu",
+            [
+                "Frank Kaminsky",
+                "John Collins"
+            ]
+        ]
+    },
+    "CHA": {
+        "Point Guard": [
+            "LaMelo Ball",
+            "Dennis Smith Jr.",
+            [
+                "Theo Maledon",
+                "Terry Rozier",
+                "James Bouknight",
+                "Cody Martin"
+            ]
+        ],
+        "Shooting Guard": [
+            "Terry Rozier",
+            "Bryce McGowens",
+            [
+                "Kelly Oubre Jr.",
+                "James Bouknight",
+                "Cody Martin"
+            ]
+        ],
+        "Small Forward": [
+            "Gordon Hayward",
+            "Kelly Oubre Jr.",
+            [
+                "Jalen McDaniels",
+                "Terry Rozier",
+                "Bryce McGowens",
+                "Cody Martin"
+            ]
+        ],
+        "Power Forward": [
+            "P.J. Washington",
+            "Kai Jones",
+            [
+                "Jalen McDaniels",
+                "Gordon Hayward",
+                "JT Thor",
+                "Kelly Oubre Jr."
+            ]
+        ],
+        "Center": [
+            "Mason Plumlee",
+            "Nick Richards",
+            [
+                "Mark Williams",
+                "Kai Jones",
+                "P.J. Washington"
+            ]
+        ]
+    },
+    "MIA": {
+        "Point Guard": [
+            "Kyle Lowry",
+            "Gabe Vincent",
+            [
+                "Victor Oladipo",
+                "Tyler Herro"
+            ]
+        ],
+        "Shooting Guard": [
+            "Tyler Herro",
+            "Victor Oladipo",
+            [
+                "Gabe Vincent",
+                "Max Strus",
+                "Duncan Robinson",
+                "Caleb Martin",
+                "Jamal Cain"
+            ]
+        ],
+        "Small Forward": [
+            "Caleb Martin",
+            "Max Strus",
+            [
+                "Haywood Highsmith",
+                "Duncan Robinson",
+                "Jimmy Butler",
+                "Tyler Herro",
+                "Victor Oladipo",
+                "Jamal Cain"
+            ]
+        ],
+        "Power Forward": [
+            "Jimmy Butler",
+            "Duncan Robinson",
+            [
+                "Haywood Highsmith",
+                "Max Strus",
+                "Caleb Martin",
+                "Nikola Jovi\u0107",
+                "Jamal Cain",
+                "Orlando Robinson"
+            ]
+        ],
+        "Center": [
+            "Bam Adebayo",
+            "Dewayne Dedmon",
+            [
+                "Orlando Robinson",
+                "Udonis Haslem",
+                "Nikola Jovi\u0107",
+                "Omer Yurtseven"
+            ]
+        ]
+    },
+    "ORL": {
+        "Point Guard": [
+            "Jalen Suggs",
+            "Markelle Fultz",
+            [
+                "Cole Anthony",
+                "R.J. Hampton"
+            ]
+        ],
+        "Shooting Guard": [
+            "Franz Wagner",
+            "Cole Anthony",
+            [
+                "Terrence Ross",
+                "Jalen Suggs",
+                "Gary Harris",
+                "Kevon Harris",
+                "R.J. Hampton"
+            ]
+        ],
+        "Small Forward": [
+            "Paolo Banchero",
+            "Gary Harris",
+            [
+                "Terrence Ross",
+                "Chuma Okeke",
+                "Franz Wagner",
+                "Caleb Houstan",
+                "Bol Bol",
+                "Kevon Harris",
+                "Admiral Schofield",
+                "Jonathan Isaac"
+            ]
+        ],
+        "Power Forward": [
+            "Bol Bol",
+            "Chuma Okeke",
+            [
+                "Moritz Wagner",
+                "Paolo Banchero",
+                "Caleb Houstan",
+                "Admiral Schofield",
+                "Franz Wagner",
+                "Wendell Carter Jr.",
+                "Jonathan Isaac"
+            ]
+        ],
+        "Center": [
+            "Wendell Carter Jr.",
+            "Moritz Wagner",
+            [
+                "Mo Bamba",
+                "Bol Bol",
+                "Chuma Okeke",
+                "Jonathan Isaac"
+            ]
+        ]
+    },
+    "WAS": {
+        "Point Guard": [
+            "Monte Morris",
+            "Jordan Goodwin",
+            [
+                "Devon Dotson",
+                "Johnny Davis",
+                "Bradley Beal",
+                "Delon Wright"
+            ]
+        ],
+        "Shooting Guard": [
+            "Bradley Beal",
+            "Corey Kispert",
+            [
+                "Will Barton",
+                "Jordan Goodwin",
+                "Johnny Davis",
+                "Deni Avdija",
+                "Delon Wright"
+            ]
+        ],
+        "Small Forward": [
+            "Deni Avdija",
+            "Will Barton",
+            [
+                "Anthony Gill",
+                "Corey Kispert",
+                "Kyle Kuzma",
+                "Rui Hachimura",
+                "Johnny Davis",
+                "Bradley Beal"
+            ]
+        ],
+        "Power Forward": [
+            "Kyle Kuzma",
+            "Rui Hachimura",
+            [
+                "Anthony Gill",
+                "Deni Avdija",
+                "Kristaps Porzingis",
+                "Isaiah Todd"
+            ]
+        ],
+        "Center": [
+            "Kristaps Porzingis",
+            "Daniel Gafford",
+            [
+                "Taj Gibson",
+                "Vernon Carey Jr.",
+                "Isaiah Todd",
+                "Kyle Kuzma",
+                "Rui Hachimura"
+            ]
+        ]
+    },
+    "DEN": {
+        "Point Guard": [
+            "Jamal Murray",
+            "Bones Hyland",
+            [
+                "Ish Smith",
+                "Bruce Brown",
+                "Collin Gillespie"
+            ]
+        ],
+        "Shooting Guard": [
+            "Kentavious Caldwell-Pope",
+            "Christian Braun",
+            [
+                "Bones Hyland",
+                "Bruce Brown",
+                "Davon Reed",
+                "Jamal Murray",
+                "Peyton Watson"
+            ]
+        ],
+        "Small Forward": [
+            "Michael Porter Jr.",
+            "Bruce Brown",
+            [
+                "Vlatko \u010can\u010dar",
+                "Davon Reed",
+                "Christian Braun",
+                "Aaron Gordon",
+                "Jeff Green",
+                "Kentavious Caldwell-Pope",
+                "Peyton Watson",
+                "Jack White"
+            ]
+        ],
+        "Power Forward": [
+            "Aaron Gordon",
+            "Jeff Green",
+            [
+                "Vlatko \u010can\u010dar",
+                "Bruce Brown",
+                "Zeke Nnaji",
+                "Michael Porter Jr.",
+                "Jack White"
+            ]
+        ],
+        "Center": [
+            "Nikola Joki\u0107",
+            "DeAndre Jordan",
+            [
+                "Zeke Nnaji",
+                "Jeff Green"
+            ]
+        ]
+    },
+    "MIN": {
+        "Point Guard": [
+            "D'Angelo Russell",
+            "Jordan McLaughlin",
+            [
+                "Austin Rivers",
+                "Jaylen Nowell",
+                "Bryn Forbes",
+                "Anthony Edwards"
+            ]
+        ],
+        "Shooting Guard": [
+            "Anthony Edwards",
+            "Jaylen Nowell",
+            [
+                "Austin Rivers",
+                "Bryn Forbes",
+                "D'Angelo Russell",
+                "Wendell Moore Jr.",
+                "Josh Minott",
+                "Matt Ryan"
+            ]
+        ],
+        "Small Forward": [
+            "Jaden McDaniels",
+            "Taurean Prince",
+            [
+                "Kyle Anderson",
+                "Anthony Edwards",
+                "Wendell Moore Jr.",
+                "Matt Ryan",
+                "Josh Minott"
+            ]
+        ],
+        "Power Forward": [
+            "Karl-Anthony Towns",
+            "Kyle Anderson",
+            [
+                "Taurean Prince",
+                "Jaden McDaniels",
+                "Naz Reid",
+                "Anthony Edwards"
+            ]
+        ],
+        "Center": [
+            "Rudy Gobert",
+            "Karl-Anthony Towns",
+            [
+                "Naz Reid",
+                "Nathan Knight",
+                "Luka Garza"
+            ]
+        ]
+    },
+    "OKC": {
+        "Point Guard": [
+            "Shai Gilgeous-Alexander",
+            "Tre Mann",
+            [
+                "Josh Giddey"
+            ]
+        ],
+        "Shooting Guard": [
+            "Josh Giddey",
+            "Isaiah Joe",
+            [
+                "Aaron Wiggins",
+                "Tre Mann",
+                "Jalen Williams",
+                "Lindy Waters III",
+                "Luguentz Dort",
+                "Shai Gilgeous-Alexander",
+                "Ousmane Dieng"
+            ]
+        ],
+        "Small Forward": [
+            "Luguentz Dort",
+            "Kenrich Williams",
+            [
+                "Jalen Williams",
+                "Aaron Wiggins",
+                "Eugene Omoruyi",
+                "Lindy Waters III",
+                "Aleksej Pokusevski",
+                "Darius Bazley",
+                "Josh Giddey",
+                "Ousmane Dieng"
+            ]
+        ],
+        "Power Forward": [
+            "Jalen Williams",
+            "Aleksej Pokusevski",
+            [
+                "Darius Bazley",
+                "Kenrich Williams",
+                "Eugene Omoruyi",
+                "Luguentz Dort",
+                "Jeremiah Robinson-Earl",
+                "Jaylin Williams",
+                "Chet Holmgren"
+            ]
+        ],
+        "Center": [
+            "Jeremiah Robinson-Earl",
+            "Darius Bazley",
+            [
+                "Mike Muscala",
+                "Aleksej Pokusevski",
+                "Jaylin Williams",
+                "Chet Holmgren"
+            ]
+        ]
+    },
+    "POR": {
+        "Point Guard": [
+            "Damian Lillard",
+            "Shaedon Sharpe",
+            [
+                "Anfernee Simons",
+                "Gary Payton II"
+            ]
+        ],
+        "Shooting Guard": [
+            "Anfernee Simons",
+            "Keon Johnson",
+            [
+                "Shaedon Sharpe",
+                "Josh Hart",
+                "Gary Payton II"
+            ]
+        ],
+        "Small Forward": [
+            "Josh Hart",
+            "Justise Winslow",
+            [
+                "Keon Johnson",
+                "Jerami Grant",
+                "Greg Brown III",
+                "Gary Payton II",
+                "Nassir Little"
+            ]
+        ],
+        "Power Forward": [
+            "Jerami Grant",
+            "Trendon Watford",
+            [
+                "Justise Winslow",
+                "Josh Hart",
+                "Greg Brown III",
+                "Jabari Walker",
+                "John Butler Jr.",
+                "Drew Eubanks",
+                "Nassir Little"
+            ]
+        ],
+        "Center": [
+            "Jusuf Nurki\u0107",
+            "Drew Eubanks",
+            [
+                "Justise Winslow",
+                "Trendon Watford",
+                "Greg Brown III",
+                "John Butler Jr.",
+                "Ibou Badji",
+                "Jerami Grant"
+            ]
+        ]
+    },
+    "UTA": {
+        "Point Guard": [
+            "Mike Conley",
+            "Collin Sexton",
+            [
+                "Jordan Clarkson",
+                "Nickeil Alexander-Walker",
+                "Leandro Bolmaro"
+            ]
+        ],
+        "Shooting Guard": [
+            "Jordan Clarkson",
+            "Malik Beasley",
+            [
+                "Collin Sexton",
+                "Nickeil Alexander-Walker",
+                "Talen Horton-Tucker",
+                "Ochai Agbaji",
+                "Leandro Bolmaro",
+                "Johnny Juzang"
+            ]
+        ],
+        "Small Forward": [
+            "Lauri Markkanen",
+            "Simone Fontecchio",
+            [
+                "Talen Horton-Tucker",
+                "Malik Beasley",
+                "Rudy Gay",
+                "Ochai Agbaji",
+                "Leandro Bolmaro",
+                "Johnny Juzang"
+            ]
+        ],
+        "Power Forward": [
+            "Jarred Vanderbilt",
+            "Rudy Gay",
+            [
+                "Kelly Olynyk",
+                "Lauri Markkanen",
+                "Simone Fontecchio"
+            ]
+        ],
+        "Center": [
+            "Kelly Olynyk",
+            "Walker Kessler",
+            [
+                "Jarred Vanderbilt",
+                "Udoka Azubuike",
+                "Rudy Gay",
+                "Micah Potter"
+            ]
+        ]
+    },
+    "GSW": {
+        "Point Guard": [
+            "Stephen Curry",
+            "Donte DiVincenzo",
+            [
+                "Jordan Poole",
+                "Ryan Rollins",
+                "Ty Jerome"
+            ]
+        ],
+        "Shooting Guard": [
+            "Klay Thompson",
+            "Jordan Poole",
+            [
+                "Donte DiVincenzo",
+                "Moses Moody",
+                "Andrew Wiggins",
+                "Ty Jerome",
+                "Ryan Rollins",
+                "Andre Iguodala"
+            ]
+        ],
+        "Small Forward": [
+            "Andrew Wiggins",
+            "Anthony Lamb",
+            [
+                "Moses Moody",
+                "Donte DiVincenzo",
+                "Jonathan Kuminga",
+                "Klay Thompson",
+                "Jordan Poole",
+                "Patrick Baldwin Jr.",
+                "Andre Iguodala"
+            ]
+        ],
+        "Power Forward": [
+            "Draymond Green",
+            "Jonathan Kuminga",
+            [
+                "Anthony Lamb",
+                "Andrew Wiggins",
+                "JaMychal Green",
+                "Patrick Baldwin Jr.",
+                "Andre Iguodala"
+            ]
+        ],
+        "Center": [
+            "Kevon Looney",
+            "JaMychal Green",
+            [
+                "Jonathan Kuminga",
+                "James Wiseman",
+                "Draymond Green"
+            ]
+        ]
+    },
+    "LAC": {
+        "Point Guard": [
+            "Reggie Jackson",
+            "John Wall",
+            [
+                "Terance Mann",
+                "Jason Preston",
+                "Brandon Boston",
+                "Norman Powell",
+                "Luke Kennard"
+            ]
+        ],
+        "Shooting Guard": [
+            "Paul George",
+            "Luke Kennard",
+            [
+                "Terance Mann",
+                "Norman Powell",
+                "Amir Coffey",
+                "Jason Preston",
+                "Reggie Jackson",
+                "Brandon Boston"
+            ]
+        ],
+        "Small Forward": [
+            "Kawhi Leonard",
+            "Norman Powell",
+            [
+                "Paul George",
+                "Terance Mann",
+                "Luke Kennard",
+                "Robert Covington",
+                "Marcus Morris Sr.",
+                "Amir Coffey",
+                "Nicolas Batum",
+                "Brandon Boston"
+            ]
+        ],
+        "Power Forward": [
+            "Marcus Morris Sr.",
+            "Nicolas Batum",
+            [
+                "Kawhi Leonard",
+                "Robert Covington",
+                "Moussa Diabate",
+                "Amir Coffey",
+                "Terance Mann",
+                "Paul George"
+            ]
+        ],
+        "Center": [
+            "Ivica Zubac",
+            "Robert Covington",
+            [
+                "Moses Brown",
+                "Nicolas Batum",
+                "Moussa Diabate"
+            ]
+        ]
+    },
+    "LAL": {
+        "Point Guard": [
+            "Dennis Schr\u00f6der",
+            "Russell Westbrook",
+            [
+                "Patrick Beverley",
+                "Kendrick Nunn",
+                "Austin Reaves",
+                "LeBron James",
+                "Scotty Pippen Jr."
+            ]
+        ],
+        "Shooting Guard": [
+            "Patrick Beverley",
+            "Austin Reaves",
+            [
+                "Lonnie Walker IV",
+                "Kendrick Nunn",
+                "Dennis Schr\u00f6der",
+                "Troy Brown Jr.",
+                "Max Christie"
+            ]
+        ],
+        "Small Forward": [
+            "Lonnie Walker IV",
+            "Troy Brown Jr.",
+            [
+                "Austin Reaves",
+                "LeBron James",
+                "Juan Toscano-Anderson",
+                "Wenyen Gabriel",
+                "Max Christie",
+                "Cole Swider"
+            ]
+        ],
+        "Power Forward": [
+            "LeBron James",
+            "Wenyen Gabriel",
+            [
+                "Juan Toscano-Anderson",
+                "Troy Brown Jr.",
+                "Anthony Davis",
+                "Thomas Bryant",
+                "Cole Swider"
+            ]
+        ],
+        "Center": [
+            "Anthony Davis",
+            "Thomas Bryant",
+            [
+                "Wenyen Gabriel",
+                "Damian Jones",
+                "LeBron James"
+            ]
+        ]
+    },
+    "PHX": {
+        "Point Guard": [
+            "Chris Paul",
+            "Cameron Payne",
+            [
+                "Devin Booker",
+                "Duane Washington Jr.",
+                "Damion Lee"
+            ]
+        ],
+        "Shooting Guard": [
+            "Devin Booker",
+            "Landry Shamet",
+            [
+                "Duane Washington Jr.",
+                "Damion Lee",
+                "Josh Okogie",
+                "Cameron Payne",
+                "Mikal Bridges"
+            ]
+        ],
+        "Small Forward": [
+            "Mikal Bridges",
+            "Damion Lee",
+            [
+                "Josh Okogie",
+                "Landry Shamet",
+                "Ish Wainright",
+                "Torrey Craig",
+                "Cameron Johnson",
+                "Jae Crowder"
+            ]
+        ],
+        "Power Forward": [
+            "Torrey Craig",
+            "Josh Okogie",
+            [
+                "Ish Wainright",
+                "Dario \u0160ari\u0107",
+                "Cameron Johnson",
+                "Jae Crowder"
+            ]
+        ],
+        "Center": [
+            "Deandre Ayton",
+            "Jock Landale",
+            [
+                "Bismack Biyombo",
+                "Torrey Craig",
+                "Dario \u0160ari\u0107",
+                "Ish Wainright"
+            ]
+        ]
+    },
+    "SAC": {
+        "Point Guard": [
+            "De'Aaron Fox",
+            "Davion Mitchell",
+            [
+                "Matthew Dellavedova",
+                "Malik Monk"
+            ]
+        ],
+        "Shooting Guard": [
+            "Kevin Huerter",
+            "Malik Monk",
+            [
+                "Terence Davis",
+                "Davion Mitchell",
+                "Keon Ellis",
+                "Matthew Dellavedova"
+            ]
+        ],
+        "Small Forward": [
+            "Harrison Barnes",
+            "Terence Davis",
+            [
+                "Kevin Huerter",
+                "Keegan Murray",
+                "KZ Okpala",
+                "Keon Ellis"
+            ]
+        ],
+        "Power Forward": [
+            "Keegan Murray",
+            "Trey Lyles",
+            [
+                "KZ Okpala",
+                "Harrison Barnes",
+                "Terence Davis",
+                "Chima Moneke",
+                "Chimezie Metu",
+                "Domantas Sabonis"
+            ]
+        ],
+        "Center": [
+            "Domantas Sabonis",
+            "Chimezie Metu",
+            [
+                "Richaun Holmes",
+                "Trey Lyles",
+                "Alex Len",
+                "Neemias Queta"
+            ]
+        ]
+    },
+    "DAL": {
+        "Point Guard": [
+            "Luka Don\u010di\u0107",
+            "Kemba Walker",
+            [
+                "Spencer Dinwiddie",
+                "Frank Ntilikina",
+                "Jaden Hardy",
+                "Tyler Dorsey",
+                "McKinley Wright IV"
+            ]
+        ],
+        "Shooting Guard": [
+            "Spencer Dinwiddie",
+            "Reggie Bullock",
+            [
+                "Frank Ntilikina",
+                "Tim Hardaway Jr.",
+                "Jaden Hardy",
+                "Theo Pinson",
+                "Tyler Dorsey",
+                "Josh Green",
+                "Luka Don\u010di\u0107"
+            ]
+        ],
+        "Small Forward": [
+            "Tim Hardaway Jr.",
+            "Josh Green",
+            [
+                "Reggie Bullock",
+                "Dorian Finney-Smith",
+                "Davis Bert\u0101ns",
+                "Spencer Dinwiddie",
+                "Theo Pinson"
+            ]
+        ],
+        "Power Forward": [
+            "Dorian Finney-Smith",
+            "Davis Bert\u0101ns",
+            [
+                "Reggie Bullock",
+                "Christian Wood",
+                "Maxi Kleber"
+            ]
+        ],
+        "Center": [
+            "Dwight Powell",
+            "Christian Wood",
+            [
+                "JaVale McGee",
+                "Maxi Kleber"
+            ]
+        ]
+    },
+    "HOU": {
+        "Point Guard": [
+            "Kevin Porter Jr.",
+            "Daishen Nix",
+            [
+                "Josh Christopher",
+                "Jalen Green",
+                "TyTy Washington Jr.",
+                "Trevor Hudgins"
+            ]
+        ],
+        "Shooting Guard": [
+            "Jalen Green",
+            "Garrison Mathews",
+            [
+                "Josh Christopher",
+                "Daishen Nix",
+                "Eric Gordon",
+                "Kevin Porter Jr.",
+                "Jae'Sean Tate"
+            ]
+        ],
+        "Small Forward": [
+            "Eric Gordon",
+            "Kenyon Martin Jr.",
+            [
+                "Jae'Sean Tate",
+                "Garrison Mathews",
+                "Tari Eason",
+                "Josh Christopher"
+            ]
+        ],
+        "Power Forward": [
+            "Jabari Smith Jr.",
+            "Tari Eason",
+            [
+                "Kenyon Martin Jr.",
+                "Jae'Sean Tate",
+                "Usman Garuba",
+                "Bruno Fernando",
+                "Alperen Sengun",
+                "Darius Days"
+            ]
+        ],
+        "Center": [
+            "Alperen Sengun",
+            "Bruno Fernando",
+            [
+                "Usman Garuba",
+                "Jabari Smith Jr.",
+                "Boban Marjanovi\u0107",
+                "Tari Eason",
+                "Kenyon Martin Jr.",
+                "Darius Days"
+            ]
+        ]
+    },
+    "MEM": {
+        "Point Guard": [
+            "Ja Morant",
+            "Tyus Jones",
+            [
+                "Kennedy Chandler",
+                "John Konchar"
+            ]
+        ],
+        "Shooting Guard": [
+            "Dillon Brooks",
+            "David Roddy",
+            [
+                "John Konchar",
+                "Ziaire Williams",
+                "Vince Williams Jr.",
+                "Desmond Bane",
+                "Danny Green"
+            ]
+        ],
+        "Small Forward": [
+            "John Konchar",
+            "Ziaire Williams",
+            [
+                "Jake LaRavia",
+                "David Roddy",
+                "Dillon Brooks",
+                "Vince Williams Jr.",
+                "Desmond Bane",
+                "Danny Green"
+            ]
+        ],
+        "Power Forward": [
+            "Jaren Jackson Jr.",
+            "Santi Aldama",
+            [
+                "Jake LaRavia",
+                "Brandon Clarke",
+                "Xavier Tillman",
+                "David Roddy",
+                "Kenneth Lofton Jr.",
+                "Ziaire Williams"
+            ]
+        ],
+        "Center": [
+            "Steven Adams",
+            "Brandon Clarke",
+            [
+                "Xavier Tillman",
+                "Jaren Jackson Jr.",
+                "Santi Aldama",
+                "Kenneth Lofton Jr."
+            ]
+        ]
+    },
+    "NOP": {
+        "Point Guard": [
+            "CJ McCollum",
+            "Jose Alvarado",
+            [
+                "Devonte' Graham",
+                "Kira Lewis Jr.",
+                "Dyson Daniels",
+                "Garrett Temple"
+            ]
+        ],
+        "Shooting Guard": [
+            "Brandon Ingram",
+            "Trey Murphy III",
+            [
+                "Devonte' Graham",
+                "Dyson Daniels",
+                "CJ McCollum",
+                "Kira Lewis Jr.",
+                "Garrett Temple",
+                "Herbert Jones",
+                "Dereon Seabron"
+            ]
+        ],
+        "Small Forward": [
+            "Herbert Jones",
+            "Dyson Daniels",
+            [
+                "Trey Murphy III",
+                "Naji Marshall",
+                "Garrett Temple",
+                "Brandon Ingram",
+                "Dereon Seabron"
+            ]
+        ],
+        "Power Forward": [
+            "Zion Williamson",
+            "Naji Marshall",
+            [
+                "Larry Nance Jr.",
+                "Herbert Jones",
+                "Jaxson Hayes",
+                "Brandon Ingram",
+                "Trey Murphy III",
+                "E.J. Liddell"
+            ]
+        ],
+        "Center": [
+            "Jonas Valanciunas",
+            "Larry Nance Jr.",
+            [
+                "Jaxson Hayes",
+                "Willy Hernangomez",
+                "Zion Williamson",
+                "Herbert Jones"
+            ]
+        ]
+    },
+    "SAS": {
+        "Point Guard": [
+            "Tre Jones",
+            "Josh Richardson",
+            [
+                "Blake Wesley"
+            ]
+        ],
+        "Shooting Guard": [
+            "Romeo Langford",
+            "Devin Vassell",
+            [
+                "Josh Richardson",
+                "Doug McDermott",
+                "Malaki Branham",
+                "Blake Wesley"
+            ]
+        ],
+        "Small Forward": [
+            "Keldon Johnson",
+            "Doug McDermott",
+            [
+                "Romeo Langford",
+                "Devin Vassell",
+                "Josh Richardson",
+                "Keita Bates-Diop",
+                "Malaki Branham",
+                "Dominick Barlow"
+            ]
+        ],
+        "Power Forward": [
+            "Jeremy Sochan",
+            "Keita Bates-Diop",
+            [
+                "Isaiah Roby",
+                "Doug McDermott",
+                "Keldon Johnson",
+                "Zach Collins",
+                "Devin Vassell",
+                "Dominick Barlow"
+            ]
+        ],
+        "Center": [
+            "Jakob Poeltl",
+            "Zach Collins",
+            [
+                "Charles Bassey",
+                "Gorgui Dieng",
+                "Isaiah Roby",
+                "Jeremy Sochan"
+            ]
+        ]
+    }
 }

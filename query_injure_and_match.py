@@ -110,7 +110,7 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
                 (today + timedelta(days=i + offset + 1)).strftime("%Y%m%d")
             )
     else:  # lower week
-        offset = -1 if weekday == 0 else 7 - weekday
+        offset = -1 if weekday == 0 else 6 - weekday
         next_days.append((today + timedelta(days=offset)).strftime("%Y%m%d"))
         for i in range(4):
             next_days.append(

@@ -68,9 +68,9 @@ rare_champion: Tournaments = {
     "tenGameAverageTotalLimit": 120,
     "allowMVP": True,
     "allowedConference": None,
-    "allowedRarities": [CardRarity.limited, CardRarity.rare],
+    "allowedRarities": [CardRarity.rare],
     "minRarity": {
-        "minCount": 3,
+        "minCount": 5,
         "rarity": CardRarity.rare,
     },
     "target": 250,
@@ -81,9 +81,9 @@ rare_contender: Tournaments = {
     "tenGameAverageTotalLimit": 110,
     "allowMVP": False,
     "allowedConference": None,
-    "allowedRarities": [CardRarity.limited, CardRarity.rare],
+    "allowedRarities": [CardRarity.rare],
     "minRarity": {
-        "minCount": 3,
+        "minCount": 5,
         "rarity": CardRarity.rare,
     },
     "target": 175,
@@ -94,9 +94,9 @@ super_rare_contender: Tournaments = {
     "tenGameAverageTotalLimit": 110,
     "allowMVP": False,
     "allowedConference": None,
-    "allowedRarities": [CardRarity.rare, CardRarity.super_rare],
+    "allowedRarities": [CardRarity.super_rare],
     "minRarity": {
-        "minCount": 3,
+        "minCount": 5,
         "rarity": CardRarity.super_rare,
     },
     "target": 180,
@@ -107,9 +107,9 @@ super_rare_champion: Tournaments = {
     "tenGameAverageTotalLimit": 120,
     "allowMVP": True,
     "allowedConference": None,
-    "allowedRarities": [CardRarity.rare, CardRarity.super_rare],
+    "allowedRarities": [CardRarity.super_rare],
     "minRarity": {
-        "minCount": 3,
+        "minCount": 5,
         "rarity": CardRarity.super_rare,
     },
     "target": 255,
@@ -236,7 +236,9 @@ blacklist_cards: list[str] = [
     # "ca553b45-5402-4541-a032-a6578da8c200",  # Eugene Omoruyi
 ]  # 设置不会被选中的id，重复卡建议设置
 
-blacklist_players: list[str] = ["Duncan Robinson"]  # 把不查询的球员放在这里，只对recommend模式有效
+blacklist_players: list[str] = [
+    "Kemba Walker",
+]  # 把不查询的球员放在这里，只对recommend模式有效
 
 suggest_cards: dict[str, dict[str, str]] = {
     "common_champion": {},
@@ -249,12 +251,12 @@ suggest_cards: dict[str, dict[str, str]] = {
         # "da82a46b-3265-4861-958f-5d13da220269": "Bruce Brown",
         # "306c2ecf-5fd3-4fc8-8bce-521d48705c57": "Nic Claxton",
         # "c8f7be3b-884c-4ba6-83c5-3a4ec08cb279": "Kentavious Caldwell-Pope",
+        # "a3c70a48-c949-42e2-8c3c-8424679d6bcf": "Andre Drummond",
         # "3b9c8713-2e0d-4fcc-89e5-2c3c892e24e8": "Trendon Watford",
+        # "48072d8e-ea46-4d4b-8bec-d613916aa991": "Trae Young",
+        # "ca553b45-5402-4541-a032-a6578da8c200": "Eugene Omoruyi",
     },
-    "rare_contender": {
-        # "a936c841-4039-4a09-82af-3b4e80b691fb": "Marcus Smart",
-        # "5df4f5e8-7e52-4ee4-96a0-3cffafca2a02": "Buddy Hield",
-    },
+    "rare_contender": {},
     "limited_contender": {},
     "super_rare_champion": {},
     "rare_champion": {
