@@ -12,6 +12,20 @@ query NBACardsByIdsQuery($input: NBACardsInput!) {
         tenGameAverage
         status {
           statusIconType
+          gameStats {
+            detailedStats {
+              points
+              rebounds
+              assists
+              blocks
+              steals
+              turnovers
+              made3PointFGs
+              doubleDoubles
+              tripleDoubles
+              minutes
+            }
+          }
         }
       }
       team {

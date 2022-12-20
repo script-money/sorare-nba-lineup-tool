@@ -63,6 +63,30 @@ common_no_cap: Tournaments = {
     "target": 285,
 }
 
+season_of_giving: Tournaments = {
+    "name": "season_of_giving",
+    "tenGameAverageTotalLimit": 0,
+    "allowMVP": False,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.common],
+    "minRarity": None,
+    "target": 380,
+    "multiplier": {
+        "rebounds": 2,
+        "assists": 2,
+    },
+}
+
+deck_the_halls: Tournaments = {
+    "name": "deck_the_halls",
+    "tenGameAverageTotalLimit": 120,
+    "allowMVP": True,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.limited, CardRarity.rare, CardRarity.super_rare],
+    "minRarity": None,
+    "target": 250,
+}
+
 rare_champion: Tournaments = {
     "name": "rare_champion",
     "tenGameAverageTotalLimit": 120,
@@ -208,12 +232,14 @@ suggestion_count: int = 10
 probability_reach_target: float = 0.03  # 从有该概率达到目标分数的结果中排序
 
 all_tournaments: list[Tournaments] = [
+    # season_of_giving,
     # common_champion,
     # common_contender,
     # common_underdog,
     # common_western_conference,
     # common_eastern_conference,
     # common_no_cap,
+    # deck_the_halls,
     # super_rare_contender,
     # rare_contender,
     # rare_champion,

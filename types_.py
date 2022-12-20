@@ -1,4 +1,4 @@
-from typing import TypedDict
+from typing import TypedDict, NotRequired
 from enum import Enum
 from statistics import NormalDist
 
@@ -44,8 +44,26 @@ class NBAGame(TypedDict):
     awayScore: int
 
 
+class DetailedStat(TypedDict):
+    points: int
+    rebounds: int
+    assists: int
+    blocks: int
+    steals: int
+    turnovers: int
+    made3PointFGs: int
+    doubleDoubles: int
+    tripleDoubles: int
+    minutes: str
+
+
+class DetailedStats(TypedDict):
+    detailedStats: DetailedStat
+
+
 class NBAPlayerInFixtureStatus(TypedDict):
     statusIconType: str
+    gameStats: list[DetailedStats]
 
 
 class NBAPlayerInFixture(TypedDict):
@@ -83,6 +101,7 @@ class Tournaments(TypedDict):
     allowedRarities: list[CardRarity]
     minRarity: LeaderboardRulesMinimumRarityRequirement | None
     target: int
+    multiplier: NotRequired[dict[str, float]]
 
 
 class Match(TypedDict):
