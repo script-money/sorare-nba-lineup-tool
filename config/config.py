@@ -63,6 +63,28 @@ common_no_cap: Tournaments = {
     "target": 285,
 }
 
+common_all_defense: Tournaments = {
+    "name": "common_all_defense",
+    "tenGameAverageTotalLimit": 120,
+    "allowMVP": True,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.common],
+    "minRarity": None,
+    "target": 150,
+    "multiplier": {
+        "points": 0,
+        "blocks": 1,
+        "rebounds": 1,
+        "steals": 1,
+        "assists": 0,
+        "turnovers": 0,
+        "made3PointFGs": 0,
+        "doubleDoubles": 0,
+        "tripleDoubles": 0,
+    },
+}
+
+
 season_of_giving: Tournaments = {
     "name": "season_of_giving",
     "tenGameAverageTotalLimit": 0,
@@ -217,6 +239,27 @@ limited_eastern_conference: Tournaments = {
     "target": 200,
 }
 
+limited_all_offense: Tournaments = {
+    "name": "limited_all_offense",
+    "tenGameAverageTotalLimit": 120,
+    "allowMVP": True,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.limited],
+    "minRarity": None,
+    "target": 220,
+    "multiplier": {
+        "points": 1,
+        "blocks": 0,
+        "rebounds": 1,
+        "steals": 0,
+        "assists": 1,
+        "turnovers": 0,
+        "made3PointFGs": 1,
+        "doubleDoubles": 1,
+        "tripleDoubles": 1,
+    },
+}
+
 
 # 球员表现和评分差异服从正态分布，mu是该分布的均值，例如球员评分30，mu=0.1，则表现的期望均值是33
 # 下面设置的mu加成（或削减）都是经验值，不保证100%准确，可以自己微调
@@ -228,23 +271,25 @@ mu_of_home_b2b: float = -0.01  # 主场打背靠背表现变化率均值的扣�
 mu_of_away_b2b: float = -0.02  # 客场打背靠背表现变化率均值的扣减
 mu_of_single_game_bonus: float = -0.2  # 只打单场表现变化率均值的扣减
 mu_of_multiple_games_bonus: float = 0.15  # 打3场及以上的比赛的表现变化率均值的加成
-suggestion_count: int = 10
-probability_reach_target: float = 0.03  # 从有该概率达到目标分数的结果中排序
+suggestion_count: int = 3
+probability_reach_target: float = 0.01  # 从有该概率达到目标分数的结果中排序
 
 all_tournaments: list[Tournaments] = [
-    # season_of_giving,
     # common_champion,
+    # season_of_giving,
     # common_contender,
     # common_underdog,
     # common_western_conference,
     # common_eastern_conference,
     # common_no_cap,
-    # deck_the_halls,
+    # common_all_defense,
     # super_rare_contender,
-    # rare_contender,
     # rare_champion,
+    # rare_contender,
     # limited_champion,
     # limited_contender,
+    # limited_all_offense,
+    # deck_the_halls,
     # super_rare_champion,
     # limited_western_conference,
     # limited_eastern_conference,
@@ -291,7 +336,7 @@ suggest_cards: dict[str, dict[str, str]] = {
     },
     "limited_champion": {
         # "10c74499-37d5-4170-a952-3401588a3f8a": "Nikola Joki\u0107",
-        # "93b7eca8-f70e-4720-bbac-3a9ccff3f970": "Jayson Tatum",
+        # "6f93a513-5031-4e36-8e06-f922dc00ea3b": "Jayson Tatum",
         # "7ff1a297-9236-4ca5-8295-a7a2b45dd7a1": "Russell Westbrook",
     },
     "limited_western_conference": {},

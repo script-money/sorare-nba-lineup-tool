@@ -179,8 +179,7 @@
             "Shake Milton",
             [
                 "James Harden",
-                "De'Anthony Melton",
-                "Saben Lee"
+                "De'Anthony Melton"
             ]
         ],
         "Shooting Guard": [
@@ -193,8 +192,7 @@
                 "Danuel House Jr.",
                 "Tyrese Maxey",
                 "Jaden Springer",
-                "Julian Champagnie",
-                "Saben Lee"
+                "Julian Champagnie"
             ]
         ],
         "Small Forward": [
@@ -241,8 +239,8 @@
             "OG Anunoby",
             "Gary Trent Jr.",
             [
-                "Dalano Banton",
                 "Malachi Flynn",
+                "Dalano Banton",
                 "Fred VanVleet",
                 "Scottie Barnes",
                 "Jeff Dowtin Jr.",
@@ -253,20 +251,20 @@
             "Scottie Barnes",
             "Otto Porter Jr.",
             [
-                "Juancho Hernangomez",
-                "OG Anunoby",
                 "Gary Trent Jr.",
+                "OG Anunoby",
+                "Juancho Hernangomez",
                 "Justin Champagnie",
                 "Thaddeus Young",
                 "Ron Harper Jr."
             ]
         ],
         "Power Forward": [
-            "Pascal Siakam",
+            "Juancho Hernangomez",
             "Chris Boucher",
             [
-                "Juancho Hernangomez",
                 "Scottie Barnes",
+                "Pascal Siakam",
                 "Otto Porter Jr.",
                 "Justin Champagnie",
                 "OG Anunoby",
@@ -276,10 +274,10 @@
             ]
         ],
         "Center": [
-            "Christian Koloko",
+            "Pascal Siakam",
             "Thaddeus Young",
             [
-                "Pascal Siakam",
+                "Christian Koloko",
                 "Khem Birch",
                 "Chris Boucher",
                 "OG Anunoby",
@@ -366,10 +364,10 @@
         ],
         "Small Forward": [
             "Lamar Stevens",
-            "Caris LeVert",
+            "Isaac Okoro",
             [
+                "Caris LeVert",
                 "Cedi Osman",
-                "Isaac Okoro",
                 "Mamadi Diakite",
                 "Dean Wade",
                 "Dylan Windler"
@@ -427,7 +425,6 @@
                 "Hamidou Diallo",
                 "Rodney McGruder",
                 "Kevin Knox II",
-                "Braxton Key",
                 "Buddy Boeheim",
                 "Isaiah Livers"
             ]
@@ -439,7 +436,6 @@
                 "Bojan Bogdanovi\u0107",
                 "Saddiq Bey",
                 "Marvin Bagley III",
-                "Braxton Key",
                 "Isaiah Livers"
             ]
         ],
@@ -512,9 +508,9 @@
     "MIL": {
         "Point Guard": [
             "Jrue Holiday",
-            "George Hill",
+            "Jevon Carter",
             [
-                "Jevon Carter",
+                "George Hill",
                 "Grayson Allen",
                 "A.J. Green"
             ]
@@ -619,8 +615,8 @@
             "Clint Capela",
             "Onyeka Okongwu",
             [
-                "Frank Kaminsky",
-                "John Collins"
+                "John Collins",
+                "Frank Kaminsky"
             ]
         ]
     },
@@ -637,18 +633,19 @@
         ],
         "Shooting Guard": [
             "Terry Rozier",
-            "Bryce McGowens",
+            "Kelly Oubre Jr.",
             [
-                "Kelly Oubre Jr.",
+                "Bryce McGowens",
+                "Theo Maledon",
                 "James Bouknight",
                 "Cody Martin"
             ]
         ],
         "Small Forward": [
             "Gordon Hayward",
-            "Kelly Oubre Jr.",
+            "Jalen McDaniels",
             [
-                "Jalen McDaniels",
+                "Kelly Oubre Jr.",
                 "Terry Rozier",
                 "Bryce McGowens",
                 "Cody Martin"
@@ -754,26 +751,26 @@
             "Terrence Ross",
             [
                 "Gary Harris",
-                "Chuma Okeke",
                 "Franz Wagner",
                 "Kevon Harris",
                 "Caleb Houstan",
                 "Bol Bol",
                 "Admiral Schofield",
-                "Jonathan Isaac"
+                "Jonathan Isaac",
+                "Chuma Okeke"
             ]
         ],
         "Power Forward": [
             "Bol Bol",
-            "Chuma Okeke",
+            "Admiral Schofield",
             [
-                "Admiral Schofield",
                 "Paolo Banchero",
                 "Moritz Wagner",
                 "Caleb Houstan",
                 "Franz Wagner",
                 "Wendell Carter Jr.",
-                "Jonathan Isaac"
+                "Jonathan Isaac",
+                "Chuma Okeke"
             ]
         ],
         "Center": [
@@ -790,12 +787,12 @@
     "WAS": {
         "Point Guard": [
             "Monte Morris",
-            "Jordan Goodwin",
+            "Delon Wright",
             [
+                "Jordan Goodwin",
                 "Devon Dotson",
                 "Johnny Davis",
-                "Bradley Beal",
-                "Delon Wright"
+                "Bradley Beal"
             ]
         ],
         "Shooting Guard": [
@@ -905,8 +902,8 @@
             [
                 "Austin Rivers",
                 "Jaylen Nowell",
-                "Bryn Forbes",
-                "Anthony Edwards"
+                "Anthony Edwards",
+                "Bryn Forbes"
             ]
         ],
         "Shooting Guard": [
@@ -976,9 +973,9 @@
         ],
         "Small Forward": [
             "Luguentz Dort",
-            "Kenrich Williams",
+            "Aaron Wiggins",
             [
-                "Aaron Wiggins",
+                "Kenrich Williams",
                 "Jalen Williams",
                 "Eugene Omoruyi",
                 "Lindy Waters III",
@@ -990,10 +987,10 @@
         ],
         "Power Forward": [
             "Jalen Williams",
-            "Aleksej Pokusevski",
+            "Kenrich Williams",
             [
                 "Darius Bazley",
-                "Kenrich Williams",
+                "Aleksej Pokusevski",
                 "Eugene Omoruyi",
                 "Luguentz Dort",
                 "Jeremiah Robinson-Earl",
@@ -1003,10 +1000,10 @@
         ],
         "Center": [
             "Jeremiah Robinson-Earl",
-            "Darius Bazley",
+            "Aleksej Pokusevski",
             [
                 "Mike Muscala",
-                "Aleksej Pokusevski",
+                "Darius Bazley",
                 "Jaylin Williams",
                 "Chet Holmgren"
             ]
@@ -1274,9 +1271,9 @@
         ],
         "Power Forward": [
             "LeBron James",
-            "Wenyen Gabriel",
+            "Juan Toscano-Anderson",
             [
-                "Juan Toscano-Anderson",
+                "Wenyen Gabriel",
                 "Troy Brown Jr.",
                 "Thomas Bryant",
                 "Cole Swider",
@@ -1390,12 +1387,12 @@
         ],
         "Center": [
             "Domantas Sabonis",
-            "Chimezie Metu",
+            "Richaun Holmes",
             [
-                "Richaun Holmes",
+                "Neemias Queta",
+                "Chimezie Metu",
                 "Trey Lyles",
-                "Alex Len",
-                "Neemias Queta"
+                "Alex Len"
             ]
         ]
     },
@@ -1407,7 +1404,6 @@
                 "Spencer Dinwiddie",
                 "Frank Ntilikina",
                 "Jaden Hardy",
-                "Tyler Dorsey",
                 "McKinley Wright IV"
             ]
         ],
@@ -1419,7 +1415,6 @@
                 "Tim Hardaway Jr.",
                 "Jaden Hardy",
                 "Theo Pinson",
-                "Tyler Dorsey",
                 "Josh Green",
                 "Luka Don\u010di\u0107"
             ]
@@ -1445,8 +1440,8 @@
             ]
         ],
         "Center": [
-            "Dwight Powell",
             "Christian Wood",
+            "Dwight Powell",
             [
                 "JaVale McGee",
                 "Maxi Kleber"
@@ -1520,25 +1515,25 @@
             ]
         ],
         "Shooting Guard": [
-            "Dillon Brooks",
-            "David Roddy",
+            "Desmond Bane",
+            "John Konchar",
             [
-                "John Konchar",
+                "David Roddy",
+                "Dillon Brooks",
                 "Ziaire Williams",
                 "Vince Williams Jr.",
-                "Desmond Bane",
                 "Danny Green"
             ]
         ],
         "Small Forward": [
-            "John Konchar",
+            "Dillon Brooks",
             "Ziaire Williams",
             [
+                "John Konchar",
                 "Jake LaRavia",
-                "David Roddy",
-                "Dillon Brooks",
-                "Vince Williams Jr.",
                 "Desmond Bane",
+                "David Roddy",
+                "Vince Williams Jr.",
                 "Danny Green"
             ]
         ],
@@ -1626,39 +1621,42 @@
     "SAS": {
         "Point Guard": [
             "Tre Jones",
-            "Blake Wesley",
+            "Josh Richardson",
             [
-                "Josh Richardson"
+                "Blake Wesley"
             ]
         ],
         "Shooting Guard": [
-            "Romeo Langford",
             "Devin Vassell",
+            "Romeo Langford",
             [
+                "Malaki Branham",
                 "Josh Richardson",
                 "Doug McDermott",
-                "Malaki Branham",
-                "Blake Wesley"
+                "Blake Wesley",
+                "Stanley Johnson"
             ]
         ],
         "Small Forward": [
             "Keldon Johnson",
-            "Josh Richardson",
+            "Doug McDermott",
             [
-                "Doug McDermott",
+                "Josh Richardson",
                 "Devin Vassell",
-                "Romeo Langford",
-                "Keita Bates-Diop",
                 "Malaki Branham",
+                "Romeo Langford",
+                "Stanley Johnson",
+                "Keita Bates-Diop",
                 "Dominick Barlow"
             ]
         ],
         "Power Forward": [
+            "Keita Bates-Diop",
             "Jeremy Sochan",
-            "Doug McDermott",
             [
-                "Keita Bates-Diop",
                 "Isaiah Roby",
+                "Doug McDermott",
+                "Stanley Johnson",
                 "Keldon Johnson",
                 "Zach Collins",
                 "Devin Vassell",
