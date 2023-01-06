@@ -277,6 +277,7 @@ def get_all_card_dist(stats_ratio: dict[str, float] = {}) -> list[SelectCard]:
             card_dist: SelectCard = {
                 "name": player_name,
                 "average": player["tenGameAverage"],
+                "age": player["age"],
                 "rarity": None,
                 "expect": future_performance,
                 "team": player["team"]["fullName"],
@@ -302,6 +303,7 @@ def get_all_card_dist(stats_ratio: dict[str, float] = {}) -> list[SelectCard]:
             card_dist: SelectCard = {
                 "name": player_name,
                 "average": card["player"]["tenGameAverage"],
+                "age": card["player"]["age"],
                 "rarity": card["rarity"],
                 "expect": future_performance,
                 "team": card["player"]["team"]["fullName"],
@@ -324,7 +326,7 @@ if __name__ == "__main__":
 
     today: datetime = datetime.now(timezone("US/Eastern"))
     today_str: str = today.strftime("%Y-%m-%d")
-    # today_str = "2022-12-14"
+    # today_str = "2023-01-05"
 
     with open(f"data/cards-{today_str}.json", "r") as f:
         cards: list[NBACard] = json.load(f)
@@ -485,6 +487,22 @@ if __name__ == "__main__":
                         all_stats_dist_list,
                     )
                 )
+
+        if "veterans" in tournaments["name"]:
+            stats_dist_list = list(
+                filter(
+                    lambda c: c["age"] >= 30,
+                    stats_dist_list,
+                )
+            )
+
+        if "under_23" in tournaments["name"]:
+            stats_dist_list = list(
+                filter(
+                    lambda c: c["age"] <= 23,
+                    stats_dist_list,
+                )
+            )
 
         if is_recommend:
             card_pool: list[SelectCard] = list(

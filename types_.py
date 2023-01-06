@@ -75,6 +75,7 @@ class NBAPlayerInFixture(TypedDict):
 class NBAPlayer(TypedDict):
     displayName: str
     tenGameAverage: int
+    age: int
     positions: list[str]
     latestFinalFixtureStats: list[NBAPlayerInFixture]
     team: NBATeam
@@ -127,6 +128,7 @@ class Injure(TypedDict):
 class SelectCard(TypedDict):
     name: str
     average: int
+    age: int
     rarity: CardRarity | None
     expect: NormalDist
     team: str

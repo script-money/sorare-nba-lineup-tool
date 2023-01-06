@@ -104,6 +104,16 @@ common_all_defense: Tournaments = {
     },
 }
 
+common_veterans: Tournaments = {
+    "name": "common_veterans",
+    "tenGameAverageTotalLimit": 120,
+    "allowMVP": True,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.common],
+    "minRarity": None,
+    "target": 230,
+}
+
 
 season_of_giving: Tournaments = {
     "name": "season_of_giving",
@@ -287,7 +297,7 @@ limited_all_defense: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.limited],
     "minRarity": None,
-    "target": 150,
+    "target": 120,
     "multiplier": {
         "points": 0,
         "blocks": 1,
@@ -301,6 +311,15 @@ limited_all_defense: Tournaments = {
     },
 }
 
+limited_under_23: Tournaments = {
+    "name": "limited_under_23",
+    "tenGameAverageTotalLimit": 120,
+    "allowMVP": True,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.limited],
+    "minRarity": None,
+    "target": 220,
+}
 
 # Player performance a normal distribution, mu is the average value of the distribution, for example, player rating 30, mu = 0.1, then the expected average value of performance is 33
 # The mu additions (or reductions) set below are empirical values and are not guaranteed to be 100% accurate, so you can fine-tune them yourself
@@ -339,13 +358,15 @@ all_tournaments: list[Tournaments] = [
     # common_no_cap,
     # common_all_offense,
     # common_all_defense,
+    # common_veterans,
     # super_rare_contender,
     # rare_champion,
     # rare_contender,
+    # limited_all_defense,
     # limited_champion,
     # limited_contender,
     # limited_all_offense,
-    # limited_all_defense,
+    # limited_under_23,
     # deck_the_halls,
     # super_rare_champion,
     # limited_western_conference,
