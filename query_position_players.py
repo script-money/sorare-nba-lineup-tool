@@ -59,5 +59,5 @@ for abridge, full_name in source_team_names.items():
 
 # save all_players to json file
 with open(f"data/player_positions.json", "w") as f:
-    json.dump(all_players, f)
+    json.dump(all_players, f, indent=4)
     print("players position saved in data folder")

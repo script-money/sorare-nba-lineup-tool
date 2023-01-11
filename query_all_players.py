@@ -51,7 +51,7 @@ async def main():
         today_str: str = today.strftime("%Y-%m-%d")
 
         with open(f"data/all-players-data-{today_str}.json", "w") as f:
-            json.dump(all_cards_info, f)
+            json.dump(all_cards_info, f, indent=4)
             print("all player slug saved in data folder")
 
 

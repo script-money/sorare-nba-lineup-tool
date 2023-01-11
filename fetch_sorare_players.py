@@ -38,7 +38,7 @@ async def main():
             print(f"query {team} done")
 
     with open("data/all_players_in_sorare.json", "w") as f:
-        json.dump(players_in_team, f)
+        json.dump(players_in_team, f, indent=4)
         print("all players in sorare data saved in data folder")
 
 

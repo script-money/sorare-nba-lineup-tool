@@ -88,7 +88,7 @@ def get_injure_data():
     today = datetime.now(timezone("US/Eastern"))
     today_str = today.strftime("%Y-%m-%d")
     with open(f"data/injure-{today_str}.json", "w") as f:
-        json.dump(injured_data, f)
+        json.dump(injured_data, f, indent=4)
         print("injure saved in data folder")
 
     return injured_data
@@ -178,7 +178,7 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
     for match in matches_mark_b2b:
         match_output_json.append(match.__dict__())
     with open(f"data/next-week-{today_str}.json", "w") as f:
-        json.dump(match_output_json, f)
+        json.dump(match_output_json, f, indent=4)
         print("next week matches saved in data folder")
     return matches_mark_b2b
 
@@ -210,7 +210,7 @@ def get_team_rank():
     today = datetime.now(timezone("US/Eastern"))
     today_str = today.strftime("%Y-%m-%d")
     with open(f"data/team-rank-{today_str}.json", "w") as f:
-        json.dump(teams, f)
+        json.dump(teams, f, indent=4)
         print("team rank saved in data folder")
     return teams
 

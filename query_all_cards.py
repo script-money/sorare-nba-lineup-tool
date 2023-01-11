@@ -40,7 +40,7 @@ async def main():
         today = datetime.now(timezone("US/Eastern"))
         today_str = today.strftime("%Y-%m-%d")
         with open(f"data/cards-{today_str}.json", "w") as f:
-            json.dump(all_cards_info, f)
+            json.dump(all_cards_info, f, indent=4)
             print("cards data saved in data folder")
 
 
