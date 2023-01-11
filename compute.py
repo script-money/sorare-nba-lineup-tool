@@ -137,6 +137,7 @@ def predict(
             and last_game != PlayerInFixtureStatusIconType.did_not_play.value
         )
         and not has_ratio
+        and show_injure_detail
     ):  # 新受伤的球员
         print(
             f"『{player_name}』is out for the next game"
@@ -191,7 +192,7 @@ def predict(
             if is_main and len(next_chooses) != 0
             else ""
         )
-        if not has_ratio:
+        if not has_ratio and show_injure_detail:
             print(
                 f"『{player_name}』may not play in the next game, he has {next_matches} matches in next week"
                 + second_str
@@ -380,6 +381,17 @@ if __name__ == "__main__":
                 players,
             )
         )
+
+        if len(recommend_from_teams) != 0:
+            for team in recommend_from_teams:
+                assert team in source_team_names.keys(), f"{team} not valid team name"
+
+            avaliable_players: list[NBAPlayer] = list(
+                filter(
+                    lambda t: t["team"]["abbreviation"] in recommend_from_teams,
+                    avaliable_players,
+                )
+            )
 
     all_stats_dist_list: list[SelectCard] = []
 

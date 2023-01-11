@@ -367,6 +367,7 @@ mu_of_multiple_games_bonus: float = (
 )
 suggestion_count: int = 3  # Number of recommended results
 probability_reach_target: float = 0.01  # Sort from the results that have that probability of reaching the target score
+show_injure_detail = True
 
 all_tournaments: list[Tournaments] = [
     common_champion,
@@ -410,6 +411,12 @@ blacklist_cards: list[str] = [
 blacklist_players: list[str] = [
     "Kemba Walker",
 ]  # Putting players name who do not query here is only valid for recommand mode
+
+recommend_from_teams: list[str] = [
+    # "ATL",
+    # "DAL",
+    # "MEM",
+]  # if list is not empty, card recommend from those teams
 
 suggest_cards: dict[str, dict[str, str]] = {
     "common_champion": {},
