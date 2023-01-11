@@ -1,5 +1,5 @@
 import json
-from asyncio import Task, run, wait, create_task
+from asyncio import Task, run, create_task, gather
 
 from gql import Client, gql, client
 from gql.transport.aiohttp import AIOHTTPTransport
@@ -22,15 +22,10 @@ async def main():
         )
     ) as session:
         all_cards_info: list[NBAPlayer] = []
-        task_list: list[Task] = []
-        for team_slug in team_slugs:
-            task: Task = create_task(query_task(team_slug, session))
-            task_list.append(task)
+        tasks: list[Task[NBAPlayer]] = [create_task(query_task(s, session)) for s in team_slugs]  # type: ignore
+        await gather(*tasks)
 
-        done: set[Task[list[NBAPlayer]]] = (await wait(task_list, timeout=None))[0]
-
-        for future in done:
-            all_cards_info.extend(future.result())
+        all_cards_info.extend([task.result() for task in tasks])
 
         today: datetime = datetime.now(timezone("US/Eastern"))
         today_str: str = today.strftime("%Y-%m-%d")
