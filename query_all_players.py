@@ -1,6 +1,5 @@
 import json
-from asyncio import Task, run, create_task, gather, TaskGroup
-from typing import Iterable
+from asyncio import Task, run, TaskGroup
 
 from gql import Client, gql, client
 from gql.transport.aiohttp import AIOHTTPTransport
@@ -29,7 +28,7 @@ async def main():
                 g.create_task(query_task(s, session)) for s in team_slugs
             ]
 
-        all_cards_info.extend([task.result() for task in tasks])  # type: ignore
+        all_cards_info = [player for task in tasks for player in task.result()]
 
         today: datetime = datetime.now(timezone("US/Eastern"))
         today_str: str = today.strftime("%Y-%m-%d")
