@@ -89,6 +89,10 @@ class NBACard(TypedDict):
     rarity: CardRarity
 
 
+class NBACardsRes(TypedDict):
+    nbaCards: list[NBACard]
+
+
 class LeaderboardRulesMinimumRarityRequirement(TypedDict):
     minCount: int
     rarity: CardRarity
