@@ -111,7 +111,17 @@ common_veterans: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.common],
     "minRarity": None,
-    "target": 230,
+    "target": 220,
+}
+
+common_under_23: Tournaments = {
+    "name": "common_under_23",
+    "tenGameAverageTotalLimit": 120,
+    "allowMVP": True,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.common],
+    "minRarity": None,
+    "target": 220,
 }
 
 
@@ -321,6 +331,16 @@ limited_under_23: Tournaments = {
     "target": 220,
 }
 
+limited_veterans: Tournaments = {
+    "name": "limited_veterans",
+    "tenGameAverageTotalLimit": 120,
+    "allowMVP": True,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.limited],
+    "minRarity": None,
+    "target": 220,
+}
+
 # Player performance a normal distribution, mu is the average value of the distribution, for example, player rating 30, mu = 0.1, then the expected average value of performance is 33
 # The mu additions (or reductions) set below are empirical values and are not guaranteed to be 100% accurate, so you can fine-tune them yourself
 compute_by_recent_n_weeks_games: int = (
@@ -349,9 +369,9 @@ suggestion_count: int = 3  # Number of recommended results
 probability_reach_target: float = 0.01  # Sort from the results that have that probability of reaching the target score
 
 all_tournaments: list[Tournaments] = [
-    # common_champion,
+    common_champion,
     # season_of_giving,
-    # common_contender,
+    common_contender,
     # common_underdog,
     # common_western_conference,
     # common_eastern_conference,
@@ -359,16 +379,18 @@ all_tournaments: list[Tournaments] = [
     # common_all_offense,
     # common_all_defense,
     # common_veterans,
-    # super_rare_contender,
-    # rare_champion,
-    # rare_contender,
+    common_under_23,
+    super_rare_contender,
+    rare_champion,
+    rare_contender,
     # limited_all_defense,
-    # limited_champion,
-    # limited_contender,
-    # limited_all_offense,
+    limited_champion,
+    limited_contender,
     # limited_under_23,
+    limited_veterans,
+    # limited_all_offense,
     # deck_the_halls,
-    # super_rare_champion,
+    super_rare_champion,
     # limited_western_conference,
     # limited_eastern_conference,
     # limited_no_cap,
