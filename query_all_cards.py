@@ -1,4 +1,4 @@
-from asyncio import run, Task, create_task, wait
+from asyncio import run, Task, create_task, wait, TaskGroup
 import json
 
 from gql import Client, gql
@@ -32,19 +32,18 @@ async def main():
 
         variable = {"input": {"assetIds": [], "ids": card_ids}}
         all_cards_info: list[NBACard] = []
-        task_list: list[Task] = []
+        task_list: list[Task[NBACardsRes]] = []
 
         # split card_ids into multiple chunks every 50
-        for i in range(0, len(card_ids), 50):
-            variable["input"]["ids"] = card_ids[i : i + 50]
-            task: Task = create_task(session.execute(query, variable_values=variable))
-            task_list.append(task)
+        async with TaskGroup() as g:
+            for i in range(0, len(card_ids), 50):
+                variable["input"]["ids"] = card_ids[i : i + 50]
+                task: Task[NBACardsRes] = g.create_task(
+                    session.execute(query, variable_values=variable)
+                )  # type: ignore
+                task_list.append(task)
 
-        done: set[Task[NBACardsRes]] = (await wait(task_list, timeout=None))[0]
-
-        for future in done:
-            result: NBACardsRes = future.result()
-            all_cards_info += result["nbaCards"]
+        all_cards_info = [task.result()["nbaCards"] for task in task_list]  # type: ignore
 
         # save result as json to data, naming as date
         today = datetime.now(timezone("US/Eastern"))
