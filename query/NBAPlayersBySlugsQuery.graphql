@@ -3,6 +3,7 @@ query NBAPlayerQuery($input: [String!]) {
     displayName
     tenGameAverage
     positions
+    age
     latestFinalFixtureStats(last: 24) {
       score
       tenGameAverage
