@@ -584,7 +584,9 @@ if __name__ == "__main__":
                 possible_group.append(all_5_cards)
 
             if len(possible_group) == 0:
-                result_lines.append(f"{tournaments['name']} no possible lineup\n")
+                message = f"{tournaments['name']} no possible lineup\n"
+                print(message)
+                result_lines.append(message)
                 continue
 
             group_index_to_cdf: dict[int, float] = {}
