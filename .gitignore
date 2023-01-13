@@ -10,3 +10,4 @@ data/all-players-data-*.json
 data/*.txt
 config/NBACards.json
 experiment/
+.env

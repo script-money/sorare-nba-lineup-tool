@@ -17,6 +17,8 @@ lxml = "^4.9.1"
 numpy = "^1.23.5"
 pandas = "^1.5.2"
 scipy = "^1.9.3"
+bcrypt = "^4.0.1"
+python-dotenv = "^0.21.0"
 
 
 [tool.poetry.group.dev.dependencies]
