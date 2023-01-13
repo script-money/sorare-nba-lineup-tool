@@ -30,27 +30,32 @@ async def main():
 
     async with Client(transport=transport) as session:
 
-        variable = {"input": {"assetIds": [], "ids": card_ids}}
         all_cards_info: list[NBACard] = []
         task_list: list[Task[NBACardsRes]] = []
 
         # split card_ids into multiple chunks every 50
         async with TaskGroup() as g:
             for i in range(0, len(card_ids), 50):
-                variable["input"]["ids"] = card_ids[i : i + 50]
                 task: Task[NBACardsRes] = g.create_task(
-                    session.execute(query, variable_values=variable)
+                    session.execute(
+                        query,
+                        variable_values={
+                            "input": {"assetIds": [], "ids": card_ids[i : i + 50]}
+                        },
+                    )
                 )  # type: ignore
                 task_list.append(task)
 
-        all_cards_info = [task.result()["nbaCards"] for task in task_list]  # type: ignore
+        all_cards_info = [
+            card for task in task_list for card in task.result()["nbaCards"]
+        ]
 
         # save result as json to data, naming as date
         today = datetime.now(timezone("US/Eastern"))
         today_str = today.strftime("%Y-%m-%d")
         with open(f"data/cards-{today_str}.json", "w") as f:
-            json.dump(all_cards_info.pop(), f, indent=4)
-            print("cards data saved in data folder")
+            json.dump(all_cards_info, f, indent=4)
+            print(f"{len(all_cards_info)} cards data saved in data folder")
 
 
 run(main())
