@@ -367,7 +367,7 @@ mu_of_multiple_games_bonus: float = (
 )
 suggestion_count: int = 3  # Number of recommended results
 probability_reach_target: float = 0.01  # Sort from the results that have that probability of reaching the target score
-show_injure_detail = True
+show_injure_detail = False
 
 all_tournaments: list[Tournaments] = [
     common_champion,
@@ -380,18 +380,18 @@ all_tournaments: list[Tournaments] = [
     # common_all_offense,
     # common_all_defense,
     # common_veterans,
-    common_under_23,
-    super_rare_contender,
-    rare_champion,
-    rare_contender,
+    # common_under_23,
+    # super_rare_contender,
+    # rare_champion,
+    # rare_contender,
     # limited_all_defense,
-    limited_champion,
-    limited_contender,
+    # limited_champion,
+    # limited_contender,
     # limited_under_23,
-    limited_veterans,
+    # limited_veterans,
     # limited_all_offense,
     # deck_the_halls,
-    super_rare_champion,
+    # super_rare_champion,
     # limited_western_conference,
     # limited_eastern_conference,
     # limited_no_cap,

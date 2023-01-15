@@ -1,4 +1,4 @@
-from asyncio import run, Task, create_task, wait, TaskGroup
+from asyncio import run
 import json
 
 from gql import Client, gql
@@ -6,7 +6,7 @@ from gql.transport.aiohttp import AIOHTTPTransport
 from datetime import datetime
 from pytz import timezone
 
-from types_ import NBACard, NBACardsRes
+from types_ import NBACard, NBACardsInput
 
 with open("query/NBACardsByIdsQuery.graphql") as f:
     query = gql(f.read())
@@ -22,33 +22,27 @@ with open("config/NBACards.json") as f:
 
 
 async def main():
-
+    # token = os.getenv("JWT")
     transport: AIOHTTPTransport = AIOHTTPTransport(
         url="https://api.sorare.com/sports/graphql",
-        # headers = {"Authorization": "Bearer <TheUserAccessToken>"}
+        # headers={
+        #     "Authorization": f"Bearer {token}",
+        #     "JWT-AUD": "sorare-nba-lineup-tool",
+        # },
     )
 
-    async with Client(transport=transport) as session:
+    async with Client(transport=transport, execute_timeout=30) as session:
 
         all_cards_info: list[NBACard] = []
-        task_list: list[Task[NBACardsRes]] = []
 
-        # split card_ids into multiple chunks every 50
-        async with TaskGroup() as g:
-            for i in range(0, len(card_ids), 50):
-                task: Task[NBACardsRes] = g.create_task(
-                    session.execute(
-                        query,
-                        variable_values={
-                            "input": {"assetIds": [], "ids": card_ids[i : i + 50]}
-                        },
-                    )
-                )  # type: ignore
-                task_list.append(task)
-
-        all_cards_info = [
-            card for task in task_list for card in task.result()["nbaCards"]
-        ]
+        for i in range(0, len(card_ids), 50):
+            print("querying from", i, "to", min(len(card_ids), i + 50))
+            input: NBACardsInput = {"assetIds": [], "ids": card_ids[i : i + 50]}
+            result = await session.execute(
+                query,
+                variable_values={"input": input},
+            )
+            all_cards_info.extend(result["nbaCards"])
 
         # save result as json to data, naming as date
         today = datetime.now(timezone("US/Eastern"))

@@ -36,7 +36,9 @@ def show_opposite_team(team: str, matches: list[Match]) -> str:
     return info
 
 
-def player_is_main(player: str, team: str) -> tuple[bool, list[str]]:
+def player_is_main(player: str, team: str | None) -> tuple[bool, list[str]]:
+    if team is None:
+        return False, []
     with open("./data/player_positions.json", "r") as f:
         team_to_position: dict = json.load(f)
         players: dict[str, str | list[str]] = team_to_position[team]
@@ -107,7 +109,8 @@ def predict(
 ) -> NormalDist:
     has_ratio = stats_ratio != {}
     is_main, next_chooses = player_is_main(
-        player["displayName"], player["team"]["abbreviation"]
+        player["displayName"],
+        player["team"]["abbreviation"] if player["team"] is not None else None,
     )
     # next_chooses exclude players who are not main
     next_chooses = list(
@@ -147,7 +150,7 @@ def predict(
         )
 
     card_average: int = player["tenGameAverage"]
-    team: str = player["team"]["fullName"]
+    team: str | None = None if player["team"] is None else player["team"]["fullName"]
     if player_name in game_decision_players and (
         last_game == PlayerInFixtureStatusIconType.no_game.value
         or last_game == PlayerInFixtureStatusIconType.did_not_play.value
@@ -307,7 +310,9 @@ def get_all_card_dist(stats_ratio: dict[str, float] = {}) -> list[SelectCard]:
                 "age": card["player"]["age"],
                 "rarity": card["rarity"],
                 "expect": future_performance,
-                "team": card["player"]["team"]["fullName"],
+                "team": None
+                if card["player"]["team"] is None
+                else card["player"]["team"]["fullName"],
                 "id": card["id"],
             }
             all_stats_dist_list.append(card_dist)

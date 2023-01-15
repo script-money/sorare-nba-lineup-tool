@@ -1,5 +1,5 @@
 import json
-from asyncio import Task, run, TaskGroup
+from asyncio import run
 
 from gql import Client, gql, client
 from gql.transport.aiohttp import AIOHTTPTransport
@@ -23,12 +23,8 @@ async def main():
     ) as session:
         all_cards_info: list[NBAPlayer] = []
 
-        async with TaskGroup() as g:
-            tasks: list[Task[list[NBAPlayer]]] = [
-                g.create_task(query_task(s, session)) for s in team_slugs
-            ]
-
-        all_cards_info = [player for task in tasks for player in task.result()]
+        for team_slug in team_slugs:
+            await query_task(team_slug, session)
 
         today: datetime = datetime.now(timezone("US/Eastern"))
         today_str: str = today.strftime("%Y-%m-%d")
@@ -61,6 +57,7 @@ async def query_player_data_task(players_in_a_team, session: client.AsyncClientS
 
 
 async def query_task(team_slug, session: client.AsyncClientSession):
+    print(f"querying {team_slug}")
     players_in_a_team = await query_players_in_a_team_task(team_slug, session)
     playerDatas = await query_player_data_task(players_in_a_team, session)
     return playerDatas

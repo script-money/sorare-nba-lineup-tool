@@ -62,7 +62,6 @@
                 "Patty Mills",
                 "Cam Thomas",
                 "Ben Simmons",
-                "Alondes Williams",
                 "David Duke Jr."
             ]
         ],
@@ -74,8 +73,7 @@
                 "Cam Thomas",
                 "Patty Mills",
                 "Edmond Sumner",
-                "David Duke Jr.",
-                "Alondes Williams"
+                "David Duke Jr."
             ]
         ],
         "Small Forward": [
@@ -181,8 +179,8 @@
             ]
         ],
         "Shooting Guard": [
-            "De'Anthony Melton",
             "Tyrese Maxey",
+            "De'Anthony Melton",
             [
                 "Furkan Korkmaz",
                 "Matisse Thybulle",
@@ -198,8 +196,8 @@
             "Matisse Thybulle",
             [
                 "Danuel House Jr.",
-                "Furkan Korkmaz",
                 "De'Anthony Melton",
+                "Furkan Korkmaz",
                 "Georges Niang",
                 "Julian Champagnie",
                 "P.J. Tucker",
@@ -257,8 +255,8 @@
                 "Gary Trent Jr.",
                 "Thaddeus Young",
                 "Ron Harper Jr.",
-                "Otto Porter Jr.",
-                "Joe Wieskamp"
+                "Joe Wieskamp",
+                "Otto Porter Jr."
             ]
         ],
         "Power Forward": [
@@ -344,12 +342,12 @@
     "CLE": {
         "Point Guard": [
             "Darius Garland",
-            "Donovan Mitchell",
+            "Ricky Rubio",
             [
+                "Donovan Mitchell",
                 "Raul Neto",
                 "Caris LeVert",
-                "Cedi Osman",
-                "Ricky Rubio"
+                "Cedi Osman"
             ]
         ],
         "Shooting Guard": [
@@ -401,19 +399,19 @@
     "DET": {
         "Point Guard": [
             "Killian Hayes",
-            "Cory Joseph",
+            "Alec Burks",
             [
-                "Alec Burks",
+                "Cory Joseph",
                 "Jaden Ivey",
                 "Cade Cunningham"
             ]
         ],
         "Shooting Guard": [
             "Jaden Ivey",
-            "Alec Burks",
+            "Hamidou Diallo",
             [
+                "Alec Burks",
                 "Rodney McGruder",
-                "Hamidou Diallo",
                 "Cory Joseph",
                 "Buddy Boeheim",
                 "Jared Rhoden",
@@ -437,17 +435,18 @@
             "Isaiah Livers",
             [
                 "Kevin Knox II",
-                "Bojan Bogdanovi\u0107",
                 "Saddiq Bey",
+                "Bojan Bogdanovi\u0107",
                 "Jared Rhoden",
                 "Marvin Bagley III"
             ]
         ],
         "Center": [
             "Jalen Duren",
-            "Nerlens Noel",
+            "Isaiah Stewart",
             [
-                "Isaiah Stewart",
+                "Nerlens Noel",
+                "Isaiah Livers",
                 "Marvin Bagley III"
             ]
         ]
@@ -470,8 +469,8 @@
                 "Chris Duarte",
                 "Aaron Nesmith",
                 "Tyrese Haliburton",
-                "Kendall Brown",
-                "Trevelin Queen"
+                "Trevelin Queen",
+                "Kendall Brown"
             ]
         ],
         "Small Forward": [
@@ -586,7 +585,6 @@
                 "Trent Forrest",
                 "Aaron Holiday",
                 "Justin Holiday",
-                "Jarrett Culver",
                 "AJ Griffin",
                 "Vit Krejci",
                 "Tyrese Martin"
@@ -599,7 +597,6 @@
                 "Trent Forrest",
                 "Bogdan Bogdanovi\u0107",
                 "Justin Holiday",
-                "Jarrett Culver",
                 "Jalen Johnson",
                 "Tyrese Martin"
             ]
@@ -610,7 +607,6 @@
             [
                 "De'Andre Hunter",
                 "Justin Holiday",
-                "Jarrett Culver",
                 "Frank Kaminsky",
                 "Onyeka Okongwu"
             ]
@@ -620,6 +616,7 @@
             "Onyeka Okongwu",
             [
                 "John Collins",
+                "Derrick Favors",
                 "Frank Kaminsky"
             ]
         ]
@@ -721,9 +718,9 @@
         ],
         "Center": [
             "Bam Adebayo",
-            "Dewayne Dedmon",
+            "Orlando Robinson",
             [
-                "Orlando Robinson",
+                "Dewayne Dedmon",
                 "Udonis Haslem",
                 "Nikola Jovi\u0107",
                 "Omer Yurtseven"
@@ -740,23 +737,23 @@
             ]
         ],
         "Shooting Guard": [
-            "Franz Wagner",
+            "Gary Harris",
             "Cole Anthony",
             [
                 "Terrence Ross",
-                "Gary Harris",
+                "Franz Wagner",
                 "Jalen Suggs",
                 "Kevon Harris",
                 "R.J. Hampton"
             ]
         ],
         "Small Forward": [
-            "Paolo Banchero",
-            "Gary Harris",
+            "Franz Wagner",
+            "Terrence Ross",
             [
-                "Franz Wagner",
-                "Terrence Ross",
+                "Paolo Banchero",
                 "Caleb Houstan",
+                "Gary Harris",
                 "Kevon Harris",
                 "Bol Bol",
                 "Admiral Schofield",
@@ -765,12 +762,12 @@
             ]
         ],
         "Power Forward": [
+            "Paolo Banchero",
             "Bol Bol",
-            "Moritz Wagner",
             [
-                "Paolo Banchero",
-                "Admiral Schofield",
                 "Caleb Houstan",
+                "Moritz Wagner",
+                "Admiral Schofield",
                 "Franz Wagner",
                 "Wendell Carter Jr.",
                 "Jonathan Isaac",
@@ -779,9 +776,9 @@
         ],
         "Center": [
             "Wendell Carter Jr.",
-            "Mo Bamba",
+            "Moritz Wagner",
             [
-                "Moritz Wagner",
+                "Mo Bamba",
                 "Bol Bol",
                 "Admiral Schofield",
                 "Chuma Okeke",
@@ -968,8 +965,8 @@
             "Isaiah Joe",
             [
                 "Tre Mann",
-                "Aaron Wiggins",
                 "Lindy Waters III",
+                "Aaron Wiggins",
                 "Jalen Williams",
                 "Luguentz Dort",
                 "Shai Gilgeous-Alexander",
@@ -981,12 +978,12 @@
             "Aaron Wiggins",
             [
                 "Kenrich Williams",
+                "Lindy Waters III",
                 "Jalen Williams",
                 "Eugene Omoruyi",
-                "Lindy Waters III",
                 "Aleksej Pokusevski",
-                "Darius Bazley",
                 "Josh Giddey",
+                "Darius Bazley",
                 "Ousmane Dieng"
             ]
         ],
@@ -1004,12 +1001,12 @@
             ]
         ],
         "Center": [
-            "Jaylin Williams",
             "Mike Muscala",
+            "Jaylin Williams",
             [
+                "Kenrich Williams",
                 "Eugene Omoruyi",
                 "Darius Bazley",
-                "Kenrich Williams",
                 "Jeremiah Robinson-Earl",
                 "Aleksej Pokusevski",
                 "Chet Holmgren"
@@ -1183,10 +1180,10 @@
     },
     "LAC": {
         "Point Guard": [
-            "Reggie Jackson",
+            "Terance Mann",
             "John Wall",
             [
-                "Terance Mann",
+                "Reggie Jackson",
                 "Jason Preston",
                 "Brandon Boston",
                 "Norman Powell",
@@ -1306,6 +1303,8 @@
             [
                 "Devin Booker",
                 "Duane Washington Jr.",
+                "Saben Lee",
+                "Landry Shamet",
                 "Damion Lee"
             ]
         ],
@@ -1336,8 +1335,8 @@
             "Torrey Craig",
             "Ish Wainright",
             [
-                "Josh Okogie",
                 "Dario \u0160ari\u0107",
+                "Josh Okogie",
                 "Jock Landale",
                 "Cameron Johnson",
                 "Jae Crowder"
@@ -1348,8 +1347,8 @@
             "Jock Landale",
             [
                 "Bismack Biyombo",
-                "Torrey Craig",
                 "Dario \u0160ari\u0107",
+                "Torrey Craig",
                 "Ish Wainright"
             ]
         ]
@@ -1370,6 +1369,7 @@
             [
                 "Terence Davis",
                 "Davion Mitchell",
+                "PJ Dozier",
                 "Matthew Dellavedova",
                 "Keon Ellis"
             ]
@@ -1378,8 +1378,9 @@
             "Harrison Barnes",
             "Terence Davis",
             [
-                "KZ Okpala",
                 "Kevin Huerter",
+                "KZ Okpala",
+                "PJ Dozier",
                 "Keegan Murray"
             ]
         ],
@@ -1389,6 +1390,7 @@
             [
                 "KZ Okpala",
                 "Harrison Barnes",
+                "PJ Dozier",
                 "Chimezie Metu",
                 "Terence Davis",
                 "Domantas Sabonis"
@@ -1653,9 +1655,9 @@
             [
                 "Josh Richardson",
                 "Stanley Johnson",
+                "Keita Bates-Diop",
                 "Malaki Branham",
                 "Romeo Langford",
-                "Keita Bates-Diop",
                 "Dominick Barlow",
                 "Devin Vassell"
             ]
@@ -1678,6 +1680,7 @@
             "Zach Collins",
             [
                 "Charles Bassey",
+                "Gorgui Dieng",
                 "Isaiah Roby",
                 "Jeremy Sochan"
             ]

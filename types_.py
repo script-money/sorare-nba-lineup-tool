@@ -135,9 +135,12 @@ class SelectCard(TypedDict):
     age: int
     rarity: CardRarity | None
     expect: NormalDist
-    team: str
+    team: str | None
     id: str | None
 
+class NBACardsInput(TypedDict):
+    ids: list[str]
+    assetIds: list[str]
 
 western_teams: list[str] = [
     "Sacramento Kings",
