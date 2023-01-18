@@ -367,7 +367,7 @@ mu_of_multiple_games_bonus: float = (
 )
 suggestion_count: int = 3  # Number of recommended results
 probability_reach_target: float = 0.01  # Sort from the results that have that probability of reaching the target score
-show_injure_detail = False
+show_injure_detail = True
 
 all_tournaments: list[Tournaments] = [
     common_champion,
@@ -437,10 +437,7 @@ suggest_cards: dict[str, dict[str, str]] = {
     "rare_contender": {},
     "limited_contender": {},
     "super_rare_champion": {},
-    "rare_champion": {
-        # "3a4425d7-06f6-4382-86fc-ac29baadf125": "Ja Morant",
-        # "ccacb679-5d6a-4539-b6d6-5392e4b39edf": "Giannis Antetokounmpo",
-    },
+    "rare_champion": {},
     "limited_champion": {
         # "10c74499-37d5-4170-a952-3401588a3f8a": "Nikola Joki\u0107",
         # "6f93a513-5031-4e36-8e06-f922dc00ea3b": "Jayson Tatum",

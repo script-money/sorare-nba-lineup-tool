@@ -8,6 +8,7 @@ data/injure-*.json
 data/team-rank-*.json
 data/all-players-data-*.json
 data/*.txt
+data/*.pickle
 config/NBACards.json
 experiment/
 .env

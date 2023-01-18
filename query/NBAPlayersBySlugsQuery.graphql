@@ -9,6 +9,11 @@ query NBAPlayerQuery($input: [String!]) {
       tenGameAverage
       status {
         statusIconType
+        gameStats {
+          detailedStats {
+            minutes
+          }
+        }
       }
     }
     team {
