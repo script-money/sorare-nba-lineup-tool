@@ -24,7 +24,7 @@ async def main():
         all_cards_info: list[NBAPlayer] = []
 
         for team_slug in team_slugs:
-            await query_task(team_slug, session)
+            all_cards_info.extend(await query_task(team_slug, session))
 
         today: datetime = datetime.now(timezone("US/Eastern"))
         today_str: str = today.strftime("%Y-%m-%d")
