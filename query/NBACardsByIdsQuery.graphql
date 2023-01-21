@@ -24,7 +24,7 @@ query NBACardsByIdsQuery($input: NBACardsInput!) {
               made3PointFGs
               doubleDoubles
               tripleDoubles
-              minutes
+              secondsPlayed
             }
           }
         }

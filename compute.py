@@ -320,7 +320,7 @@ def predict(
 
 def get_average_minutes(
     player_or_card: NBAPlayer | NBACard, last_n_games: int = 5
-) -> str:
+) -> int:
     """Get the average minutes of the player
 
     Args:
@@ -352,8 +352,7 @@ def get_average_minutes(
         if len(week_stats) == 0:
             continue
         for stat in week_stats:
-            minute_str = stat["detailedStats"]["minutes"]
-            secords = int(minute_str.split(":")[0]) * 60 + int(minute_str.split(":")[1])
+            secords = stat["detailedStats"]["secondsPlayed"]
 
             if len(latest_n_game_seconds) < last_n_games:
                 latest_n_game_seconds.append(secords)
@@ -361,9 +360,9 @@ def get_average_minutes(
                 break
 
     if len(latest_n_game_seconds) == 0:
-        return "00:00"
+        return 0
     total_seconds = round(np.mean(latest_n_game_seconds))
-    return f"{total_seconds // 60}:{total_seconds % 60:02d}"
+    return round(total_seconds / 60)
 
 
 def get_all_cards_with_prediction(
@@ -826,7 +825,7 @@ if __name__ == "__main__":
             )
             for select_card in group:
                 print(
-                    f"{select_card['name']}({select_card['rarity'] if select_card['rarity'] != None else min_rarity.value},{select_card['average']}, {select_card['minutes']}) {show_opposite_team(select_card['team'], matches=matches)}"  # type: ignore
+                    f"{select_card['name']}({select_card['rarity'] if select_card['rarity'] != None else min_rarity.value},{select_card['average']},{select_card['minutes']}mins) {show_opposite_team(select_card['team'], matches=matches)}"  # type: ignore
                 )
             print("\n")
 

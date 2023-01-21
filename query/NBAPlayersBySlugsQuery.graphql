@@ -11,7 +11,7 @@ query NBAPlayerQuery($input: [String!]) {
         statusIconType
         gameStats {
           detailedStats {
-            minutes
+            secondsPlayed
           }
         }
       }

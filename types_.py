@@ -54,7 +54,7 @@ class DetailedStat(TypedDict):
     made3PointFGs: int
     doubleDoubles: int
     tripleDoubles: int
-    minutes: str
+    secondsPlayed: int
 
 
 class DetailedStats(TypedDict):
@@ -135,7 +135,7 @@ class SelectCard(TypedDict):
     age: int
     rarity: CardRarity | None
     expect: NormalDist
-    minutes: str
+    minutes: int
     team: str | None
     id: str | None
 
