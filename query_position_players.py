@@ -38,7 +38,19 @@ for abridge, full_name in source_team_names.items():
         thirds.append(thirds_list)
     players_in_team: dict[str, str | list[str]] = {}
     for i in range(len(positions)):
-        players_in_team[positions[i]] = [starters[i], seconds[i], thirds[i]]
+        try:
+            starter = starters[i]
+        except:
+            starter = ""
+        try:
+            second = seconds[i]
+        except:
+            second = ""
+        try:
+            third = thirds[i]
+        except:
+            third = ""
+        players_in_team[positions[i]] = [starter, second, third]
 
     match abridge:
         case "PHO":
