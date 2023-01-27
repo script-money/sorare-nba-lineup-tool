@@ -12,3 +12,4 @@ data/*.pickle
 config/NBACards.json
 experiment/
 .env
+config/config.py.bak

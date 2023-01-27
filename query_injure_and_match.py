@@ -6,6 +6,9 @@ import json
 import time
 from types_ import NBAPlayerPosition
 from utils import rename_player
+from get_injure import extarct_official_injury_report
+import pandas as pd
+import os
 
 
 class MatchData:
@@ -87,11 +90,53 @@ def get_injure_data():
 
     today = datetime.now(timezone("US/Eastern"))
     today_str = today.strftime("%Y-%m-%d")
-    with open(f"data/injure-{today_str}.json", "w") as f:
+    with open(f"data/injure-{today_str}-0.json", "w") as f:
         json.dump(injured_data, f, indent=4)
-        print("injure saved in data folder")
 
     return injured_data
+
+
+def get_correct_name(series):
+    first, last = series.split(", ")
+    return rename_player(last + " " + first)
+
+
+def get_injure_data_new():
+    today = datetime.now(timezone("US/Eastern"))
+    today_str = today.strftime("%Y-%m-%d")
+    from_str = (today - timedelta(days=2)).strftime("%Y-%m-%d")
+    df = extarct_official_injury_report(from_str, today_str)
+    # remove duplicate by Player Name
+    df = df.drop_duplicates(subset=["Player Name"], keep="last")
+    df["player"] = df["Player Name"].apply(get_correct_name)
+    df["team"] = df["Team"]
+    df["injure_type"] = df["Current Status"]
+    df = df[["team", "player", "injure_type"]]
+    df.to_json(f"data/injure-{today_str}-1.json", orient="records")
+
+
+def combine_two_type_injure_json():
+    today = datetime.now(timezone("US/Eastern"))
+    today_str = today.strftime("%Y-%m-%d")
+    # read json as dataframe
+    df0 = pd.read_json(f"data/injure-{today_str}-0.json")
+    df1 = pd.read_json(f"data/injure-{today_str}-1.json")
+    # join df0 and df1 with key='player'
+    df = df0.merge(df1, on=["team", "player"], how="outer")
+    # fill na cell in injure_type to Out if game_time_decision is False and to Questionable if game_time_decision is True
+    df["injure_type"] = df["injure_type"].fillna(  # type: ignore
+        df["game_time_decision"].apply(
+            lambda x: "Out" if x == False else "Questionable"
+        )
+    )
+    # select column team,player,injure_type
+    df = df[["team", "player", "injure_type"]]
+    # save to json
+    df.to_json(f"data/injure-{today_str}.json", orient="records", indent=4)
+    print(f"save injure info to data/injure-{today_str}.json")
+    # delete old json
+    os.remove(f"data/injure-{today_str}-0.json")
+    os.remove(f"data/injure-{today_str}-1.json")
 
 
 def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
@@ -218,4 +263,6 @@ def get_team_rank():
 if __name__ == "__main__":
     get_next_epoch_schedule()
     get_injure_data()
+    get_injure_data_new()
+    combine_two_type_injure_json()
     get_team_rank()

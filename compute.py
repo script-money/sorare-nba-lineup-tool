@@ -7,7 +7,7 @@ from itertools import combinations
 from types_ import *
 from scipy.stats import t
 from pytz import timezone
-from utils import ewma
+from utils import ewma, rename_player
 from config.config import *
 import warnings
 import argparse
@@ -139,7 +139,7 @@ def get_score_with_ratio(
 
 def predict(
     player: NBAPlayer,
-    game_decision_players: list[str],
+    possible_match_players: dict[str, float],
     out_players: list[str],
     matches: list[Match],
     team_rank: TeamRank,
@@ -149,7 +149,7 @@ def predict(
 
     Args:
         player (NBAPlayer): The player to predict
-        game_decision_players (list[str]): The names of players who have game-decision status
+        possible_match_players (dict[str, float]): The names of players who have game-decision status
         out_players (list[str]): The names of players who are out
         matches (list[Match]): The list of next matches
         team_rank (TeamRank): The team rank information
@@ -165,7 +165,7 @@ def predict(
     )
     next_chooses: list[str] = list(
         filter(
-            lambda n: n not in out_players and n not in game_decision_players,
+            lambda n: n not in out_players and n not in possible_match_players,
             next_chooses,
         )
     )
@@ -201,7 +201,7 @@ def predict(
 
     card_average: int = player["tenGameAverage"]
     team: str | None = None if player["team"] is None else player["team"]["fullName"]
-    if player_name in game_decision_players and (
+    if player_name in possible_match_players and (
         last_game == PlayerInFixtureStatusIconType.no_game.value
         or last_game == PlayerInFixtureStatusIconType.did_not_play.value
     ):  # If in game_decision, but not on the last game, don't go on
@@ -239,24 +239,24 @@ def predict(
     ewma_: list[float] = ewma(
         stats_arr, 0.2
     )  # use ewma to smooth the result, the coefficient can be adjusted, the smaller the value, the smaller the influence of the historical data
-    _, mu, sigma = t.fit(
-        ewma_, fdf=len(ewma_)
-    )  # type: ignore  # use t distribution to fit the data to get the mean and standard deviation. For players who don't play much, sigma may be 0 with norm
+    _, mu, sigma = t.fit(ewma_, fdf=len(ewma_))  # type: ignore
+    # use t distribution to fit the data to get the mean and standard deviation. For players who don't play much, sigma may be 0 with norm
 
     game_decision_bonus: float = 0
 
-    if player_name in game_decision_players:
+    if player_name in possible_match_players:
         second_str = (
             f", reserve players are 2️⃣『{'』,『'.join(next_chooses)}』"
             if is_main and len(next_chooses) != 0
             else ""
         )
+        possible = possible_match_players[player_name]
         if not has_ratio and show_injure_detail:
             print(
-                f"『{player_name}』may not play in the next game, he has {next_matches} matches in next week"
+                f"『{player_name}』have {possible:.0%} probability play in the next game, he has {next_matches} matches in next week"
                 + second_str
             )
-        game_decision_bonus = mu_of_game_decision
+        game_decision_bonus = possible - 1
 
     match_join: list[Match] = list(
         filter(lambda m: m["away"] == team or m["home"] == team, matches)
@@ -442,10 +442,11 @@ def load_data(
     list[NBACard],
     list[NBACard],
     list[str],
-    list[str],
+    dict[str, float],
     list[Match],
     TeamRank,
     list[NBACard],
+    dict[str, MatchProbility],
 ]:
     with open(f"data/cards-{today}.json", "r") as f:
         cards: list[NBACard] = json.load(f)
@@ -459,6 +460,13 @@ def load_data(
     with open(f"data/team-rank-{today}.json", "r") as i:
         team_rank: TeamRank = json.load(i)
 
+    # load probility
+    with open(f"data/all_probility.json", "r") as j:
+        # use rename_player for all_probility.keys
+        all_probility: dict[str, MatchProbility] = {
+            rename_player(k): v for k, v in json.load(j).items()
+        }
+
     common_cards: list[NBACard] = list(filter(lambda c: c["rarity"] == "common", cards))
     limited_cards: list[NBACard] = list(
         filter(lambda c: c["rarity"] == "limited", cards)
@@ -469,13 +477,28 @@ def load_data(
     )
 
     out_players: list[str] = list(
-        map(
-            lambda j: j["player"], filter(lambda i: not i["game_time_decision"], injure)
+        map(lambda j: j["player"], filter(lambda i: i["injure_type"] == "Out", injure))
+    )
+    filter_players = list(
+        filter(
+            lambda i: i["injure_type"] == "Questionable"
+            or i["injure_type"] == "Probable"
+            or i["injure_type"] == "Doubtful",
+            injure,
         )
     )
-    game_decision_players: list[str] = list(
-        map(lambda j: j["player"], filter(lambda i: i["game_time_decision"], injure))
-    )
+    # add probility to filter_players
+    for player in filter_players:
+        injure_type = player["injure_type"]
+        if player["player"] not in all_probility:
+            player["probility"] = default_match_probility[injure_type]
+        else:
+            player["probility"] = all_probility[player["player"]][injure_type]
+
+    game_decision_players = {
+        info["player"]: info["probility"] for info in filter_players  # type: ignore
+    }
+
     avaliable_cards: list[NBACard] = list(
         filter(
             lambda t: t["id"] not in blacklist_cards,
@@ -492,6 +515,7 @@ def load_data(
         matches,
         team_rank,
         avaliable_cards,
+        all_probility,
     )
 
 
@@ -518,6 +542,7 @@ if __name__ == "__main__":
         matches,
         team_rank,
         avaliable_cards,
+        match_probility,
     ) = load_data(today_str)
 
     print(

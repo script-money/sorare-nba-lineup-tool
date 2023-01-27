@@ -125,8 +125,8 @@ class TeamRank(TypedDict):
 class Injure(TypedDict):
     team: str
     player: str
-    position: NBAPlayerPosition
-    game_time_decision: bool
+    injure_type: str
+    probility: NotRequired[float]
 
 
 class SelectCard(TypedDict):
@@ -143,6 +143,23 @@ class SelectCard(TypedDict):
 class NBACardsInput(TypedDict):
     ids: list[str]
     assetIds: list[str]
+
+
+class MatchProbility(TypedDict):
+    Available: float
+    Probable: float
+    Questionable: float
+    Doubtful: float
+    Out: float
+
+
+default_match_probility = {
+    "Available": 1.0,
+    "Probable": 0.75,
+    "Questionable": 0.5,
+    "Doubtful": 0.25,
+    "Out": 0.0,
+}
 
 
 western_teams: list[str] = [
