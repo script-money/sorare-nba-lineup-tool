@@ -104,7 +104,7 @@ def get_correct_name(series):
 def get_injure_data_new():
     today = datetime.now(timezone("US/Eastern"))
     today_str = today.strftime("%Y-%m-%d")
-    from_str = (today - timedelta(days=2)).strftime("%Y-%m-%d")
+    from_str = (today - timedelta(days=0)).strftime("%Y-%m-%d")
     df = extarct_official_injury_report(from_str, today_str)
     # remove duplicate by Player Name
     df = df.drop_duplicates(subset=["Player Name"], keep="last")
