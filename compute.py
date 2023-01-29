@@ -759,6 +759,7 @@ if __name__ == "__main__":
 
         to_select_card_count: int = 5 - pre_select
         possible_group: list[list[SelectCard]] = []
+        max_group_index, max_group_value = -1, -1
 
         if tournaments["tenGameAverageTotalLimit"] == 0:
             sorted_card_pool = sorted(
@@ -802,7 +803,7 @@ if __name__ == "__main__":
                 possible_group.append(all_5_cards)
 
             if len(possible_group) == 0:
-                message = f"{tournaments['name']} no possible lineup\n"
+                message = f"{tournaments['name']} no possible group\n"
                 print(message)
                 result_lines.append(message)
                 continue
@@ -813,6 +814,11 @@ if __name__ == "__main__":
                 total_dist: NormalDist = NormalDist(0, 0)
                 for card in group:
                     total_dist += card["expect"]
+                    if (
+                        total_dist.mean > max_group_value
+                    ):  # record best group if use for no possible lineup
+                        max_group_value = total_dist.mean
+                        max_group_index = index
                 try:
                     p_of_reach_target = total_dist.cdf(
                         target / (divisor if is_recommend else 1)
@@ -840,9 +846,15 @@ if __name__ == "__main__":
         print(f"\n")
         print(f"Selecting {tournaments['name']}")
         if len(group_to_select) == 0:
-            result = f"{tournaments['name']} no possible lineup"
-            print(result)
-            result_lines.append(result)
+            best_group: list[SelectCard] = possible_group[max_group_index]
+            print(f"no possible lineup for {tournaments['name']}, best lineup:")
+            result_lines.append(f"{tournaments['name']}")
+            for select_card in best_group:
+                print(
+                    f"{select_card['name']} ({select_card['average']}, mins:{select_card['minutes']}, mean:{round(select_card['expect'].mean - select_card['average']):+}, stdev:{select_card['expect'].stdev:.2f})"  # type: ignore
+                )
+                result_lines.append(f'"{select_card["id"]}": "{select_card["name"]}",')
+            result_lines.append("\n")
             continue
         for index, group in enumerate(group_to_select):
             print(
@@ -891,6 +903,7 @@ if __name__ == "__main__":
         result_lines.append("\n")
 
     # write result lines to file
-    with open(f"data/result-{today_str}.txt", "w") as f:
-        f.writelines(result_lines + "\n" for result_lines in result_lines)
-        print("compute done, save in data/result.txt")
+    if len(result_lines) > 0:
+        with open(f"data/result-{today_str}.txt", "w") as f:
+            f.writelines(result_lines + "\n" for result_lines in result_lines)
+            print("compute done, save in data/result.txt")
