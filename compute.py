@@ -319,7 +319,7 @@ def predict(
 
 
 def get_average_minutes(
-    player_or_card: NBAPlayer | NBACard, last_n_games: int = 5
+    player_or_card: NBAPlayer | NBACard, last_n_games: int = 3
 ) -> int:
     """Get the average minutes of the player
 
@@ -338,7 +338,7 @@ def get_average_minutes(
             lambda s: s["status"]["statusIconType"]
             != PlayerInFixtureStatusIconType.pending.value
             and s["status"]["statusIconType"]
-            != PlayerInFixtureStatusIconType.did_not_play.value
+            != PlayerInFixtureStatusIconType.no_game.value
             and s["status"]["statusIconType"]
             != PlayerInFixtureStatusIconType.inactive.value,
             player["latestFinalFixtureStats"],
