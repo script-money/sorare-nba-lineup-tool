@@ -51,7 +51,7 @@ def show_opposite_team(team: str, matches: list[Match]) -> str:
         is_away_b2b: bool = match["away"] == team and match["away_is_b2b"]
         is_home_b2b: bool = match["home"] == team and match["home_is_b2b"]
         match_info.append(
-            f"{'B2B ' if is_away_b2b or is_home_b2b else ''}vs {opposing_team} on {match['date']} {'at HOME' if is_at_home else 'at AWAY'}"
+            f"{'B2B ' if is_away_b2b or is_home_b2b else ''}vs {opposing_team} {'at HOME' if is_at_home else 'at AWAY'}"
         )
     return " and ".join(match_info)
 
@@ -642,268 +642,277 @@ if __name__ == "__main__":
         "Press any key to continue (You can press Ctrl+C to stop program and set suggest or blacklist card in config): "
     )
 
+    print(f"{len(all_tournaments)} tournaments found")
+
     result_lines = []
-    used_cards = []
-
-    for tournaments in all_tournaments:
-        group_to_select: list[list[SelectCard]] = []
-        if (
-            tournaments["name"] in suggest_cards
-        ):  # current tournament in suggest_cards(preconfig)
-            suggest_players_id_to_name: dict[str, str] = suggest_cards[
-                tournaments["name"]
-            ]
-            pre_select: int = len(suggest_players_id_to_name)
-        else:
-            pre_select = 0
-
-        stats_dist_list: list[SelectCard] = (
-            all_stats_dist_list.copy()
-            if "multiplier" not in tournaments
-            else get_all_cards_with_prediction(
-                avaliable_players, tournaments["multiplier"]
-            )
-        )
-
-        # in recommend mode, select cards by name, but in normal mode, select cards by id
-        pre_select_cards: list[SelectCard] = (
-            list(
-                filter(
-                    lambda c: c["name"] in suggest_players_id_to_name.values()
-                    if is_recommend
-                    else c["id"] in suggest_players_id_to_name.keys(),
-                    stats_dist_list,
-                )
-            )
-            if pre_select != 0
-            else []
-        )
-
-        if is_recommend:
-            assert (
-                len(pre_select_cards) >= 2
-            ), f"You need set at least 2 cards for {tournaments['name']} because compute limit"
-
-        allowed_rarities: list[str] = [t.value for t in tournaments["allowedRarities"]]
-        allow_mvp: bool = tournaments["allowMVP"]
-        target: int = tournaments["target"]
-        allowed_conference: NBAConference | None = tournaments["allowedConference"]
-        is_common: bool = tournaments["minRarity"] is None
-        min_rarity: CardRarity | None = (
-            None if is_common else tournaments["minRarity"]["rarity"]  # type: ignore
-        )
-        divisor: float = 1
-        match min_rarity:
-            case CardRarity.limited:
-                divisor = 1.05
-            case CardRarity.rare:
-                divisor = 1.15
-            case CardRarity.super_rare:
-                divisor = 1.25
-            case _:
-                divisor = 1
-
-        if allowed_conference != None:
-            if allowed_conference.value == "WESTERN":
-                stats_dist_list = list(
-                    filter(
-                        lambda c: c["team"] in western_teams,
-                        all_stats_dist_list,
-                    )
-                )
-            else:
-                stats_dist_list = list(
-                    filter(
-                        lambda c: c["team"] not in western_teams,
-                        all_stats_dist_list,
-                    )
-                )
-
-        if "veterans" in tournaments["name"]:
-            stats_dist_list = list(
-                filter(
-                    lambda c: c["age"] >= 30,
-                    stats_dist_list,
-                )
-            )
-
-        if "under_23" in tournaments["name"]:
-            stats_dist_list = list(
-                filter(
-                    lambda c: c["age"] <= 23,
-                    stats_dist_list,
-                )
-            )
-
-        if is_recommend:
-            card_pool: list[SelectCard] = list(
-                filter(
-                    lambda c: c not in pre_select_cards,
-                    stats_dist_list,
-                )
-            )
-        else:
-            card_pool: list[SelectCard] = list(
-                filter(
-                    lambda c: c["rarity"] in allowed_rarities
-                    and (c["id"] not in map(lambda u: u["id"], used_cards))
-                    and (c not in pre_select_cards),
-                    stats_dist_list,
-                )
-            )
-
-        # filter card_pool average less than expect's mean
-        card_pool: list[SelectCard] = list(
-            filter(lambda c: c["average"] < c["expect"].mean, card_pool)
-        )
-
-        to_select_card_count: int = 5 - pre_select
-        possible_group: list[list[SelectCard]] = []
-        max_group_index, max_group_value = -1, -1
-
-        if tournaments["tenGameAverageTotalLimit"] == 0:
-            sorted_card_pool = sorted(
-                card_pool, key=lambda c: c["expect"].mean, reverse=True
-            )
-            group_to_select.append(
-                sorted_card_pool[:to_select_card_count] + pre_select_cards
-            )
-        else:
-            for possible in combinations(card_pool, to_select_card_count):
-                all_5_cards: list[SelectCard] = list(possible) + pre_select_cards
-
-                # check total points
-                total_point: int = (
-                    sum([card["average"] for card in all_5_cards])
-                    if not allow_mvp
-                    else sum(
-                        [
-                            card["average"]
-                            for card in sorted(
-                                all_5_cards, key=lambda c: c["average"], reverse=True
-                            )[1:]
-                        ]
-                    )
-                )
+    for select_groups_epoch in range(suggestion_count):
+        result_lines.append("-" * 50)
+        print(f"\nSelecting cards for No.{select_groups_epoch + 1} group(s)...")
+        used_cards = []
+        try:
+            for tournament_index, tournaments in enumerate(all_tournaments):
+                group_to_select: list[list[SelectCard]] = []
                 if (
-                    total_point <= tournaments["tenGameAverageTotalLimit"] - 5
-                    or total_point > tournaments["tenGameAverageTotalLimit"]
-                ):
-                    continue
+                    tournaments["name"] in suggest_cards
+                ):  # current tournament in suggest_cards(preconfig)
+                    suggest_players_id_to_name: dict[str, str] = suggest_cards[
+                        tournaments["name"]
+                    ]
+                    pre_select: int = len(suggest_players_id_to_name)
+                else:
+                    pre_select = 0
 
-                if not is_recommend:
-                    # check player duplicate
-                    tmp_selected_players: list[str] = list(
-                        map(lambda card: card["name"], all_5_cards)
+                stats_dist_list: list[SelectCard] = (
+                    all_stats_dist_list.copy()
+                    if "multiplier" not in tournaments
+                    else get_all_cards_with_prediction(
+                        avaliable_players, tournaments["multiplier"]
                     )
-                    unique_players: int = len(set(tmp_selected_players))
-                    if unique_players != len(tmp_selected_players):
+                )
+
+                # in recommend mode, select cards by name, but in normal mode, select cards by id
+                pre_select_cards: list[SelectCard] = (
+                    list(
+                        filter(
+                            lambda c: c["name"] in suggest_players_id_to_name.values()
+                            if is_recommend
+                            else c["id"] in suggest_players_id_to_name.keys(),
+                            stats_dist_list,
+                        )
+                    )
+                    if pre_select != 0
+                    else []
+                )
+
+                if is_recommend:
+                    assert (
+                        len(pre_select_cards) >= 2
+                    ), f"You need set at least 2 cards for {tournaments['name']} because compute limit"
+
+                allowed_rarities: list[str] = [
+                    t.value for t in tournaments["allowedRarities"]
+                ]
+                allow_mvp: bool = tournaments["allowMVP"]
+                target: int = tournaments["target"]
+                allowed_conference: NBAConference | None = tournaments[
+                    "allowedConference"
+                ]
+                is_common: bool = tournaments["minRarity"] is None
+                min_rarity: CardRarity | None = (
+                    None if is_common else tournaments["minRarity"]["rarity"]  # type: ignore
+                )
+                divisor: float = 1
+                match min_rarity:
+                    case CardRarity.limited:
+                        divisor = 1.05
+                    case CardRarity.rare:
+                        divisor = 1.15
+                    case CardRarity.super_rare:
+                        divisor = 1.25
+                    case _:
+                        divisor = 1
+
+                if allowed_conference != None:
+                    if allowed_conference.value == "WESTERN":
+                        stats_dist_list = list(
+                            filter(
+                                lambda c: c["team"] in western_teams,
+                                all_stats_dist_list,
+                            )
+                        )
+                    else:
+                        stats_dist_list = list(
+                            filter(
+                                lambda c: c["team"] not in western_teams,
+                                all_stats_dist_list,
+                            )
+                        )
+
+                if "veterans" in tournaments["name"]:
+                    stats_dist_list = list(
+                        filter(
+                            lambda c: c["age"] >= 30,
+                            stats_dist_list,
+                        )
+                    )
+
+                if "under_23" in tournaments["name"]:
+                    stats_dist_list = list(
+                        filter(
+                            lambda c: c["age"] <= 23,
+                            stats_dist_list,
+                        )
+                    )
+
+                if is_recommend:
+                    card_pool: list[SelectCard] = list(
+                        filter(
+                            lambda c: c not in pre_select_cards,
+                            stats_dist_list,
+                        )
+                    )
+                else:
+                    card_pool: list[SelectCard] = list(
+                        filter(
+                            lambda c: c["rarity"] in allowed_rarities
+                            and (c["id"] not in map(lambda u: u["id"], used_cards))
+                            and (c not in pre_select_cards),
+                            stats_dist_list,
+                        )
+                    )
+
+                # filter card_pool average less than expect's mean
+                card_pool: list[SelectCard] = list(
+                    filter(lambda c: c["average"] < c["expect"].mean, card_pool)
+                )
+
+                to_select_card_count: int = 5 - pre_select
+                possible_group: list[list[SelectCard]] = []
+                max_group_index, max_group_value = -1, -1
+
+                if tournaments["tenGameAverageTotalLimit"] == 0:
+                    sorted_card_pool = sorted(
+                        card_pool, key=lambda c: c["expect"].mean, reverse=True
+                    )
+                    group_to_select.append(
+                        sorted_card_pool[:to_select_card_count] + pre_select_cards
+                    )
+                else:
+                    for possible in combinations(card_pool, to_select_card_count):
+                        all_5_cards: list[SelectCard] = (
+                            list(possible) + pre_select_cards
+                        )
+
+                        # check total points
+                        total_point: int = (
+                            sum([card["average"] for card in all_5_cards])
+                            if not allow_mvp
+                            else sum(
+                                [
+                                    card["average"]
+                                    for card in sorted(
+                                        all_5_cards,
+                                        key=lambda c: c["average"],
+                                        reverse=True,
+                                    )[1:]
+                                ]
+                            )
+                        )
+                        if (
+                            total_point <= tournaments["tenGameAverageTotalLimit"] - 5
+                            or total_point > tournaments["tenGameAverageTotalLimit"]
+                        ):
+                            continue
+
+                        if not is_recommend:
+                            # check player duplicate
+                            tmp_selected_players: list[str] = list(
+                                map(lambda card: card["name"], all_5_cards)
+                            )
+                            unique_players: int = len(set(tmp_selected_players))
+                            if unique_players != len(tmp_selected_players):
+                                continue
+
+                        possible_group.append(all_5_cards)
+
+                    if len(possible_group) == 0:
+                        message = f"{tournaments['name']} no possible group\n"
+                        print(message)
+                        result_lines.append(message)
                         continue
 
-                possible_group.append(all_5_cards)
+                    group_index_to_cdf: dict[int, float] = {}
 
-            if len(possible_group) == 0:
-                message = f"{tournaments['name']} no possible group\n"
-                print(message)
-                result_lines.append(message)
-                continue
+                    for index, group in enumerate(possible_group):
+                        total_dist: NormalDist = NormalDist(0, 0)
+                        for card in group:
+                            total_dist += card["expect"]
+                            if (
+                                total_dist.mean > max_group_value
+                            ):  # record best group if use for no possible lineup
+                                max_group_value = total_dist.mean
+                                max_group_index = index
+                        try:
+                            p_of_reach_target = total_dist.cdf(
+                                target / (divisor if is_recommend else 1)
+                            )
+                            if p_of_reach_target < 1 - probability_reach_target:
+                                group_index_to_cdf[index] = p_of_reach_target
+                        except:
+                            continue
 
-            group_index_to_cdf: dict[int, float] = {}
-
-            for index, group in enumerate(possible_group):
-                total_dist: NormalDist = NormalDist(0, 0)
-                for card in group:
-                    total_dist += card["expect"]
-                    if (
-                        total_dist.mean > max_group_value
-                    ):  # record best group if use for no possible lineup
-                        max_group_value = total_dist.mean
-                        max_group_index = index
-                try:
-                    p_of_reach_target = total_dist.cdf(
-                        target / (divisor if is_recommend else 1)
+                    sorted_possible_group: list[tuple[int, float]] = sorted(
+                        group_index_to_cdf.items(), key=lambda item: item[1]
                     )
-                    if p_of_reach_target < 1 - probability_reach_target:
-                        group_index_to_cdf[index] = p_of_reach_target
-                except:
+                    if len(sorted_possible_group) > suggestion_count:
+                        group_to_select = list(
+                            map(
+                                lambda item: possible_group[item[0]],
+                                sorted_possible_group[:suggestion_count],
+                            )
+                        )
+                    else:
+                        group_to_select = list(
+                            map(
+                                lambda item: possible_group[item[0]],
+                                sorted_possible_group,
+                            )
+                        )
+
+                print(f"❗️Selecting {tournaments['name']}")
+                if len(group_to_select) == 0:
+                    best_group: list[SelectCard] = possible_group[max_group_index]
+                    print(
+                        f"total: {sum([card['average'] for card in best_group])}, expect to {sum([card['expect']*divisor if is_recommend else card['expect'] for card in best_group])}, best lineup:"
+                    )
+                    result_lines.append(f"{tournaments['name']}")
+                    for select_card in best_group:
+                        print(
+                            f"🏀 {select_card['name']} ({select_card['average']}, mins:{select_card['minutes']}, mean:{round(select_card['expect'].mean - select_card['average']):+}, stdev:{select_card['expect'].stdev:.2f})"  # type: ignore
+                        )
+                        result_lines.append(
+                            f'"{select_card["id"]}": "{select_card["name"]}",'
+                        )
+                    result_lines.append("\n")
                     continue
 
-            sorted_possible_group: list[tuple[int, float]] = sorted(
-                group_index_to_cdf.items(), key=lambda item: item[1]
-            )
-            if len(sorted_possible_group) > suggestion_count:
-                group_to_select = list(
-                    map(
-                        lambda item: possible_group[item[0]],
-                        sorted_possible_group[:suggestion_count],
+                index: int = select_groups_epoch if tournament_index == 0 else 0
+                group = group_to_select[index]
+                print(
+                    f"total: {sum([card['average'] for card in group])}, expect: {sum([card['expect']*divisor if is_recommend else card['expect'] for card in group])}"
+                )
+                for select_card in group:
+                    print(
+                        f"🏀 {select_card['name']}({select_card['average']},{select_card['minutes']}mins) {show_opposite_team(select_card['team'], matches=matches)}"  # type: ignore
                     )
-                )
-            else:
-                group_to_select = list(
-                    map(lambda item: possible_group[item[0]], sorted_possible_group)
-                )
+                # print("\n")
 
-        print(f"\n")
-        print(f"Selecting {tournaments['name']}")
-        if len(group_to_select) == 0:
-            best_group: list[SelectCard] = possible_group[max_group_index]
-            print(f"no possible lineup for {tournaments['name']}, best lineup:")
-            result_lines.append(f"{tournaments['name']}")
-            for select_card in best_group:
-                print(
-                    f"{select_card['name']} ({select_card['average']}, mins:{select_card['minutes']}, mean:{round(select_card['expect'].mean - select_card['average']):+}, stdev:{select_card['expect'].stdev:.2f})"  # type: ignore
-                )
-                result_lines.append(f'"{select_card["id"]}": "{select_card["name"]}",')
-            result_lines.append("\n")
-            continue
-        for index, group in enumerate(group_to_select):
-            print(
-                f"Group: {index}, total: {sum([card['average'] for card in group])}, expect: {sum([card['expect']*divisor if is_recommend else card['expect'] for card in group])}"
-            )
-            for select_card in group:
-                print(
-                    f"{select_card['name']}({select_card['rarity'] if select_card['rarity'] != None else min_rarity.value},{select_card['average']},{select_card['minutes']}mins) {show_opposite_team(select_card['team'], matches=matches)}"  # type: ignore
-                )
-            print("\n")
+                select_cards: list[SelectCard] = []
 
-        group_index: str = "-1"
-        while True:
-            group_index = input("Please select group (input Group number): ")
-            # if input is Enter
-            if group_index == "":
-                print(f"pass {tournaments['name']}")
-                break
-            if group_index.isdigit() and int(group_index) < len(group_to_select):
-                break
-            else:
-                print("Invalid group index")
+                for select_card in group_to_select[index]:
+                    select_cards.append(select_card)
+                    used_cards.append(select_card)
 
-        select_cards: list[SelectCard] = []
-        if group_index == "":
-            continue
-
-        for select_card in group_to_select[int(group_index)]:
-            select_cards.append(select_card)
-            used_cards.append(select_card)
-
-        if len(select_cards) == 5:
-            result_lines.append(f"{tournaments['name']}")
-            expect_sum: float = 0.0
-            for select_card in select_cards:
-                result_lines.append(
-                    f"{select_card['name']}({select_card['rarity']},{select_card['average']})"
-                )
-                expect_sum += select_card["expect"].mean
-            for select_card in select_cards:
-                result_lines.append(f'"{select_card["id"]}"')
-            result_lines.append(f"expect: {expect_sum:.2f}")
-        else:
-            result_lines.append(f"{tournaments['name']} no possible lineup\n")
-
-        result_lines.append("\n")
+                if len(select_cards) == 5:
+                    result_lines.append(f"{tournaments['name']}")
+                    expect_sum: float = 0.0
+                    for select_card in select_cards:
+                        result_lines.append(
+                            f"{select_card['name']}({select_card['rarity']},{select_card['average']})"
+                        )
+                        expect_sum += select_card["expect"].mean
+                    for select_card in select_cards:
+                        result_lines.append(f'"{select_card["id"]}"')
+                    result_lines.append(f"expect: {expect_sum:.2f}")
+                else:
+                    result_lines.append(f"{tournaments['name']} no possible lineup\n")
+                result_lines.append("\n")
+        except IndexError:
+            print("no more selection, break")
+            break
 
     # write result lines to file
     if len(result_lines) > 0:
         with open(f"data/result-{today_str}.txt", "w") as f:
             f.writelines(result_lines + "\n" for result_lines in result_lines)
-            print("compute done, save in data/result.txt")
+            print("\ncompute done, save in data/result.txt")
