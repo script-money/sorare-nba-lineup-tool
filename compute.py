@@ -244,7 +244,7 @@ def predict(
 
     game_decision_bonus: float = 0
 
-    if player_name in possible_match_players:
+    if player_name in possible_match_players and player_name not in suggest_players:
         second_str = (
             f", reserve players are 2️⃣『{'』,『'.join(next_chooses)}』"
             if is_main and len(next_chooses) != 0
@@ -256,7 +256,9 @@ def predict(
                 f"『{player_name}』have {possible:.0%} probability play in the next game, he has {next_matches} matches in next week"
                 + second_str
             )
-        game_decision_bonus = possible - 1
+        game_decision_bonus = (
+            possible - 1
+        )  # If it is a probabilistic outing, subtract the score
 
     match_join: list[Match] = list(
         filter(lambda m: m["away"] == team or m["home"] == team, matches)
@@ -447,6 +449,7 @@ def load_data(
     TeamRank,
     list[NBACard],
     dict[str, MatchProbility],
+    list[str],
 ]:
     with open(f"data/cards-{today}.json", "r") as f:
         cards: list[NBACard] = json.load(f)
@@ -505,6 +508,13 @@ def load_data(
             cards,
         )
     )
+
+    # get player names in suggest_cards
+    suggest_players: list[str] = []
+    for tournament in suggest_cards:
+        for card_id in suggest_cards[tournament]:
+            suggest_players.append(suggest_cards[tournament][card_id])
+
     return (
         common_cards,
         limited_cards,
@@ -516,6 +526,7 @@ def load_data(
         team_rank,
         avaliable_cards,
         all_probility,
+        suggest_players,
     )
 
 
@@ -543,6 +554,7 @@ if __name__ == "__main__":
         team_rank,
         avaliable_cards,
         match_probility,
+        suggest_players,
     ) = load_data(today_str)
 
     print(
