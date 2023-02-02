@@ -352,7 +352,7 @@ rare_underdog: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.rare,
     },
-    "target": 110,
+    "target": 115,
 }
 
 rare_no_cap: Tournaments = {
@@ -365,7 +365,7 @@ rare_no_cap: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.rare,
     },
-    "target": 115,
+    "target": 300,
 }
 
 super_rare_underdog: Tournaments = {
@@ -404,10 +404,10 @@ mu_of_home_bonus: float = (
     0.04  # Home additions to the mean rate of change in performance
 )
 mu_of_home_b2b: float = (
-    -0.01
+    -0.15
 )  # Deductions for mean change in home playing back-to-back performance
 mu_of_away_b2b: float = (
-    -0.02
+    -0.2
 )  # Deductions for mean change in away playing back-to-back performance
 mu_of_single_game_bonus: float = (
     -0.2
@@ -431,14 +431,15 @@ all_tournaments: list[Tournaments] = [
     # common_all_defense,
     # common_veterans,
     # common_under_23,
-    # super_rare_contender,
     # super_rare_underdog,
-    # rare_champion,
+    # super_rare_contender,
     # rare_contender,
+    # rare_champion,
     # rare_underdog,
     # rare_no_cap,
     # limited_all_defense,
     # limited_champion,
+    # limited_eastern_conference,
     # limited_contender,
     # limited_under_23,
     # limited_veterans,
@@ -446,7 +447,6 @@ all_tournaments: list[Tournaments] = [
     # deck_the_halls,
     # super_rare_champion,
     # limited_western_conference,
-    # limited_eastern_conference,
     # limited_no_cap,
     # limited_underdog,
 ]  #  Change the priority of the tournament, the more advanced will be priority card selection
@@ -457,7 +457,6 @@ blacklist_cards: list[str] = [
 
 blacklist_players: list[str] = [
     "Kemba Walker",
-    "Jonathan Isaac",
 ]  # Putting players name who do not query here is only valid for recommand mode
 
 recommend_from_teams: list[str] = [
@@ -475,17 +474,37 @@ suggest_cards: dict[str, dict[str, str]] = {
     "common_no_cap": {},
     "super_rare_contender": {
         # "da82a46b-3265-4861-958f-5d13da220269": "Bruce Brown",
-        # "306c2ecf-5fd3-4fc8-8bce-521d48705c57": "Nic Claxton",
+        # "5d079338-2293-47b7-9373-d33dbeac79f7": "Nic Claxton",
         # "c8f7be3b-884c-4ba6-83c5-3a4ec08cb279": "Kentavious Caldwell-Pope",
-        # "a3c70a48-c949-42e2-8c3c-8424679d6bcf": "Andre Drummond",
-        # "3b9c8713-2e0d-4fcc-89e5-2c3c892e24e8": "Trendon Watford",
-        # "48072d8e-ea46-4d4b-8bec-d613916aa991": "Trae Young",
-        # "ca553b45-5402-4541-a032-a6578da8c200": "Eugene Omoruyi",
+        # "7687d882-b499-4a00-83f1-b16dab40a6fd": "Christian Braun",
+        # "104ce90e-ba5b-40ae-ad17-303ad64d5c40": "Precious Achiuwa",,
+        # "612ecc55-cace-4d7f-96cc-134ab341625f": "Malik Monk"
     },
-    "rare_contender": {},
+    "rare_contender": {
+        # "7687d882-b499-4a00-83f1-b16dab40a6fd": "Christian Braun",
+        # "e9bacf6f-f367-46fb-85bd-b6c642c69f51": "Bones Hyland",
+        # "26550275-d00e-4a81-8f61-ffbc036ef354": "Zeke Nnaji",
+        # "45730281-cbb7-4b83-b824-219bf220c07f": "Terance Mann",
+        # "5df4f5e8-7e52-4ee4-96a0-3cffafca2a02": "Buddy Hield",
+        # "0087b6e6-c8d5-410e-9bc9-e051d793b6b8": "Jonas Valanciunas",
+        # "a694ea01-a530-47c7-af92-ab5a7b97f6a3": "Bennedict Mathurin",
+        # "e7237e22-e75f-4a11-8035-42292046aa50": "Cedi Osman",
+    },
     "limited_contender": {},
     "super_rare_champion": {},
-    "rare_champion": {},
+    "rare_champion": {
+        # "467748a5-66cc-4424-902f-5da44bc39a01": "Jamal Murray",
+        # "5df4f5e8-7e52-4ee4-96a0-3cffafca2a02": "Buddy Hield",
+    },
+    "rare_underdog": {
+        # "9fc2c2bd-9d3d-4831-a0df-013eff544469": "Bruce Brown",
+        # "4cc2790f-6e43-48b1-ac45-d2e75ae1c49b": "Yuta Watanabe",
+        # "e7237e22-e75f-4a11-8035-42292046aa50": "Cedi Osman",
+        # "62ab6bad-b284-40e4-85da-8af52f870200": "Alondes Williams",
+    },
+    "super_rare_underdog": {
+        # "7ec97d41-27fa-4422-8054-a6ac9780205c": "Vlatko \u010can\u010dar"
+    },
     "limited_champion": {
         # "10c74499-37d5-4170-a952-3401588a3f8a": "Nikola Joki\u0107",
         # "6f93a513-5031-4e36-8e06-f922dc00ea3b": "Jayson Tatum",

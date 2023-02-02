@@ -56,7 +56,7 @@ def show_opposite_team(team: str, matches: list[Match]) -> str:
     return " and ".join(match_info)
 
 
-def player_is_main(player: str, team: str | None) -> tuple[bool, list[str]]:
+def position_anlaysis(player: str, team: str | None) -> tuple[bool, bool, list[str]]:
     """Return if player is main player and next choose players.
 
     Args:
@@ -64,10 +64,10 @@ def player_is_main(player: str, team: str | None) -> tuple[bool, list[str]]:
         team (str | None): Team name
 
     Returns:
-        tuple[bool, list[str]]: (is main player, next choose players)
+        tuple[bool, bool, list[str]]: (has reserve player, is main player, next choose players)
     """
     if team is None:
-        return False, []
+        return False, False, []
     with open("./data/player_positions.json", "r") as f:
         team_to_position: dict = json.load(f)
         players: dict[str, str | list[str]] = team_to_position[team]
@@ -80,14 +80,14 @@ def player_is_main(player: str, team: str | None) -> tuple[bool, list[str]]:
             next_choose.append(seconds[index])
             for third in thirds[index]:
                 next_choose.append(third)
-            return True, next_choose
+            return True, True, next_choose
         elif player in seconds:
             index = seconds.index(player)
             for third in thirds[index]:
                 next_choose.append(third)
-            return True, next_choose
+            return True, False, next_choose
         else:
-            return False, next_choose
+            return False, False, next_choose
 
 
 def get_score_with_ratio(
@@ -159,7 +159,7 @@ def predict(
         NormalDist: The prediction of the player's performance, in the form of a normal distribution
     """
     has_ratio: bool = stats_ratio != {}
-    is_main, next_chooses = player_is_main(
+    has_reserve, is_main, next_chooses = position_anlaysis(
         player["displayName"],
         player["team"]["abbreviation"] if player["team"] is not None else None,
     )
@@ -195,7 +195,7 @@ def predict(
         print(
             f"『{player_name}』is out for the next game"
             + f", reserve players are 2️⃣『{'』,『'.join(next_chooses)}』"
-            if is_main
+            if has_reserve
             else ""
         )
 
@@ -227,7 +227,7 @@ def predict(
     )  # calculate the performance change rate of each game, which should float around 0
 
     if (
-        is_main
+        has_reserve
     ):  # players who don't play may be injured, which doesn't affect the score, so filter out 0
         stats_arr = list(filter(lambda s: s != 0, stats_arr))
 
@@ -247,7 +247,7 @@ def predict(
     if player_name in possible_match_players and player_name not in suggest_players:
         second_str = (
             f", reserve players are 2️⃣『{'』,『'.join(next_chooses)}』"
-            if is_main and len(next_chooses) != 0
+            if has_reserve and len(next_chooses) != 0
             else ""
         )
         possible = possible_match_players[player_name]
@@ -290,15 +290,22 @@ def predict(
         if match["home"] == team:
             home_bonus += mu_of_home_bonus
 
-    # 3. back to back bonus
+    # 3. back to back bonus, only for main players
     b2b_bonus: float = 0
     for match in match_join:
-        if (
+        away_is_b2b = (
             match["away"] == team and match["away_is_b2b"] and not match["home_is_b2b"]
-        ):  # Away team backs to backs and opponent is not backs to backs
-            b2b_bonus -= mu_of_away_b2b
-        if match["home"] == team and match["home_is_b2b"] and not match["away_is_b2b"]:
-            b2b_bonus -= mu_of_home_b2b
+        )
+        home_is_b2b = (
+            match["home"] == team and match["home_is_b2b"] and not match["away_is_b2b"]
+        )
+        if (
+            away_is_b2b or home_is_b2b
+        ):  # if match is b2b, add bonus for reserve players, minus bonus for main players
+            if is_main:
+                b2b_bonus += mu_of_away_b2b
+            else:
+                b2b_bonus -= mu_of_away_b2b
 
     # 4. match count bonus
     match_count_bonus: float = 0
