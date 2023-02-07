@@ -250,7 +250,7 @@ limited_underdog: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 110,
+    "target": 120,
 }
 
 limited_western_conference: Tournaments = {
@@ -352,7 +352,7 @@ rare_underdog: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.rare,
     },
-    "target": 115,
+    "target": 130,
 }
 
 rare_no_cap: Tournaments = {
@@ -368,6 +368,16 @@ rare_no_cap: Tournaments = {
     "target": 300,
 }
 
+rare_veterans: Tournaments = {
+    "name": "rare_veterans",
+    "tenGameAverageTotalLimit": 120,
+    "allowMVP": True,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.rare],
+    "minRarity": None,
+    "target": 230,
+}
+
 super_rare_underdog: Tournaments = {
     "name": "super_rare_underdog",
     "tenGameAverageTotalLimit": 60,
@@ -378,7 +388,7 @@ super_rare_underdog: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.super_rare,
     },
-    "target": 120,
+    "target": 140,
 }
 
 super_rare_no_cap: Tournaments = {
@@ -413,7 +423,7 @@ mu_of_single_game_bonus: float = (
     -0.2
 )  # Deductions for average single-game performance change only
 mu_of_multiple_games_bonus: float = (
-    0.15  # of performance change averages for games played 3 or more
+    0.1  # of performance change averages for games played 3 or more
 )
 suggestion_count: int = 3  # Number of recommended results
 probability_reach_target: float = 0.01  # Sort from the results that have that probability of reaching the target score
@@ -421,31 +431,32 @@ show_injure_detail = True
 
 all_tournaments: list[Tournaments] = [
     common_champion,
-    # season_of_giving,
+    # common_veterans,
     common_contender,
     # common_underdog,
+    # season_of_giving,
     # common_western_conference,
     # common_eastern_conference,
     # common_no_cap,
     # common_all_offense,
     # common_all_defense,
-    # common_veterans,
     # common_under_23,
     # super_rare_underdog,
     # super_rare_contender,
-    # rare_contender,
+    # super_rare_champion,
+    # rare_veterans,
     # rare_champion,
+    # rare_contender,
     # rare_underdog,
     # rare_no_cap,
-    # limited_all_defense,
     # limited_champion,
-    # limited_eastern_conference,
+    # limited_all_defense,
     # limited_contender,
+    # limited_eastern_conference,
     # limited_under_23,
     # limited_veterans,
     # limited_all_offense,
     # deck_the_halls,
-    # super_rare_champion,
     # limited_western_conference,
     # limited_no_cap,
     # limited_underdog,
@@ -473,12 +484,8 @@ suggest_cards: dict[str, dict[str, str]] = {
     "common_eastern_conference": {},
     "common_no_cap": {},
     "super_rare_contender": {
-        # "da82a46b-3265-4861-958f-5d13da220269": "Bruce Brown",
-        # "5d079338-2293-47b7-9373-d33dbeac79f7": "Nic Claxton",
-        # "c8f7be3b-884c-4ba6-83c5-3a4ec08cb279": "Kentavious Caldwell-Pope",
         # "7687d882-b499-4a00-83f1-b16dab40a6fd": "Christian Braun",
         # "104ce90e-ba5b-40ae-ad17-303ad64d5c40": "Precious Achiuwa",,
-        # "612ecc55-cace-4d7f-96cc-134ab341625f": "Malik Monk"
     },
     "rare_contender": {
         # "7687d882-b499-4a00-83f1-b16dab40a6fd": "Christian Braun",
@@ -493,8 +500,8 @@ suggest_cards: dict[str, dict[str, str]] = {
     "limited_contender": {},
     "super_rare_champion": {},
     "rare_champion": {
-        # "467748a5-66cc-4424-902f-5da44bc39a01": "Jamal Murray",
         # "5df4f5e8-7e52-4ee4-96a0-3cffafca2a02": "Buddy Hield",
+        # "b85c6b5b-8d5f-4eed-84f2-135b273b99e7": "Nikola Joki\u0107",
     },
     "rare_underdog": {
         # "9fc2c2bd-9d3d-4831-a0df-013eff544469": "Bruce Brown",
@@ -514,4 +521,5 @@ suggest_cards: dict[str, dict[str, str]] = {
     "limited_eastern_conference": {},
     "limited_no_cap": {},
     "limited_underdog": {},
+    "limited_veterans": {},
 }  #  Set the id of cards that will be selected, can find id and name in data/cards-xxxx-xx-xx.json

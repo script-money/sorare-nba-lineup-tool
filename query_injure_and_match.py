@@ -6,7 +6,7 @@ import json
 import time
 from types_ import NBAPlayerPosition
 from utils import rename_player
-from get_injure import extarct_official_injury_report
+from get_injure import extarct_official_injury_report, query_last_injury_report
 import pandas as pd
 import os
 
@@ -104,8 +104,9 @@ def get_correct_name(series):
 def get_injure_data_new():
     today = datetime.now(timezone("US/Eastern"))
     today_str = today.strftime("%Y-%m-%d")
-    from_str = (today - timedelta(days=0)).strftime("%Y-%m-%d")
-    df = extarct_official_injury_report(from_str, today_str)
+    # from_str = (today - timedelta(days=0)).strftime("%Y-%m-%d")
+    # df = extarct_official_injury_report(from_str, today_str)
+    df = query_last_injury_report()
     # remove duplicate by Player Name
     df = df.drop_duplicates(subset=["Player Name"], keep="last")
     df["player"] = df["Player Name"].apply(get_correct_name)

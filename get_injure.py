@@ -3,7 +3,9 @@ import tabula
 import datetime
 import time
 import re
-
+import requests as rq
+from lxml import etree
+from pytz import timezone
 
 # check if a cell belongs to the "Category" column
 def category_pattern(val):
@@ -196,6 +198,54 @@ def days_between(d1, d2):
     d1 = datetime.datetime.strptime(d1, "%Y-%m-%d").date()
     d2 = datetime.datetime.strptime(d2, "%Y-%m-%d").date()
     return abs((d2 - d1).days)
+
+
+def query_last_injury_report():
+    df_7col = pd.DataFrame()
+    last_link = ""
+    res = rq.get("https://official.nba.com/nba-injury-report-2022-23-season/")
+    if res.status_code != 200:
+        raise ValueError(
+            "Error in getting the link to the last injury report, please try again later"
+        )
+    root = etree.HTML(res.text, parser=etree.HTMLParser(encoding="utf-8"))
+    for element in root.xpath('//div[@class="col-xs-12 post-injury"]//a/@href'):
+        last_link = element
+
+    today = datetime.datetime.now(timezone("US/Eastern"))
+    today_str = today.strftime("%Y-%m-%d")
+    result = None
+    retry = 0
+
+    while result is None and retry < 2:
+        try:
+            df_lst: list[pd.DataFrame] = tabula.read_pdf(last_link, pages="all")  # type: ignore
+            for df in df_lst:
+                df["Date injury Report"] = today_str
+                df["Time injury Report"] = last_link[-8:-4]
+                df_7col = pd.concat([df_7col, df], axis=0)
+            result = True
+        except Exception as e:
+            retry += 1
+            time.sleep(1)
+
+    if len(df_7col) != 0:
+        df_7col = arrange_df(df_7col)
+        df_7col = df_7col[
+            [
+                "Game Date",
+                "Game Time",
+                "Matchup",
+                "Team",
+                "Player Name",
+                "Current Status",
+                "Reason",
+                "Date injury Report",
+                "Time injury Report",
+            ]
+        ]
+
+    return df_7col
 
 
 def extarct_official_injury_report(start_date, end_date):
