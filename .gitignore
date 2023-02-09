@@ -2,11 +2,10 @@
 .ipynb_checkpoints
 .DS_Store
 __pycache__
-data/cards-*.json
+data/cards.json
 data/next-week-*.json
 data/injure-*.json
-data/team-rank-*.json
-data/all-players-data-*.json
+data/all-players-data.json
 data/*.txt
 data/*.pickle
 config/NBACards.json

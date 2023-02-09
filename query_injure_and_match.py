@@ -88,9 +88,7 @@ def get_injure_data():
             }
         )
 
-    today = datetime.now(timezone("US/Eastern"))
-    today_str = today.strftime("%Y-%m-%d")
-    with open(f"data/injure-{today_str}-0.json", "w") as f:
+    with open(f"data/injure-0.json", "w") as f:
         json.dump(injured_data, f, indent=4)
 
     return injured_data
@@ -102,8 +100,7 @@ def get_correct_name(series):
 
 
 def get_injure_data_new():
-    today = datetime.now(timezone("US/Eastern"))
-    today_str = today.strftime("%Y-%m-%d")
+
     # from_str = (today - timedelta(days=0)).strftime("%Y-%m-%d")
     # df = extarct_official_injury_report(from_str, today_str)
     df = query_last_injury_report()
@@ -113,15 +110,15 @@ def get_injure_data_new():
     df["team"] = df["Team"]
     df["injure_type"] = df["Current Status"]
     df = df[["team", "player", "injure_type"]]
-    df.to_json(f"data/injure-{today_str}-1.json", orient="records")
+    df.to_json(f"data/injure-1.json", orient="records")
 
 
 def combine_two_type_injure_json():
     today = datetime.now(timezone("US/Eastern"))
     today_str = today.strftime("%Y-%m-%d")
     # read json as dataframe
-    df0 = pd.read_json(f"data/injure-{today_str}-0.json")
-    df1 = pd.read_json(f"data/injure-{today_str}-1.json")
+    df0 = pd.read_json(f"data/injure-0.json")
+    df1 = pd.read_json(f"data/injure-1.json")
     # join df0 and df1 with key='player'
     df = df0.merge(df1, on=["team", "player"], how="outer")
     # fill na cell in injure_type to Out if game_time_decision is False and to Questionable if game_time_decision is True
@@ -136,8 +133,8 @@ def combine_two_type_injure_json():
     df.to_json(f"data/injure-{today_str}.json", orient="records", indent=4)
     print(f"save injure info to data/injure-{today_str}.json")
     # delete old json
-    os.remove(f"data/injure-{today_str}-0.json")
-    os.remove(f"data/injure-{today_str}-1.json")
+    os.remove(f"data/injure-0.json")
+    os.remove(f"data/injure-1.json")
 
 
 def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
@@ -253,9 +250,8 @@ def get_team_rank():
         )
         defense.append(team)
     teams["team_defense_rank"] = defense
-    today = datetime.now(timezone("US/Eastern"))
-    today_str = today.strftime("%Y-%m-%d")
-    with open(f"data/team-rank-{today_str}.json", "w") as f:
+
+    with open(f"data/team-rank.json", "w") as f:
         json.dump(teams, f, indent=4)
         print("team rank saved in data folder")
     return teams
@@ -266,4 +262,3 @@ if __name__ == "__main__":
     get_injure_data()
     get_injure_data_new()
     combine_two_type_injure_json()
-    get_team_rank()

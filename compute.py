@@ -142,7 +142,6 @@ def predict(
     possible_match_players: dict[str, float],
     out_players: list[str],
     matches: list[Match],
-    team_rank: TeamRank,
     stats_ratio: dict[str, float],
 ) -> NormalDist:
     """Predict a player's performance in the next week.
@@ -265,24 +264,24 @@ def predict(
     )
 
     # 1. Get the opponent's offensive and defensive strength, plus standardization
-    positions: list[str] = player["positions"]
-    k_list: list[float] = []
-    bonus: float = 0
-    for match in match_join:
-        opponent: str = match["away"] if match["home"] == team else match["home"]
-        offense_rank: int = team_rank["team_offense_rank"].index(opponent)
-        defense_rank: int = team_rank["team_defense_rank"].index(opponent)
-        k_o: float = 0.0
-        k_d: float = 0.0
-        # offense bonus
-        if "NBA_FORWARD" in positions or "NBA_CENTER" in positions:
-            k_o = (offense_rank - 15) / 30 * mu_of_max_rank_team_bonus_ratio
-        # defense bonus
-        if "NBA_FORWARD" in positions or "NBA_GUARD" in positions:
-            k_d = (defense_rank - 15) / 30 * mu_of_max_rank_team_bonus_ratio
-        k: float = k_o + k_d
-        k_list.append(k)
-    opponent_bonus: float = sum(k_list) / len(k_list) if len(k_list) != 0.0 else 0.0
+    # positions: list[str] = player["positions"]
+    # k_list: list[float] = []
+    # bonus: float = 0
+    # for match in match_join:
+    #     opponent: str = match["away"] if match["home"] == team else match["home"]
+    #     offense_rank: int = team_rank["team_offense_rank"].index(opponent)
+    #     defense_rank: int = team_rank["team_defense_rank"].index(opponent)
+    #     k_o: float = 0.0
+    #     k_d: float = 0.0
+    #     # offense bonus
+    #     if "NBA_FORWARD" in positions or "NBA_CENTER" in positions:
+    #         k_o = (offense_rank - 15) / 30 * mu_of_max_rank_team_bonus_ratio
+    #     # defense bonus
+    #     if "NBA_FORWARD" in positions or "NBA_GUARD" in positions:
+    #         k_d = (defense_rank - 15) / 30 * mu_of_max_rank_team_bonus_ratio
+    #     k: float = k_o + k_d
+    #     k_list.append(k)
+    # opponent_bonus: float = sum(k_list) / len(k_list) if len(k_list) != 0.0 else 0.0
 
     # 2. Home field advantage bonus
     home_bonus: float = 0
@@ -314,13 +313,7 @@ def predict(
     if len(match_join) > 2:
         match_count_bonus += mu_of_multiple_games_bonus
 
-    bonus = (
-        game_decision_bonus
-        + opponent_bonus
-        + home_bonus
-        + b2b_bonus
-        + match_count_bonus
-    )
+    bonus = game_decision_bonus + home_bonus + b2b_bonus + match_count_bonus
     mu += bonus * card_average
 
     future_performance: NormalDist = NormalDist(mu, sigma)
@@ -398,7 +391,6 @@ def get_all_cards_with_prediction(
                 game_decision_players,
                 out_players,
                 matches,
-                team_rank,
                 stats_ratio,
             )
 
@@ -423,7 +415,6 @@ def get_all_cards_with_prediction(
                 game_decision_players,
                 out_players,
                 matches,
-                team_rank,
                 stats_ratio,
             ) * (1 + card["totalBonus"])
 
@@ -453,12 +444,11 @@ def load_data(
     list[str],
     dict[str, float],
     list[Match],
-    TeamRank,
     list[NBACard],
     dict[str, MatchProbility],
     list[str],
 ]:
-    with open(f"data/cards-{today}.json", "r") as f:
+    with open(f"data/cards.json", "r") as f:
         cards: list[NBACard] = json.load(f)
 
     with open(f"data/injure-{today}.json", "r") as g:
@@ -467,8 +457,8 @@ def load_data(
     with open(f"data/next-week-{today}.json", "r") as h:
         matches: list[Match] = json.load(h)
 
-    with open(f"data/team-rank-{today}.json", "r") as i:
-        team_rank: TeamRank = json.load(i)
+    # with open(f"data/team-rank.json", "r") as i:
+    #     team_rank: TeamRank = json.load(i)
 
     # load probility
     with open(f"data/all_probility.json", "r") as j:
@@ -530,7 +520,6 @@ def load_data(
         out_players,
         game_decision_players,
         matches,
-        team_rank,
         avaliable_cards,
         all_probility,
         suggest_players,
@@ -558,7 +547,6 @@ if __name__ == "__main__":
         out_players,
         game_decision_players,
         matches,
-        team_rank,
         avaliable_cards,
         match_probility,
         suggest_players,
@@ -571,7 +559,7 @@ if __name__ == "__main__":
 
     avaliable_players = []
     if is_recommend:
-        with open(f"data/all-players-data-{today_str}.json", "r") as f:
+        with open(f"data/all-players-data.json", "r") as f:
             players: list[NBAPlayer] = json.load(f)
 
         # Get all players who aren't blacklisted
@@ -583,9 +571,7 @@ if __name__ == "__main__":
         )
 
         if len(avaliable_players) == 0:
-            print(
-                "No avaliable players found, please check data/all-players-data-{today}.json"
-            )
+            print("No avaliable players found, please check data/all-players-data.json")
             exit(1)
 
         # If we're only recommending from a specific team, filter to only include those players
@@ -611,9 +597,9 @@ if __name__ == "__main__":
 
     df = DataFrame()
     if is_recommend:
-        caceh_file_path = f"data/cached_recommend-{today_str}.pickle"
+        caceh_file_path = f"data/cached_recommend.pickle"
     else:
-        caceh_file_path = f"data/cached-{today_str}.pickle"
+        caceh_file_path = f"data/cached.pickle"
     if os.path.exists(caceh_file_path):
         print(f"Found {caceh_file_path}, do you want to use it? (Y/n)")
         if input().upper() == "Y":

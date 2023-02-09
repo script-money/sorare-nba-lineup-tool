@@ -3,8 +3,6 @@ import json
 
 from gql import Client, gql
 from gql.transport.aiohttp import AIOHTTPTransport
-from datetime import datetime
-from pytz import timezone
 
 from types_ import NBACard, NBACardsInput
 
@@ -45,9 +43,8 @@ async def main():
             all_cards_info.extend(result["nbaCards"])
 
         # save result as json to data, naming as date
-        today = datetime.now(timezone("US/Eastern"))
-        today_str = today.strftime("%Y-%m-%d")
-        with open(f"data/cards-{today_str}.json", "w") as f:
+
+        with open(f"data/cards.json", "w") as f:
             json.dump(all_cards_info, f, indent=4)
             print(f"{len(all_cards_info)} cards data saved in data folder")
 

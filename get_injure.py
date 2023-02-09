@@ -212,6 +212,8 @@ def query_last_injury_report():
     for element in root.xpath('//div[@class="col-xs-12 post-injury"]//a/@href'):
         last_link = element
 
+    print(f"query injure report from {last_link}")
+
     today = datetime.datetime.now(timezone("US/Eastern"))
     today_str = today.strftime("%Y-%m-%d")
     result = None

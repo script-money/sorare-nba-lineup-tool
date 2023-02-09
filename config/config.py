@@ -409,7 +409,6 @@ super_rare_no_cap: Tournaments = {
 compute_by_recent_n_weeks_games: int = (
     10  # Calculate the rate of change in performance for the last n weeks of play
 )
-mu_of_max_rank_team_bonus_ratio: float = 0.2  # If the opponent is the weakest team in offense and defense, the maximum addition to the average value of performance change rate, and vice versa playing strong teams cut
 mu_of_home_bonus: float = (
     0.04  # Home additions to the mean rate of change in performance
 )

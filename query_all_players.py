@@ -4,8 +4,6 @@ from asyncio import run
 from gql import Client, gql, client
 from gql.transport.aiohttp import AIOHTTPTransport
 from types_ import NBAPlayer, team_slugs
-from datetime import datetime
-from pytz import timezone
 
 with open("query/NBAPlayersByTeamQuery.graphql") as f:
     playersQuery = gql(f.read())
@@ -26,10 +24,7 @@ async def main():
         for team_slug in team_slugs:
             all_cards_info.extend(await query_task(team_slug, session))
 
-        today: datetime = datetime.now(timezone("US/Eastern"))
-        today_str: str = today.strftime("%Y-%m-%d")
-
-        with open(f"data/all-players-data-{today_str}.json", "w") as f:
+        with open(f"data/all-players-data.json", "w") as f:
             json.dump(all_cards_info, f, indent=4)
             print("all player data saved in data folder")
 
