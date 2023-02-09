@@ -650,7 +650,10 @@ if __name__ == "__main__":
     print(f"{len(all_tournaments)} tournaments found")
 
     result_lines = []
+    choose_no_result = False
     for select_groups_epoch in range(suggestion_count):
+        if choose_no_result:
+            break
         result_lines.append("-" * 50)
         print(f"\nSelecting cards for No.{select_groups_epoch + 1} group(s)...")
         used_cards = []
@@ -879,6 +882,8 @@ if __name__ == "__main__":
                             f'"{select_card["id"]}": "{select_card["name"]}",'
                         )
                     result_lines.append("\n")
+                    if tournament_index == 0:
+                        choose_no_result = True
                     continue
 
                 index: int = select_groups_epoch if tournament_index == 0 else 0
