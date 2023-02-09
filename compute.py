@@ -193,7 +193,7 @@ def predict(
     ):
         print(
             f"『{player_name}』is out for the next game"
-            + f", reserve players are 2️⃣『{'』,『'.join(next_chooses)}』"
+            + f", reserve players are ❷『{'』,『'.join(next_chooses)}』"
             if has_reserve
             else ""
         )
@@ -245,7 +245,7 @@ def predict(
 
     if player_name in possible_match_players and player_name not in suggest_players:
         second_str = (
-            f", reserve players are 2️⃣『{'』,『'.join(next_chooses)}』"
+            f", reserve players are ❷『{'』,『'.join(next_chooses)}』"
             if has_reserve and len(next_chooses) != 0
             else ""
         )
