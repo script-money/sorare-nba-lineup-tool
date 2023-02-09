@@ -424,6 +424,9 @@ mu_of_single_game_bonus: float = (
 mu_of_multiple_games_bonus: float = (
     0.1  # of performance change averages for games played 3 or more
 )
+outperform_treshold: float = (
+    -2
+)  # include players who average - outperform more than this value
 suggestion_count: int = 3  # Number of recommended results
 probability_reach_target: float = 0.01  # Sort from the results that have that probability of reaching the target score
 show_injure_detail = True

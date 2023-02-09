@@ -771,7 +771,10 @@ if __name__ == "__main__":
 
                 # filter card_pool average less than expect's mean
                 card_pool: list[SelectCard] = list(
-                    filter(lambda c: c["average"] < c["expect"].mean, card_pool)
+                    filter(
+                        lambda c: c["average"] < c["expect"].mean - outperform_treshold,
+                        card_pool,
+                    )
                 )
 
                 to_select_card_count: int = 5 - pre_select
