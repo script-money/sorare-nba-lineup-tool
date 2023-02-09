@@ -3,7 +3,8 @@
 ## install
 
 1. install poetry, then use `poetry install` to install dependencies
-2. get all NBACard id at `https://api.sorare.com/sports/graphql/playground#`, The *(first: 120)* change to your card amount and copy query ids to **config/NBACards.json**
+2. install JAVA environment
+3. get all NBACard id at `https://api.sorare.com/sports/graphql/playground#`, The *(first: 120)* change to your card amount and copy query ids to **config/NBACards.json**
 
     ```graphql
     query RecentCurrentUserCardsQuery {
@@ -23,6 +24,8 @@
 2. `poetry run python query_position_players.py` will request all player current position (once a week)
 3. `poetry run python query_injure_and_match.py` will request all injure and matches in data folder (once a week)
 4. change `config/config.py` if need, then `poetry run python compute.py` will compute results.txt to data folder
+
+PS: It is recommended to get the latest injury report within 20 minutes of the end of the game week
 
 ## search in all nba players
 
