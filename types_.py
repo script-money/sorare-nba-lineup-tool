@@ -59,6 +59,7 @@ class DetailedStat(TypedDict):
 
 class DetailedStats(TypedDict):
     detailedStats: DetailedStat
+    score: float
 
 
 class NBAPlayerInFixtureStatus(TypedDict):

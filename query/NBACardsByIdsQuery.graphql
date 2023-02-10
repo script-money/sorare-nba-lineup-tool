@@ -9,7 +9,6 @@ query NBACardsByIdsQuery($input: NBACardsInput!) {
       age
       positions
       latestFinalFixtureStats(last: 24) {
-        score
         tenGameAverage
         status {
           statusIconType
@@ -26,6 +25,7 @@ query NBACardsByIdsQuery($input: NBACardsInput!) {
               tripleDoubles
               secondsPlayed
             }
+            score
           }
         }
       }

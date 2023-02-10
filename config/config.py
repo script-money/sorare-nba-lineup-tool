@@ -407,7 +407,7 @@ super_rare_no_cap: Tournaments = {
 # Player performance a normal distribution, mu is the average value of the distribution, for example, player rating 30, mu = 0.1, then the expected average value of performance is 33
 # The mu additions (or reductions) set below are empirical values and are not guaranteed to be 100% accurate, so you can fine-tune them yourself
 compute_by_recent_n_weeks_games: int = (
-    10  # Calculate the rate of change in performance for the last n weeks of play
+    3  # Calculate the rate of change in performance for the last n weeks of play
 )
 mu_of_home_bonus: float = (
     0.04  # Home additions to the mean rate of change in performance
@@ -487,7 +487,7 @@ suggest_cards: dict[str, dict[str, str]] = {
     "common_no_cap": {},
     "super_rare_contender": {
         # "7687d882-b499-4a00-83f1-b16dab40a6fd": "Christian Braun",
-        # "104ce90e-ba5b-40ae-ad17-303ad64d5c40": "Precious Achiuwa",,
+        # "abbe6b0a-88c7-4539-ba80-9c41a25b4ce3": "Josh Okogie",
     },
     "rare_contender": {
         # "7687d882-b499-4a00-83f1-b16dab40a6fd": "Christian Braun",

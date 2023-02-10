@@ -11,8 +11,18 @@ query NBAPlayerQuery($input: [String!]) {
         statusIconType
         gameStats {
           detailedStats {
+            points
+            rebounds
+            assists
+            blocks
+            steals
+            turnovers
+            made3PointFGs
+            doubleDoubles
+            tripleDoubles
             secondsPlayed
           }
+          score
         }
       }
     }

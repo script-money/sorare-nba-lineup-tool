@@ -93,7 +93,7 @@ def position_anlaysis(player: str, team: str | None) -> tuple[bool, bool, list[s
 def get_score_with_ratio(
     stats: list[DetailedStats],
     stats_ratio: dict[str, float],
-) -> float:
+) -> list[float]:
     """Get score with ratio (some tournaments have special condition calculation)
 
     Args:
@@ -101,10 +101,10 @@ def get_score_with_ratio(
         stats_ratio (dict[str, float]): Ratio of stats.
 
     Returns:
-        float: Score with ratio.
+        list[float]: Score list with ratio.
     """
     if len(stats) == 0:
-        return 0
+        return [0]
     default_ratio: dict[str, float] = {
         "points": 1,
         "rebounds": 1,
@@ -134,7 +134,7 @@ def get_score_with_ratio(
             ]
         )
         stat_per_game.append(total_point)
-    return max(stat_per_game)
+    return stat_per_game
 
 
 def predict(
@@ -169,24 +169,26 @@ def predict(
         )
     )
 
-    all_card_scores: list[NBAPlayerInFixture] = player["latestFinalFixtureStats"]
+    all_card_week_scores: list[NBAPlayerInFixture] = player["latestFinalFixtureStats"]
     # get first not pending index
-    last_game_index: int = next(
+    last_game_week_index: int = next(
         (
             i
-            for i, v in enumerate(all_card_scores)
+            for i, v in enumerate(all_card_week_scores)
             if v["status"]["statusIconType"]
             != PlayerInFixtureStatusIconType.pending.value
         )
     )
-    last_game: str = all_card_scores[last_game_index]["status"]["statusIconType"]
+    last_week_type: str = all_card_week_scores[last_game_week_index]["status"][
+        "statusIconType"
+    ]
 
     player_name: str = player["displayName"]
     if (
         player_name in out_players
         and (
-            last_game != PlayerInFixtureStatusIconType.no_game.value
-            and last_game != PlayerInFixtureStatusIconType.did_not_play.value
+            last_week_type != PlayerInFixtureStatusIconType.no_game.value
+            and last_week_type != PlayerInFixtureStatusIconType.did_not_play.value
         )
         and not has_ratio
         and show_injure_detail
@@ -201,8 +203,8 @@ def predict(
     card_average: int = player["tenGameAverage"]
     team: str | None = None if player["team"] is None else player["team"]["fullName"]
     if player_name in possible_match_players and (
-        last_game == PlayerInFixtureStatusIconType.no_game.value
-        or last_game == PlayerInFixtureStatusIconType.did_not_play.value
+        last_week_type == PlayerInFixtureStatusIconType.no_game.value
+        or last_week_type == PlayerInFixtureStatusIconType.did_not_play.value
     ):  # If in game_decision, but not on the last game, don't go on
         return NormalDist(0, 0)
     next_matches: int = len(
@@ -212,18 +214,21 @@ def predict(
         next_matches == 0 or player_name in out_players
     ):  # remove players who have no match next week and players who are confirmed injured
         return NormalDist(0, 0)
-    stats_arr: list[float] = list(
-        map(
-            lambda s: s["score"]
-            if len(stats_ratio) == 0
-            else get_score_with_ratio(
-                s["status"]["gameStats"], stats_ratio=stats_ratio
-            ),
-            all_card_scores[
-                last_game_index : last_game_index + compute_by_recent_n_weeks_games
-            ],  # get the latest n games
-        )
-    )  # calculate the performance change rate of each game, which should float around 0
+
+    stats_arr: list[float] = []
+    for week in all_card_week_scores[
+        last_game_week_index : last_game_week_index + compute_by_recent_n_weeks_games
+    ]:
+        if len(stats_ratio) == 0:
+            for game_stat in week["status"]["gameStats"]:
+                stats_arr.append(game_stat["score"])
+        else:
+            week_stat_array = get_score_with_ratio(
+                week["status"]["gameStats"], stats_ratio
+            )
+            stats_arr.extend(
+                week_stat_array
+            )  # calculate the performance change rate of each game, which should float around 0
 
     if (
         has_reserve
@@ -676,7 +681,7 @@ if __name__ == "__main__":
                     else get_all_cards_with_prediction(
                         avaliable_players, tournaments["multiplier"]
                     )
-                )
+                )  # TODO make get with ratio cache
 
                 # in recommend mode, select cards by name, but in normal mode, select cards by id
                 pre_select_cards: list[SelectCard] = (
@@ -789,7 +794,7 @@ if __name__ == "__main__":
                         sorted_card_pool[:to_select_card_count] + pre_select_cards
                     )
                 else:
-                    for possible in combinations(card_pool, to_select_card_count):
+                    for possible in combinations(card_pool, to_select_card_count):  # type: ignore
                         all_5_cards: list[SelectCard] = (
                             list(possible) + pre_select_cards
                         )
