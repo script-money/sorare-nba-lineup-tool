@@ -193,13 +193,13 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
         away_has_b2b_last_matches: list[MatchData] = list(
             filter(
                 lambda i: i.date == yesterday and (away == i.away or away == i.home),
-                match_exclude_first_day,
+                match_data,
             )
         )
         home_has_b2b_last_matches: list[MatchData] = list(
             filter(
                 lambda i: i.date == yesterday and (home == i.home or home == i.away),
-                match_exclude_first_day,
+                match_data,
             )
         )
 
