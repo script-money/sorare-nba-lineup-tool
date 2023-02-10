@@ -642,6 +642,16 @@ if __name__ == "__main__":
             columns=["name", "rarity", "minutes", "average", "expect", "outperform"],
         )
     )
+
+    if show_top_10_outperform:
+        # print top 10 outperform players
+        print("\nTop 10 outperform players:")
+        top10_df = df.sort_values(by="outperform", ascending=False).head(10)[
+            ["name", "average"]
+        ]
+        # print with format name1(average1), name2(average2), ...
+        print(", ".join([f"{name}({average})" for name, average in top10_df.values]))
+
     df_show = df_show.drop(columns=["outperform"])
 
     # save df_show to data folder
