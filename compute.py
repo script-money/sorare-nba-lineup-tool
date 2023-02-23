@@ -169,7 +169,15 @@ def predict(
         )
     )
 
-    all_card_week_scores: list[NBAPlayerInFixture] = player["latestFinalFixtureStats"]
+    all_card_week_scores: list[NBAPlayerInFixture] = player["latestFixtureStats"]
+
+    all_card_week_scores = list(
+        filter(
+            lambda i: i["fixture"]["gameWeek"] not in exclude_game_weeks,
+            all_card_week_scores,
+        )
+    )
+
     # get first not pending index
     last_game_week_index: int = next(
         (
@@ -348,7 +356,7 @@ def get_average_minutes(
             != PlayerInFixtureStatusIconType.no_game.value
             and s["status"]["statusIconType"]
             != PlayerInFixtureStatusIconType.inactive.value,
-            player["latestFinalFixtureStats"],
+            player["latestFixtureStats"],
         )
     )
 

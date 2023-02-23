@@ -8,8 +8,11 @@ query NBACardsByIdsQuery($input: NBACardsInput!) {
       tenGameAverage
       age
       positions
-      latestFinalFixtureStats(last: 24) {
+      latestFixtureStats(last: 24) {
         tenGameAverage
+        fixture {
+          gameWeek
+        }
         status {
           statusIconType
           gameStats {

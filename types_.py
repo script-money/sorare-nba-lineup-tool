@@ -67,9 +67,14 @@ class NBAPlayerInFixtureStatus(TypedDict):
     gameStats: list[DetailedStats]
 
 
+class Fixture(TypedDict):
+    gameWeek: int
+
+
 class NBAPlayerInFixture(TypedDict):
     score: float
     tenGameAverage: int
+    fixture: Fixture
     status: NBAPlayerInFixtureStatus
 
 
@@ -78,7 +83,7 @@ class NBAPlayer(TypedDict):
     tenGameAverage: int
     age: int
     positions: list[str]
-    latestFinalFixtureStats: list[NBAPlayerInFixture]
+    latestFixtureStats: list[NBAPlayerInFixture]
     team: NBATeam
 
 

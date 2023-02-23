@@ -4,9 +4,12 @@ query NBAPlayerQuery($input: [String!]) {
     tenGameAverage
     positions
     age
-    latestFinalFixtureStats(last: 24) {
+    latestFixtureStats(last: 24) {
       score
       tenGameAverage
+      fixture {
+        gameWeek
+      }
       status {
         statusIconType
         gameStats {

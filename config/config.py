@@ -378,6 +378,16 @@ rare_veterans: Tournaments = {
     "target": 230,
 }
 
+rare_under_23: Tournaments = {
+    "name": "rare_under_23",
+    "tenGameAverageTotalLimit": 120,
+    "allowMVP": True,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.rare],
+    "minRarity": None,
+    "target": 230,
+}
+
 super_rare_underdog: Tournaments = {
     "name": "super_rare_underdog",
     "tenGameAverageTotalLimit": 60,
@@ -427,6 +437,7 @@ mu_of_multiple_games_bonus: float = (
 outperform_treshold: float = (
     -2
 )  # include players who average - outperform more than this value
+exclude_game_weeks = [35]  # Exclude the game weeks (such as all_star_week)
 show_top_10_outperform = True
 suggestion_count: int = 3  # Number of recommended results
 probability_reach_target: float = 0.01  # Sort from the results that have that probability of reaching the target score
@@ -452,6 +463,7 @@ all_tournaments: list[Tournaments] = [
     # rare_contender,
     # rare_underdog,
     # rare_no_cap,
+    # rare_under_23,
     # limited_champion,
     # limited_all_defense,
     # limited_contender,
