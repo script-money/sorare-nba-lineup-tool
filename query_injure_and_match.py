@@ -181,9 +181,12 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
             )
             match_data.append(MatchData(_date, away, home))
 
-    match_exclude_first_day = list(
-        filter(lambda m: m.date != match_data[0].date, match_data)
-    )  # filter out the first day
+    day_merge_to_next_week = ["20230223"]
+    match_exclude_first_day = match_data
+    if next_days[0] not in day_merge_to_next_week:
+        match_exclude_first_day = list(
+            filter(lambda m: m.date != match_data[0].date, match_data)
+        )  # filter out the first day
 
     matches_mark_b2b: list[MatchData] = []
     for match in match_exclude_first_day:
