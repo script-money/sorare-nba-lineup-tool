@@ -8,7 +8,8 @@ data/injure-*.json
 data/all-players-data.json
 data/*.txt
 data/*.pickle
-config/NBACards.json
+config/NBACards*.json
 experiment/
 .env
 config/config.py.bak
+data/team-rank.json

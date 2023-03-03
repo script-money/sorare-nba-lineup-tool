@@ -265,3 +265,4 @@ if __name__ == "__main__":
     get_injure_data()
     get_injure_data_new()
     combine_two_type_injure_json()
+    get_team_rank()

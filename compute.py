@@ -142,6 +142,7 @@ def predict(
     possible_match_players: dict[str, float],
     out_players: list[str],
     matches: list[Match],
+    team_rank: TeamRank,
     stats_ratio: dict[str, float],
 ) -> NormalDist:
     """Predict a player's performance in the next week.
@@ -256,7 +257,11 @@ def predict(
 
     game_decision_bonus: float = 0
 
-    if player_name in possible_match_players and player_name not in suggest_players:
+    if (
+        player_name in possible_match_players
+        and player_name not in suggest_players
+        and is_game_decision_bonus_activate
+    ):
         second_str = (
             f", reserve players are ❷『{'』,『'.join(next_chooses)}』"
             if has_reserve and len(next_chooses) != 0
@@ -276,57 +281,66 @@ def predict(
         filter(lambda m: m["away"] == team or m["home"] == team, matches)
     )
 
-    # 1. Get the opponent's offensive and defensive strength, plus standardization
-    # positions: list[str] = player["positions"]
-    # k_list: list[float] = []
-    # bonus: float = 0
-    # for match in match_join:
-    #     opponent: str = match["away"] if match["home"] == team else match["home"]
-    #     offense_rank: int = team_rank["team_offense_rank"].index(opponent)
-    #     defense_rank: int = team_rank["team_defense_rank"].index(opponent)
-    #     k_o: float = 0.0
-    #     k_d: float = 0.0
-    #     # offense bonus
-    #     if "NBA_FORWARD" in positions or "NBA_CENTER" in positions:
-    #         k_o = (offense_rank - 15) / 30 * mu_of_max_rank_team_bonus_ratio
-    #     # defense bonus
-    #     if "NBA_FORWARD" in positions or "NBA_GUARD" in positions:
-    #         k_d = (defense_rank - 15) / 30 * mu_of_max_rank_team_bonus_ratio
-    #     k: float = k_o + k_d
-    #     k_list.append(k)
-    # opponent_bonus: float = sum(k_list) / len(k_list) if len(k_list) != 0.0 else 0.0
+    bonus: float = 0
+    match_bonus: float = 0
 
-    # 2. Home field advantage bonus
-    home_bonus: float = 0
+    team_offense_rank = team_rank["team_offense_rank"].index(team)
+    team_defense_rank = team_rank["team_defense_rank"].index(team)
     for match in match_join:
-        if match["home"] == team:
-            home_bonus += mu_of_home_bonus
-
-    # 3. back to back bonus, only for main players
-    b2b_bonus: float = 0
-    for match in match_join:
-        away_is_b2b = (
-            match["away"] == team and match["away_is_b2b"] and not match["home_is_b2b"]
+        team_bonus, opponent_bonus = 0, 0
+        opponent: str = match["away"] if match["home"] == team else match["home"]
+        opponent_offense_rank: int = team_rank["team_offense_rank"].index(opponent)
+        opponent_defense_rank: int = team_rank["team_defense_rank"].index(opponent)
+        is_opponent_home = match["home"] == opponent
+        is_team_home = not is_opponent_home
+        is_opponent_b2b = (match["away"] == opponent and match["away_is_b2b"]) or (
+            match["home"] == opponent and match["home_is_b2b"]
         )
-        home_is_b2b = (
-            match["home"] == team and match["home_is_b2b"] and not match["away_is_b2b"]
+        is_team_b2b = (match["away"] == team and match["away_is_b2b"]) or (
+            match["home"] == team and match["home_is_b2b"]
         )
-        if (
-            away_is_b2b or home_is_b2b
-        ):  # if match is b2b, add bonus for reserve players, minus bonus for main players
-            if is_main:
-                b2b_bonus += mu_of_away_b2b
-            else:
-                b2b_bonus -= mu_of_away_b2b
+        team_rank_bonus = -(
+            (team_offense_rank + team_defense_rank - 30)
+            / 30
+            * mu_of_max_rank_team_bonus_ratio
+        )
+        team_home_bonus = is_team_home * mu_of_home_bonus
+        team_b2b_bonus = is_team_b2b * mu_of_b2b
+        opponent_rank_bonus = -(
+            (opponent_offense_rank + opponent_defense_rank - 30)
+            / 30
+            * mu_of_max_rank_team_bonus_ratio
+        )
+        opponent_home_bonus = is_opponent_home * mu_of_home_bonus
+        opponent_b2b_bonus = is_opponent_b2b * mu_of_b2b
 
-    # 4. match count bonus
+        team_bonus = team_rank_bonus + team_home_bonus + team_b2b_bonus
+        opponent_bonus = opponent_rank_bonus + opponent_home_bonus + opponent_b2b_bonus
+        diff = abs(team_bonus - opponent_bonus)
+        if diff <= 0.05:
+            new_match_bonus = mu_of_main_player_in_high_value_game if is_main else 0
+            match_bonus = (
+                max(match_bonus, new_match_bonus)
+                if match_bonus != 0
+                else new_match_bonus
+            )
+        if diff >= 0.15:
+            new_match_bonus = (
+                mu_of_reserve_player_in_low_value_game if not is_main else 0
+            )
+            match_bonus = (
+                max(match_bonus, new_match_bonus)
+                if match_bonus != 0
+                else new_match_bonus
+            )
+    # match count bonus
     match_count_bonus: float = 0
     if len(match_join) == 1:
         match_count_bonus += mu_of_single_game_bonus
     if len(match_join) > 2:
         match_count_bonus += mu_of_multiple_games_bonus
 
-    bonus = game_decision_bonus + home_bonus + b2b_bonus + match_count_bonus
+    bonus = game_decision_bonus + match_bonus + match_count_bonus
     mu += bonus * card_average
 
     future_performance: NormalDist = NormalDist(mu, sigma)
@@ -404,6 +418,7 @@ def get_all_cards_with_prediction(
                 game_decision_players,
                 out_players,
                 matches,
+                team_rank,
                 stats_ratio,
             )
 
@@ -428,6 +443,7 @@ def get_all_cards_with_prediction(
                 game_decision_players,
                 out_players,
                 matches,
+                team_rank,
                 stats_ratio,
             ) * (1 + card["totalBonus"])
 
@@ -457,6 +473,7 @@ def load_data(
     list[str],
     dict[str, float],
     list[Match],
+    TeamRank,
     list[NBACard],
     dict[str, MatchProbility],
     list[str],
@@ -470,8 +487,8 @@ def load_data(
     with open(f"data/next-week-{today}.json", "r") as h:
         matches: list[Match] = json.load(h)
 
-    # with open(f"data/team-rank.json", "r") as i:
-    #     team_rank: TeamRank = json.load(i)
+    with open(f"data/team-rank.json", "r") as i:
+        team_rank: TeamRank = json.load(i)
 
     # load probility
     with open(f"data/all_probility.json", "r") as j:
@@ -533,6 +550,7 @@ def load_data(
         out_players,
         game_decision_players,
         matches,
+        team_rank,
         avaliable_cards,
         all_probility,
         suggest_players,
@@ -551,6 +569,7 @@ if __name__ == "__main__":
         is_recommend = True
 
     today_str: str = datetime.now(timezone("US/Eastern")).strftime("%Y-%m-%d")
+    # today_str = "2023-02-27"
 
     (
         common_cards,
@@ -560,6 +579,7 @@ if __name__ == "__main__":
         out_players,
         game_decision_players,
         matches,
+        team_rank,
         avaliable_cards,
         match_probility,
         suggest_players,
@@ -868,7 +888,8 @@ if __name__ == "__main__":
                                 max_group_index = index
                         try:
                             p_of_reach_target = total_dist.cdf(
-                                target / (divisor if is_recommend else 1)
+                                (target + target_adjust)
+                                / (divisor if is_recommend else 1)
                             )
                             if p_of_reach_target < 1 - probability_reach_target:
                                 group_index_to_cdf[index] = p_of_reach_target

@@ -1,24 +1,14 @@
 from types_ import Tournaments, CardRarity, NBAConference
 
 
-common_champion: Tournaments = {
-    "name": "common_champion",
+pickup: Tournaments = {
+    "name": "pickup",
     "tenGameAverageTotalLimit": 120,
     "allowMVP": True,
     "allowedConference": None,
     "allowedRarities": [CardRarity.common],
     "minRarity": None,
     "target": 265,  # target can be set according to the prize pool target, if the target is too high, it will tend to pick players with more inconsistent performance
-}
-
-common_contender: Tournaments = {
-    "name": "common_contender",
-    "tenGameAverageTotalLimit": 110,
-    "allowMVP": False,
-    "allowedConference": None,
-    "allowedRarities": [CardRarity.common],
-    "minRarity": None,
-    "target": 180,
 }
 
 common_western_conference: Tournaments = {
@@ -159,7 +149,7 @@ rare_champion: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.rare,
     },
-    "target": 250,
+    "target": 255,
 }
 
 rare_contender: Tournaments = {
@@ -172,7 +162,7 @@ rare_contender: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.rare,
     },
-    "target": 175,
+    "target": 180,
 }
 
 super_rare_contender: Tournaments = {
@@ -185,7 +175,7 @@ super_rare_contender: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.super_rare,
     },
-    "target": 180,
+    "target": 185,
 }
 
 super_rare_champion: Tournaments = {
@@ -198,7 +188,7 @@ super_rare_champion: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.super_rare,
     },
-    "target": 255,
+    "target": 265,
 }
 
 limited_champion: Tournaments = {
@@ -211,7 +201,7 @@ limited_champion: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 240,
+    "target": 245,
 }
 
 limited_contender: Tournaments = {
@@ -224,7 +214,7 @@ limited_contender: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 170,
+    "target": 175,
 }
 
 limited_no_cap: Tournaments = {
@@ -237,7 +227,7 @@ limited_no_cap: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 285,
+    "target": 295,
 }
 
 limited_underdog: Tournaments = {
@@ -250,7 +240,7 @@ limited_underdog: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 120,
+    "target": 125,
 }
 
 limited_western_conference: Tournaments = {
@@ -263,7 +253,7 @@ limited_western_conference: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 200,
+    "target": 210,
 }
 
 limited_eastern_conference: Tournaments = {
@@ -276,7 +266,7 @@ limited_eastern_conference: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 200,
+    "target": 210,
 }
 
 limited_all_offense: Tournaments = {
@@ -328,7 +318,7 @@ limited_under_23: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.limited],
     "minRarity": None,
-    "target": 220,
+    "target": 230,
 }
 
 limited_veterans: Tournaments = {
@@ -338,7 +328,7 @@ limited_veterans: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.limited],
     "minRarity": None,
-    "target": 220,
+    "target": 230,
 }
 
 
@@ -375,7 +365,7 @@ rare_veterans: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.rare],
     "minRarity": None,
-    "target": 230,
+    "target": 225,
 }
 
 rare_under_23: Tournaments = {
@@ -385,7 +375,7 @@ rare_under_23: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.rare],
     "minRarity": None,
-    "target": 230,
+    "target": 225,
 }
 
 super_rare_underdog: Tournaments = {
@@ -414,20 +404,84 @@ super_rare_no_cap: Tournaments = {
     "target": 300,
 }
 
+super_rare_under_23: Tournaments = {
+    "name": "super_rare_under_23",
+    "tenGameAverageTotalLimit": 120,
+    "allowMVP": True,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.super_rare],
+    "minRarity": None,
+    "target": 245,
+}
+
+super_rare_eastern_conference: Tournaments = {
+    "name": "super_rare_eastern_conference",
+    "tenGameAverageTotalLimit": 120,
+    "allowMVP": True,
+    "allowedConference": NBAConference.east,
+    "allowedRarities": [CardRarity.super_rare],
+    "minRarity": {
+        "minCount": 5,
+        "rarity": CardRarity.super_rare,
+    },
+    "target": 255,
+}
+
+super_rare_western_conference: Tournaments = {
+    "name": "super_rare_western_conference",
+    "tenGameAverageTotalLimit": 120,
+    "allowMVP": True,
+    "allowedConference": NBAConference.west,
+    "allowedRarities": [CardRarity.super_rare],
+    "minRarity": {
+        "minCount": 5,
+        "rarity": CardRarity.super_rare,
+    },
+    "target": 255,
+}
+
+rare_eastern_conference: Tournaments = {
+    "name": "rare_eastern_conference",
+    "tenGameAverageTotalLimit": 120,
+    "allowMVP": True,
+    "allowedConference": NBAConference.east,
+    "allowedRarities": [CardRarity.rare],
+    "minRarity": {
+        "minCount": 5,
+        "rarity": CardRarity.rare,
+    },
+    "target": 250,
+}
+
+rare_western_conference: Tournaments = {
+    "name": "rare_western_conference",
+    "tenGameAverageTotalLimit": 120,
+    "allowMVP": True,
+    "allowedConference": NBAConference.west,
+    "allowedRarities": [CardRarity.rare],
+    "minRarity": {
+        "minCount": 5,
+        "rarity": CardRarity.rare,
+    },
+    "target": 250,
+}
+
+
 # Player performance a normal distribution, mu is the average value of the distribution, for example, player rating 30, mu = 0.1, then the expected average value of performance is 33
 # The mu additions (or reductions) set below are empirical values and are not guaranteed to be 100% accurate, so you can fine-tune them yourself
 compute_by_recent_n_weeks_games: int = (
     3  # Calculate the rate of change in performance for the last n weeks of play
 )
+mu_of_max_rank_team_bonus_ratio: float = 0.2  # If the opponent is the weakest team in offense and defense, the maximum addition to the average value of performance change rate, and vice versa playing strong teams cut
 mu_of_home_bonus: float = (
-    0.04  # Home additions to the mean rate of change in performance
+    0.05  # Home additions to the mean rate of change in performance
 )
-mu_of_home_b2b: float = (
+mu_of_b2b: float = (
     -0.15
 )  # Deductions for mean change in home playing back-to-back performance
-mu_of_away_b2b: float = (
-    -0.2
-)  # Deductions for mean change in away playing back-to-back performance
+mu_of_main_player_in_high_value_game: float = 0.15
+mu_of_reserve_player_in_low_value_game: float = 0.3
+
 mu_of_single_game_bonus: float = (
     -0.2
 )  # Deductions for average single-game performance change only
@@ -441,40 +495,48 @@ exclude_game_weeks = [35]  # Exclude the game weeks (such as all_star_week)
 show_top_10_outperform = True
 suggestion_count: int = 3  # Number of recommended results
 probability_reach_target: float = 0.01  # Sort from the results that have that probability of reaching the target score
-show_injure_detail = True
+show_injure_detail = False
+target_adjust = 0  # if target_adjust is 10, all Tournaments targets will add 10, 0 for minimum number of matches. Suggestion: 0 for weekend, 5 for weekday
+is_game_decision_bonus_activate = (
+    True  # Whether to activate the bonus for the game decision
+)
 
 all_tournaments: list[Tournaments] = [
-    common_champion,
+    pickup,
     # common_veterans,
-    common_contender,
     # common_underdog,
-    # season_of_giving,
     # common_western_conference,
     # common_eastern_conference,
     # common_no_cap,
     # common_all_offense,
     # common_all_defense,
     # common_under_23,
-    # super_rare_underdog,
-    # super_rare_contender,
-    # super_rare_champion,
-    # rare_veterans,
-    # rare_champion,
-    # rare_contender,
-    # rare_underdog,
-    # rare_no_cap,
-    # rare_under_23,
-    # limited_champion,
-    # limited_all_defense,
-    # limited_contender,
     # limited_eastern_conference,
-    # limited_under_23,
-    # limited_veterans,
-    # limited_all_offense,
-    # deck_the_halls,
     # limited_western_conference,
     # limited_no_cap,
+    # limited_under_23,
+    # limited_veterans,
     # limited_underdog,
+    # limited_all_offense,
+    # limited_all_defense,
+    # limited_contender,
+    # limited_champion,
+    # rare_eastern_conference,
+    # rare_western_conference,
+    # rare_no_cap,
+    # rare_under_23,
+    # rare_veterans,
+    # rare_underdog,
+    # rare_contender,
+    # rare_champion,
+    # super_rare_eastern_conference,
+    # super_rare_western_conference,
+    # super_rare_underdog,
+    # super_rare_under_23,
+    # super_rare_contender,
+    # super_rare_champion,
+    # deck_the_halls,
+    # season_of_giving,
 ]  #  Change the priority of the tournament, the more advanced will be priority card selection
 
 blacklist_cards: list[str] = [
@@ -483,6 +545,7 @@ blacklist_cards: list[str] = [
 
 blacklist_players: list[str] = [
     "Kemba Walker",
+    "Kris Dunn",
 ]  # Putting players name who do not query here is only valid for recommand mode
 
 recommend_from_teams: list[str] = [
