@@ -674,11 +674,20 @@ if __name__ == "__main__":
     if show_top_10_outperform:
         # print top 10 outperform players
         print("\nTop 10 outperform players:")
-        top10_df = df.sort_values(by="outperform", ascending=False).head(10)[
-            ["name", "average"]
-        ]
+        top10_df = (
+            df[df["rarity"] != "common"]
+            .sort_values(by="outperform", ascending=False)
+            .head(10)[["name", "rarity", "average"]]
+        )
         # print with format name1(average1), name2(average2), ...
-        print(", ".join([f"{name}({average})" for name, average in top10_df.values]))
+        print(
+            ", ".join(
+                [
+                    f"{name}({rarity+',' if rarity is not None else ''}{average})"
+                    for name, rarity, average in top10_df.values
+                ]
+            )
+        )
 
     df_show = df_show.drop(columns=["outperform"])
 
