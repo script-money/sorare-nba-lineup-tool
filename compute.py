@@ -245,9 +245,18 @@ def predict(
         stats_arr = list(filter(lambda s: s != 0, stats_arr))
 
     if (
-        len(stats_arr) == 0 or (array(stats_arr) == 0).all()
-    ):  # for players who never play, there is no game data, so return 0 directly
+        len(stats_arr) <= 1 or (array(stats_arr) == 0).all()
+    ):  # for players who never play or just play 1 game recently, there is no game data, so return 0 directly
         return NormalDist(0, 0)
+
+    # remove the first game if the first game is too different from the rest of the games
+    if len(stats_arr) > 4:
+        arr_except_last_two = stats_arr[2:]
+        _, mu0, sigma0 = t.fit(arr_except_last_two, fdf=len(arr_except_last_two))
+        if (
+            abs(arr_except_last_two[0]) - mu0 > 1.9432 * sigma0
+        ):  # 1.9432 is the 95% confidence interval of t distribution(fdf=6)
+            stats_arr = stats_arr[1:]
 
     ewma_: list[float] = ewma(
         stats_arr, 0.2

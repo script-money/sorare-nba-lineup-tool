@@ -470,7 +470,7 @@ rare_western_conference: Tournaments = {
 # Player performance a normal distribution, mu is the average value of the distribution, for example, player rating 30, mu = 0.1, then the expected average value of performance is 33
 # The mu additions (or reductions) set below are empirical values and are not guaranteed to be 100% accurate, so you can fine-tune them yourself
 compute_by_recent_n_weeks_games: int = (
-    3  # Calculate the rate of change in performance for the last n weeks of play
+    4  # Calculate the rate of change in performance for the last n weeks of play
 )
 mu_of_max_rank_team_bonus_ratio: float = 0.2  # If the opponent is the weakest team in offense and defense, the maximum addition to the average value of performance change rate, and vice versa playing strong teams cut
 mu_of_home_bonus: float = (
@@ -496,7 +496,7 @@ show_top_10_outperform = True
 suggestion_count: int = 3  # Number of recommended results
 probability_reach_target: float = 0.01  # Sort from the results that have that probability of reaching the target score
 show_injure_detail = False
-target_adjust = 0  # if target_adjust is 10, all Tournaments targets will add 10, 0 for minimum number of matches. Suggestion: 0 for weekend, 5 for weekday
+target_adjust = 0  # if target_adjust is 10, all Tournaments targets will add 10, 0 for minimum number of matches. Suggestion: 0 for weekend, 5 for weekday, 20-30 for T3
 is_game_decision_bonus_activate = (
     True  # Whether to activate the bonus for the game decision
 )
@@ -600,4 +600,7 @@ suggest_cards: dict[str, dict[str, str]] = {
     "limited_no_cap": {},
     "limited_underdog": {},
     "limited_veterans": {},
+    "limited_all_offense": {
+        # "cdc65dd7-ee7b-4e81-978a-33f884d334ae": "Trae Young"
+    },
 }  #  Set the id of cards that will be selected, can find id and name in data/cards-xxxx-xx-xx.json
