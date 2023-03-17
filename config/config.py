@@ -466,11 +466,52 @@ rare_western_conference: Tournaments = {
     "target": 250,
 }
 
+rare_all_offense: Tournaments = {
+    "name": "rare_all_offense",
+    "tenGameAverageTotalLimit": 120,
+    "allowMVP": True,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.rare],
+    "minRarity": None,
+    "target": 230,
+    "multiplier": {
+        "points": 1,
+        "blocks": 0,
+        "rebounds": 1,
+        "steals": 0,
+        "assists": 1,
+        "turnovers": 0,
+        "made3PointFGs": 1,
+        "doubleDoubles": 1,
+        "tripleDoubles": 1,
+    },
+}
+
+rare_all_defense: Tournaments = {
+    "name": "rare_all_defense",
+    "tenGameAverageTotalLimit": 120,
+    "allowMVP": True,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.rare],
+    "minRarity": None,
+    "target": 130,
+    "multiplier": {
+        "points": 0,
+        "blocks": 1,
+        "rebounds": 1,
+        "steals": 1,
+        "assists": 0,
+        "turnovers": 0,
+        "made3PointFGs": 0,
+        "doubleDoubles": 0,
+        "tripleDoubles": 0,
+    },
+}
 
 # Player performance a normal distribution, mu is the average value of the distribution, for example, player rating 30, mu = 0.1, then the expected average value of performance is 33
 # The mu additions (or reductions) set below are empirical values and are not guaranteed to be 100% accurate, so you can fine-tune them yourself
 compute_by_recent_n_weeks_games: int = (
-    4  # Calculate the rate of change in performance for the last n weeks of play
+    3  # Calculate the rate of change in performance for the last n weeks of play
 )
 mu_of_max_rank_team_bonus_ratio: float = 0.2  # If the opponent is the weakest team in offense and defense, the maximum addition to the average value of performance change rate, and vice versa playing strong teams cut
 mu_of_home_bonus: float = (
@@ -527,6 +568,8 @@ all_tournaments: list[Tournaments] = [
     # rare_under_23,
     # rare_veterans,
     # rare_underdog,
+    # rare_all_offense,
+    # rare_all_defense,
     # rare_contender,
     # rare_champion,
     # super_rare_eastern_conference,
