@@ -323,20 +323,30 @@ def predict(
         opponent_home_bonus = is_opponent_home * mu_of_home_bonus
         opponent_b2b_bonus = is_opponent_b2b * mu_of_b2b
 
-        team_bonus = team_rank_bonus + team_home_bonus + team_b2b_bonus
-        opponent_bonus = opponent_rank_bonus + opponent_home_bonus + opponent_b2b_bonus
-        diff = abs(team_bonus - opponent_bonus)
-        if diff <= 0.05:
+        if not inPlayoff:
+            team_bonus = team_rank_bonus + team_home_bonus + team_b2b_bonus
+            opponent_bonus = (
+                opponent_rank_bonus + opponent_home_bonus + opponent_b2b_bonus
+            )
+            diff = abs(team_bonus - opponent_bonus)
+            if diff <= 0.05:
+                new_match_bonus = mu_of_main_player_in_high_value_game if is_main else 0
+                match_bonus = (
+                    max(match_bonus, new_match_bonus)
+                    if match_bonus != 0
+                    else new_match_bonus
+                )
+            if diff >= 0.15:
+                new_match_bonus = (
+                    mu_of_reserve_player_in_low_value_game if not is_main else 0
+                )
+                match_bonus = (
+                    max(match_bonus, new_match_bonus)
+                    if match_bonus != 0
+                    else new_match_bonus
+                )
+        else:
             new_match_bonus = mu_of_main_player_in_high_value_game if is_main else 0
-            match_bonus = (
-                max(match_bonus, new_match_bonus)
-                if match_bonus != 0
-                else new_match_bonus
-            )
-        if diff >= 0.15:
-            new_match_bonus = (
-                mu_of_reserve_player_in_low_value_game if not is_main else 0
-            )
             match_bonus = (
                 max(match_bonus, new_match_bonus)
                 if match_bonus != 0

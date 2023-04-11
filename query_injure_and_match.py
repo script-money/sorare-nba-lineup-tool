@@ -9,6 +9,7 @@ from utils import rename_player
 from get_injure import extarct_official_injury_report, query_last_injury_report
 import pandas as pd
 import os
+from config.config import inPlayoff
 
 
 class MatchData:
@@ -139,26 +140,53 @@ def combine_two_type_injure_json():
 
 def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
     match_data: list[MatchData] = []
+    next_days: list[str] = []
     today = (
         datetime.now(timezone("US/Eastern")) if specific_date == None else specific_date
     )
     today_str = today.strftime("%Y-%m-%d")
-    next_days: list[str] = []
-    weekday = today.weekday()
-    if weekday <= 4 and weekday >= 1:  # upper week 1-4
-        offset = -1 if weekday == 4 else 3 - weekday
-        next_days.append((today + timedelta(days=offset)).strftime("%Y%m%d"))
-        for i in range(3):
-            next_days.append(
-                (today + timedelta(days=i + offset + 1)).strftime("%Y%m%d")
-            )
-    else:  # lower week
-        offset = -1 if weekday == 0 else 6 - weekday
-        next_days.append((today + timedelta(days=offset)).strftime("%Y%m%d"))
-        for i in range(4):
-            next_days.append(
-                (today + timedelta(days=i + offset + 1)).strftime("%Y%m%d")
-            )
+
+    if not inPlayoff:
+        weekday = today.weekday()
+        if weekday <= 4 and weekday >= 1:  # upper week 1-4
+            offset = -1 if weekday == 4 else 3 - weekday
+            next_days.append((today + timedelta(days=offset)).strftime("%Y%m%d"))
+            for i in range(3):
+                next_days.append(
+                    (today + timedelta(days=i + offset + 1)).strftime("%Y%m%d")
+                )
+        else:  # lower week
+            offset = -1 if weekday == 0 else 6 - weekday
+            next_days.append((today + timedelta(days=offset)).strftime("%Y%m%d"))
+            for i in range(4):
+                next_days.append(
+                    (today + timedelta(days=i + offset + 1)).strftime("%Y%m%d")
+                )
+    else:
+        weeks = [
+            ("20230411", "20230416"),
+            ("20230417", "20230423"),
+            ("20230424", "20230430"),
+            ("20230501", "20230507"),
+            ("20230508", "20230514"),
+            ("20230515", "20230521"),
+            ("20230522", "20230529"),
+            ("20230601", "20230618"),
+        ]
+        today_date = today.date()
+        for start_date_str, end_date_str in reversed(weeks):
+            start_date = datetime.strptime(start_date_str, "%Y%m%d").date()
+            end_date = datetime.strptime(end_date_str, "%Y%m%d").date()
+
+            if start_date > today_date:
+                current_date = start_date
+                dates_in_week = []
+                while current_date <= end_date:
+                    dates_in_week.append(current_date.strftime("%Y%m%d"))
+                    current_date += timedelta(days=1)
+                next_days = dates_in_week
+        if len(next_days) == 0:
+            assert False, "No next days found"
 
     for day in next_days:
         _date = datetime.strptime(day, "%Y%m%d").date()
@@ -183,13 +211,16 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
 
     day_merge_to_next_week = ["20230223"]
     match_exclude_first_day = match_data
-    if next_days[0] not in day_merge_to_next_week:
+    if next_days[0] not in day_merge_to_next_week and not inPlayoff:
         match_exclude_first_day = list(
             filter(lambda m: m.date != match_data[0].date, match_data)
         )  # filter out the first day
 
     matches_mark_b2b: list[MatchData] = []
     for match in match_exclude_first_day:
+        if match.away == "" or match.home == "":
+            continue
+
         away, home = match.away, match.home
 
         yesterday = match.date - timedelta(days=1)

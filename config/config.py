@@ -513,14 +513,14 @@ rare_all_defense: Tournaments = {
 compute_by_recent_n_weeks_games: int = (
     3  # Calculate the rate of change in performance for the last n weeks of play
 )
-mu_of_max_rank_team_bonus_ratio: float = 0.2  # If the opponent is the weakest team in offense and defense, the maximum addition to the average value of performance change rate, and vice versa playing strong teams cut
+mu_of_max_rank_team_bonus_ratio: float = 0  # If the opponent is the weakest team in offense and defense, the maximum addition to the average value of performance change rate, and vice versa playing strong teams cut
 mu_of_home_bonus: float = (
-    0.05  # Home additions to the mean rate of change in performance
+    0.1  # Home additions to the mean rate of change in performance
 )
 mu_of_b2b: float = (
     -0.15
 )  # Deductions for mean change in home playing back-to-back performance
-mu_of_main_player_in_high_value_game: float = 0.15
+mu_of_main_player_in_high_value_game: float = 0.25
 mu_of_reserve_player_in_low_value_game: float = 0.3
 
 mu_of_single_game_bonus: float = (
@@ -532,54 +532,25 @@ mu_of_multiple_games_bonus: float = (
 outperform_treshold: float = (
     -2
 )  # include players who average - outperform more than this value
-exclude_game_weeks = [35]  # Exclude the game weeks (such as all_star_week)
+exclude_game_weeks = [35, 48]  # Exclude the game weeks (such as all_star_week)
 show_top_10_outperform = True
 suggestion_count: int = 3  # Number of recommended results
 probability_reach_target: float = 0.01  # Sort from the results that have that probability of reaching the target score
 show_injure_detail = False
 target_adjust = 0  # if target_adjust is 10, all Tournaments targets will add 10, 0 for minimum number of matches. Suggestion: 0 for weekend, 5 for weekday, 20-30 for T3
 is_game_decision_bonus_activate = (
-    True  # Whether to activate the bonus for the game decision
+    False  # Whether to activate the bonus for the game decision
 )
+inPlayoff = True
 
 all_tournaments: list[Tournaments] = [
     pickup,
-    # common_veterans,
-    # common_underdog,
-    # common_western_conference,
-    # common_eastern_conference,
-    # common_no_cap,
-    # common_all_offense,
-    # common_all_defense,
-    # common_under_23,
-    # limited_eastern_conference,
-    # limited_western_conference,
-    # limited_no_cap,
-    # limited_under_23,
-    # limited_veterans,
-    # limited_underdog,
-    # limited_all_offense,
-    # limited_all_defense,
     # limited_contender,
     # limited_champion,
-    # rare_eastern_conference,
-    # rare_western_conference,
-    # rare_no_cap,
-    # rare_under_23,
-    # rare_veterans,
-    # rare_underdog,
-    # rare_all_offense,
-    # rare_all_defense,
     # rare_contender,
     # rare_champion,
-    # super_rare_eastern_conference,
-    # super_rare_western_conference,
-    # super_rare_underdog,
-    # super_rare_under_23,
     # super_rare_contender,
     # super_rare_champion,
-    # deck_the_halls,
-    # season_of_giving,
 ]  #  Change the priority of the tournament, the more advanced will be priority card selection
 
 blacklist_cards: list[str] = [
@@ -588,7 +559,9 @@ blacklist_cards: list[str] = [
 
 blacklist_players: list[str] = [
     "Kemba Walker",
-    "Kris Dunn",
+    "Skylar Mays",
+    "Jay Huff",
+    "Justin Minaya",
 ]  # Putting players name who do not query here is only valid for recommand mode
 
 recommend_from_teams: list[str] = [
