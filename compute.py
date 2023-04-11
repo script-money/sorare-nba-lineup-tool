@@ -298,6 +298,8 @@ def predict(
     for match in match_join:
         team_bonus, opponent_bonus = 0, 0
         opponent: str = match["away"] if match["home"] == team else match["home"]
+        if opponent == "":
+            continue
         opponent_offense_rank: int = team_rank["team_offense_rank"].index(opponent)
         opponent_defense_rank: int = team_rank["team_defense_rank"].index(opponent)
         is_opponent_home = match["home"] == opponent

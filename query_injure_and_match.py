@@ -218,7 +218,7 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
 
     matches_mark_b2b: list[MatchData] = []
     for match in match_exclude_first_day:
-        if match.away == "" or match.home == "":
+        if match.away == "" and match.home == "":
             continue
 
         away, home = match.away, match.home
@@ -296,4 +296,4 @@ if __name__ == "__main__":
     get_injure_data()
     get_injure_data_new()
     combine_two_type_injure_json()
-    get_team_rank()
+    # get_team_rank()
