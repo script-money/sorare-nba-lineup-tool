@@ -178,7 +178,7 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
             start_date = datetime.strptime(start_date_str, "%Y%m%d").date()
             end_date = datetime.strptime(end_date_str, "%Y%m%d").date()
 
-            if start_date > today_date:
+            if start_date >= today_date:
                 current_date = start_date
                 dates_in_week = []
                 while current_date <= end_date:
