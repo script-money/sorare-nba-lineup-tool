@@ -1,5 +1,7 @@
 # sorare nba up tool
 
+! Not working for 23-24 season yet
+
 ## install
 
 1. install poetry, then use `poetry install` to install dependencies
