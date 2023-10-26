@@ -158,6 +158,7 @@ def predict(
     Returns:
         NormalDist: The prediction of the player's performance, in the form of a normal distribution
     """
+    player_name: str = player["displayName"]
     has_ratio: bool = stats_ratio != {}
     has_reserve, is_main, next_chooses = position_anlaysis(
         player["displayName"],
@@ -192,7 +193,6 @@ def predict(
         "statusIconType"
     ]
 
-    player_name: str = player["displayName"]
     if (
         player_name in out_players
         and (
@@ -245,7 +245,7 @@ def predict(
         stats_arr = list(filter(lambda s: s != 0, stats_arr))
 
     if (
-        len(stats_arr) <= 1 or (array(stats_arr) == 0).all()
+        len(stats_arr) < 1 or (array(stats_arr) == 0).all()
     ):  # for players who never play or just play 1 game recently, there is no game data, so return 0 directly
         return NormalDist(0, 0)
 

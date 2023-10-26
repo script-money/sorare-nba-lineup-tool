@@ -14,7 +14,7 @@ with open("config/NBACards.json") as f:
     card_ids: list[str] = list(
         map(
             lambda x: x["id"],
-            data["data"]["currentSportsUser"]["nbaCards"]["nodes"],
+            data["data"]["currentUser"]["nbaCards"]["nodes"],
         )
     )
 
@@ -30,7 +30,6 @@ async def main():
     )
 
     async with Client(transport=transport, execute_timeout=30) as session:
-
         all_cards_info: list[NBACard] = []
 
         for i in range(0, len(card_ids), 50):

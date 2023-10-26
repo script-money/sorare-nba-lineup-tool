@@ -4,9 +4,15 @@ from pytz import timezone
 from datetime import datetime, timedelta, date
 import json
 import time
+from config.config import proxies
+
 from types_ import NBAPlayerPosition
 from utils import rename_player
-from get_injure import extarct_official_injury_report, query_last_injury_report
+from get_injure import (
+    combine_injury_report_page,
+    extarct_official_injury_report,
+    query_last_injury_report,
+)
 import pandas as pd
 import os
 from config.config import inPlayoff
@@ -56,7 +62,14 @@ def stash_team_rename(
 
 def get_injure_data():
     injured_data = []
-    res = rq.get("https://www.cbssports.com/nba/injuries/daily/")
+    res = rq.get(
+        "https://www.cbssports.com/nba/injuries/daily/",
+        headers={
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"
+        },
+        proxies=proxies,
+    )
     root = etree.HTML(res.text, parser=etree.HTMLParser(encoding="utf-8"))
     for element in root.xpath('//tr[@class="TableBase-bodyTr"]'):
         team = stash_team_rename(
@@ -101,7 +114,6 @@ def get_correct_name(series):
 
 
 def get_injure_data_new():
-
     # from_str = (today - timedelta(days=0)).strftime("%Y-%m-%d")
     # df = extarct_official_injury_report(from_str, today_str)
     df = query_last_injury_report()
@@ -148,20 +160,19 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
 
     if not inPlayoff:
         weekday = today.weekday()
-        if weekday <= 4 and weekday >= 1:  # upper week 1-4
-            offset = -1 if weekday == 4 else 3 - weekday
-            next_days.append((today + timedelta(days=offset)).strftime("%Y%m%d"))
-            for i in range(3):
-                next_days.append(
-                    (today + timedelta(days=i + offset + 1)).strftime("%Y%m%d")
-                )
-        else:  # lower week
-            offset = -1 if weekday == 0 else 6 - weekday
-            next_days.append((today + timedelta(days=offset)).strftime("%Y%m%d"))
-            for i in range(4):
-                next_days.append(
-                    (today + timedelta(days=i + offset + 1)).strftime("%Y%m%d")
-                )
+
+        if weekday in [0, 1, 2, 3]:
+            days_to_add = [4 - weekday, 5 - weekday, 6 - weekday]
+            next_days = [
+                (today + timedelta(days=i)).strftime("%Y%m%d") for i in days_to_add
+            ]
+        elif weekday in [4, 5, 6]:
+            days_to_add = [-weekday, 1 - weekday, 2 - weekday, 3 - weekday]
+            next_days = [
+                (today + timedelta(days=i)).strftime("%Y%m%d")
+                for i in days_to_add
+                if i > 0
+            ]
     else:
         weeks = [
             ("20230411", "20230416"),
@@ -190,7 +201,14 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
 
     for day in next_days:
         _date = datetime.strptime(day, "%Y%m%d").date()
-        res = rq.get(f"https://www.cbssports.com/nba/schedule/{day}/")
+        res = rq.get(
+            f"https://www.cbssports.com/nba/schedule/{day}/",
+            headers={
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"
+            },
+            proxies=proxies,
+        )
         root = etree.HTML(res.text, parser=etree.HTMLParser(encoding="utf-8"))
         table = root.xpath('//tr[@class="TableBase-bodyTr"]')
         if len(table) == 0:
@@ -209,15 +227,15 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
             )
             match_data.append(MatchData(_date, away, home))
 
-    day_merge_to_next_week = ["20230223"]
-    match_exclude_first_day = match_data
-    if next_days[0] not in day_merge_to_next_week and not inPlayoff:
-        match_exclude_first_day = list(
-            filter(lambda m: m.date != match_data[0].date, match_data)
-        )  # filter out the first day
+    # day_merge_to_next_week = ["20230223"]
+    # match_exclude_first_day = match_data
+    # if next_days[0] not in day_merge_to_next_week and not inPlayoff:
+    #     match_exclude_first_day = list(
+    #         filter(lambda m: m.date != match_data[0].date, match_data)
+    #     )  # filter out the first day
 
     matches_mark_b2b: list[MatchData] = []
-    for match in match_exclude_first_day:
+    for match in match_data:
         if match.away == "" and match.home == "":
             continue
 
@@ -263,7 +281,14 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
 def get_team_rank():
     teams = {}
     offense = []
-    res = rq.get("https://www.cbssports.com/nba/stats/team/team/scoring/nba/regular/")
+    res = rq.get(
+        "https://www.cbssports.com/nba/stats/team/team/scoring/nba/regular/",
+        headers={
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"
+        },
+        proxies=proxies,
+    )
     root = etree.HTML(res.text, parser=etree.HTMLParser(encoding="utf-8"))
     for element in root.xpath('//tr[@class="TableBase-bodyTr"]'):
         team = stash_team_rename(
@@ -275,7 +300,12 @@ def get_team_rank():
 
     defense = []
     res2 = rq.get(
-        "https://www.cbssports.com/nba/stats/team/opponent/scoring/nba/regular/"
+        "https://www.cbssports.com/nba/stats/team/opponent/scoring/nba/regular/",
+        headers={
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"
+        },
+        proxies=proxies,
     )
     root2 = etree.HTML(res2.text, parser=etree.HTMLParser(encoding="utf-8"))
     for element in root2.xpath('//tr[@class="TableBase-bodyTr"]'):

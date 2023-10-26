@@ -13,3 +13,4 @@ experiment/
 .env
 config/config.py.bak
 data/team-rank.json
+data/*.pdf

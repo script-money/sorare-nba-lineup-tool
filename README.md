@@ -4,19 +4,19 @@
 
 1. install poetry, then use `poetry install` to install dependencies
 2. install JAVA environment
-3. get all NBACard id at `https://api.sorare.com/sports/graphql/playground#`, The *(first: 120)* change to your card amount and copy query ids to **config/NBACards.json**
+3. get all NBACard id at `https://api.sorare.com/federation/graphql/playground#`, The _(first: 120)_ change to your card amount and copy query ids to **config/NBACards.json**
 
-    ```graphql
-    query RecentCurrentUserCardsQuery {
-    currentSportsUser {
-        nbaCards(first: 120) {
-        nodes {
-            id
-        }
-        }
-    }
-    }
-    ```
+   ```graphql
+   query RecentCurrentUserCardsQuery {
+     currentUser {
+       nbaCards(first: 200) {
+         nodes {
+           id
+         }
+       }
+     }
+   }
+   ```
 
 ## search in your cards
 
@@ -36,4 +36,4 @@ PS: It is recommended to get the latest injury report within 20 minutes of the e
 
 ## invite link
 
-[https://sorare.pxf.io/4eQk5r](https://sorare.pxf.io/4eQk5r)
+[https://sorare.pxf.io/scriptmoney](https://sorare.pxf.io/scriptmoney)

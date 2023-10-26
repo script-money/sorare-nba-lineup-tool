@@ -4,6 +4,7 @@ import json
 from utils import rename_player
 from types_ import source_team_names
 import time
+from config.config import proxies
 
 all_players: dict[str, dict[str, str | list[str]]] = {}
 
@@ -14,6 +15,11 @@ for abridge, full_name in source_team_names.items():
         try:
             res = rq.get(
                 f"https://www.cbssports.com/nba/teams/{abridge}/{web_name}/depth-chart/",
+                headers={
+                    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"
+                },
+                proxies=proxies,
             )
             root = etree.HTML(res.text, parser=etree.HTMLParser(encoding="utf-8"))
 
