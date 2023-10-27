@@ -507,6 +507,9 @@ def load_data(
 
     with open(f"data/next-week-{today}.json", "r") as h:
         matches: list[Match] = json.load(h)
+        if len(matches) == 0:
+            print(f"No matches found, please check data/next-week-{today}.json")
+            exit(0)
 
     with open(f"data/team-rank.json", "r") as i:
         team_rank: TeamRank = json.load(i)

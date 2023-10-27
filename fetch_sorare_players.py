@@ -7,7 +7,7 @@ from types_ import team_slugs
 
 async def main():
     transport = AIOHTTPTransport(
-        url="https://api.sorare.com/sports/graphql",
+        url="https://api.sorare.com/federation/graphql",
         # headers = {"Authorization": "Bearer <TheUserAccessToken>"}
     )
 

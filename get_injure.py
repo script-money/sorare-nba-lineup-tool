@@ -6,7 +6,6 @@ import time
 import re
 import requests as rq
 from lxml import etree
-from pytz import timezone
 
 
 # check if a cell belongs to the "Category" column
@@ -31,41 +30,43 @@ def reason_pattern(val):
     return val in ["Out", "Doubtful", "Questionable", "Available", "Probable"]
 
 
+team = [
+    "Atlanta Hawks",
+    "Boston Celtics",
+    "Brooklyn Nets",
+    "Charlotte Hornets",
+    "Chicago Bulls",
+    "Cleveland Cavaliers",
+    "Dallas Mavericks",
+    "Denver Nuggets",
+    "Detroit Pistons",
+    "Golden State Warriors",
+    "Houston Rockets",
+    "Indiana Pacers",
+    "LA Clippers",
+    "Los Angeles Lakers",
+    "Memphis Grizzlies",
+    "Miami Heat",
+    "Milwaukee Bucks",
+    "New Orleans Pelicans",
+    "New York Knicks",
+    "Oklahoma City Thunder",
+    "Orlando Magic",
+    "Philadelphia 76ers",
+    "Phoenix Suns",
+    "Portland Trail Blazers",
+    "Sacramento Kings",
+    "San Antonio Spurs",
+    "Toronto Raptors",
+    "Utah Jazz",
+    "Washington Wizards",
+    "Minnesota Timberwolves",
+]
+
+
 # check if a cell belongs to the "Team" column by building a list of all NBA teams
 def teams_pattern(val):
-    return val in [
-        "Atlanta Hawks",
-        "Boston Celtics",
-        "Brooklyn Nets",
-        "Charlotte Hornets",
-        "Chicago Bulls",
-        "Cleveland Cavaliers",
-        "Dallas Mavericks",
-        "Denver Nuggets",
-        "Detroit Pistons",
-        "Golden State Warriors",
-        "Houston Rockets",
-        "Indiana Pacers",
-        "LA Clippers",
-        "Los Angeles Lakers",
-        "Memphis Grizzlies",
-        "Miami Heat",
-        "Milwaukee Bucks",
-        "New Orleans Pelicans",
-        "New York Knicks",
-        "Oklahoma City Thunder",
-        "Orlando Magic",
-        "Philadelphia 76ers",
-        "Phoenix Suns",
-        "Portland Trail Blazers",
-        "Sacramento Kings",
-        "San Antonio Spurs",
-        "Toronto Raptors",
-        "Utah Jazz",
-        "Washington Wizards",
-        "Minnesota " + "Timberwolves",
-        "Minnesota\rTimberwolves",
-    ]
+    return val in team
 
 
 # check if a cell belongs to the "Current Status" column
@@ -105,90 +106,6 @@ def shift_by_pattern(cell, col):  # function that check patterns
     return pattern
 
 
-def move_cell_right(df):
-    """
-    a function that locating each variable in it's right cell using the patterns above
-    :param df: data frame - Data frame fo NBA injury report
-    :return: data frame - a fixed data frameof the NBA official injury report
-    """
-    if df.shape[1] == 11 | df.shape[1] == 10:
-        for row in range(df.shape[0]):
-            for col in range(7):
-                cell = df.iat[row, col]
-                if pd.isna(cell) == True or shift_by_pattern(cell, df.columns[col]):
-                    continue
-                else:
-                    df.iloc[[row], col:] = df.iloc[[row], col:].shift(1, axis=1)
-    else:
-        for row in range(df.shape[0]):
-            for col in range(df.shape[1]):
-                cell = df.iat[row, col]
-                if pd.isna(cell) == True or shift_by_pattern(cell, df.columns[col]):
-                    continue
-                else:
-                    df.iloc[[row], col:] = df.iloc[[row], col:].shift(1, axis=1)
-    return df
-
-
-def fill_na_with_above_value(df):
-    """
-    a function that fills Nan values with the appropriate value
-    :param df: data frame - Data frame fo the NBA injury report
-    :return: data frame - Data frame of the NBA official injury report with values instead of Nan
-    """
-    for row in range(1, df.shape[0]):
-        for col in range(df.shape[1]):
-            cell = df.iat[row, col]
-            if pd.isna(cell):
-                df.iat[row, col] = df.iat[row - 1, col]
-    return df
-
-
-def remove_if_not_submitted(df):
-    """
-    a function that remove rows with NOT YET SUBMITTED, which are not informative
-    :param df: data frame - the data frame fo the NBA injury report
-    :return: data frame - the data frame of the NBA official injury report without rows that contains NOT YET SUBMITTED values
-    """
-    if df.shape[1] == 11:
-        col_names = [
-            "Game Date",
-            "Game Time",
-            "Matchup",
-            "Team",
-            "Player Name",
-            "Category",
-            "Reason",
-            "Current Status",
-            "Previous Status",
-            "Date injury Report",
-            "Time injury Report",
-        ]
-        if list(df.columns) == col_names:
-            df = df[df["Category"] != "NOT YET SUBMITTED"]
-        else:
-            df = df[df["Reason"] != "NOT YET SUBMITTED"]
-    else:
-        df = df[df["Reason"] != "NOT YET SUBMITTED"]
-    return df
-
-
-def arrange_df(df):
-    """
-    a function that making all the relevant changes in the df to make it in the right format
-    :param df: data frame - the data frame of the NBA injury report
-    :return: data frame - The final and useful data frame of the NBA official injury report
-    """
-    df1 = df.iloc[:, : df.shape[1] - 2]
-    df2 = df.iloc[:, df.shape[1] - 2 :]
-    df1 = move_cell_right(df1)
-    df1 = fill_na_with_above_value(df1)
-    df = pd.concat([df1, df2], axis=1)
-    df = remove_if_not_submitted(df)
-
-    return df
-
-
 def days_between(d1, d2):
     """
     a function that calculate the difference between two dates
@@ -216,12 +133,16 @@ def query_last_injury_report():
     return combine_injury_report_page(last_link)
 
 
+def is_team_in_string(input_string, team_list):
+    if pd.isna(input_string):
+        return False
+    matched_team = next((team for team in team_list if team in input_string), np.nan)
+    return matched_team
+
+
 def extract_team(value):
-    if pd.isna(value):
-        return value
-    parts = value.split(" ")
-    if len(parts) >= 4:
-        return " ".join(parts[:2])
+    if is_team_in_string(value, team) != np.nan:
+        return is_team_in_string(value, team)
     else:
         return np.nan
 
@@ -229,13 +150,16 @@ def extract_team(value):
 def extract_name(value):
     if pd.isna(value):
         return value
-    parts = value.split(" ")
-    if len(parts) >= 4:
-        return " ".join(parts[2:-1])
-    elif len(parts) == 3:
-        return " ".join(parts[:2])
+    team_or_nan = is_team_in_string(value, team)
+    if team_or_nan is not np.nan:
+        name_array = value.replace(team_or_nan, "").strip().split(" ")[:-1]
     else:
+        name_array = value.split(" ")[:-1]
+    if len(name_array) == 0:
         return np.nan
+    family_name = name_array[-1]
+    given_name = " ".join(name_array[:-1])
+    return f"{family_name}, {given_name}".replace(",", "")
 
 
 def combine_injury_report_page(
@@ -265,7 +189,8 @@ def combine_injury_report_page(
             )
 
             df.drop(columns=["Team Player Name Current Status", "Reason"], inplace=True)
-            df.drop(df.tail(1).index, inplace=True)
+            df_copy = df.copy()
+            df = df_copy.drop(df_copy.tail(1).index)
             # 删除Player Name为NaN的行
             df.dropna(subset=["Player Name"], inplace=True)
             # print(df.to_string())
@@ -288,7 +213,8 @@ def combine_injury_report_page(
                         "Current Status",
                     ]
                 ]
-                df.drop(df.tail(1).index, inplace=True)
+                df_copy = df.copy()
+                df = df_copy.drop(df_copy.tail(1).index)
             else:
                 # for normal
                 df.columns = [
@@ -309,7 +235,8 @@ def combine_injury_report_page(
                 df.drop(
                     columns=["Team Player Name Current Status", "Reason"], inplace=True
                 )
-                df.drop(df.tail(1).index, inplace=True)
+                df_copy = df.copy()
+                df = df_copy.drop(df_copy.tail(1).index)
                 # 删除Player Name为NaN的行
                 df.dropna(subset=["Player Name"], inplace=True)
                 df = df[
@@ -403,4 +330,5 @@ if __name__ == "__main__":
     # end_date = "2023-01-26"
     # df = extarct_official_injury_report(start_date, end_date)
     # df.to_csv(f"data/{start_date}_{end_date}.csv")
+    # combine_injury_report_page("data/Injury-Report_2023-10-27_02AM.pdf")
     pass

@@ -39,9 +39,4 @@ PS: It is recommended to get the latest injury report within 20 minutes of the e
 
 ## invite link
 
-<<<<<<< HEAD
 [https://sorare.pxf.io/scriptmoney](https://sorare.pxf.io/scriptmoney)
-=======
-[https://sorare.pxf.io/4eQk5r](https://sorare.pxf.io/4eQk5r)
-
-> > > > > > > 9262514475539314e3bdbaaec574deac20dfb9fe

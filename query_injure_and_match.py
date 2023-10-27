@@ -8,11 +8,7 @@ from config.config import proxies
 
 from types_ import NBAPlayerPosition
 from utils import rename_player
-from get_injure import (
-    combine_injury_report_page,
-    extarct_official_injury_report,
-    query_last_injury_report,
-)
+from get_injure import query_last_injury_report
 import pandas as pd
 import os
 from config.config import inPlayoff
@@ -109,18 +105,24 @@ def get_injure_data():
 
 
 def get_correct_name(series):
-    first, last = series.split(", ")
-    return rename_player(last + " " + first)
+    try:
+        name = series[-1]
+        first = series[-1:]
+        return rename_player(name + " " + first)
+    except ValueError:
+        print("Rename error:", series)
+        return series
 
 
 def get_injure_data_new():
     # from_str = (today - timedelta(days=0)).strftime("%Y-%m-%d")
     # df = extarct_official_injury_report(from_str, today_str)
     df = query_last_injury_report()
+    print(df.to_string())
     # remove duplicate by Player Name
     df = df.drop_duplicates(subset=["Player Name"], keep="last")
-    df["player"] = df["Player Name"].apply(get_correct_name)
     df["team"] = df["Team"]
+    df["player"] = df["Player Name"]
     df["injure_type"] = df["Current Status"]
     df = df[["team", "player", "injure_type"]]
     df.to_json(f"data/injure-1.json", orient="records")
@@ -161,12 +163,12 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
     if not inPlayoff:
         weekday = today.weekday()
 
-        if weekday in [0, 1, 2, 3]:
+        if weekday in [1, 2, 3, 4]:
             days_to_add = [4 - weekday, 5 - weekday, 6 - weekday]
             next_days = [
                 (today + timedelta(days=i)).strftime("%Y%m%d") for i in days_to_add
             ]
-        elif weekday in [4, 5, 6]:
+        elif weekday in [5, 6, 0]:
             days_to_add = [-weekday, 1 - weekday, 2 - weekday, 3 - weekday]
             next_days = [
                 (today + timedelta(days=i)).strftime("%Y%m%d")
@@ -199,6 +201,9 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
         if len(next_days) == 0:
             assert False, "No next days found"
 
+    if len(next_days) == 0:
+        print("No next days found")
+        exit(0)
     for day in next_days:
         _date = datetime.strptime(day, "%Y%m%d").date()
         res = rq.get(
@@ -210,6 +215,9 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
             proxies=proxies,
         )
         root = etree.HTML(res.text, parser=etree.HTMLParser(encoding="utf-8"))
+        if root is None:
+            print(f"Can't get data from cbssports, proxies is {proxies}")
+            exit(0)
         table = root.xpath('//tr[@class="TableBase-bodyTr"]')
         if len(table) == 0:
             match_data.append(MatchData(_date, "", ""))
@@ -326,4 +334,4 @@ if __name__ == "__main__":
     get_injure_data()
     get_injure_data_new()
     combine_two_type_injure_json()
-    # get_team_rank()
+    get_team_rank()

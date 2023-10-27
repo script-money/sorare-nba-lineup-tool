@@ -15,7 +15,7 @@ with open("query/NBAPlayersBySlugsQuery.graphql") as g:
 async def main():
     async with Client(
         transport=AIOHTTPTransport(
-            url="https://api.sorare.com/sports/graphql",
+            url="https://api.sorare.com/federation/graphql",
             # headers = {"Authorization": "Bearer <TheUserAccessToken>"}
         )
     ) as session:

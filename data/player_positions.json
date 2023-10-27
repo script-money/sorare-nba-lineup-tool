@@ -49,9 +49,9 @@
         ],
         "Center": [
             "Kristaps Porzingis",
-            "Luke Kornet",
+            "Al Horford",
             [
-                "Al Horford",
+                "Luke Kornet",
                 "Neemias Queta",
                 "Nathan Knight"
             ]
@@ -187,32 +187,34 @@
             "Tyrese Maxey",
             "De'Anthony Melton",
             [
-                "Kelly Oubre Jr.",
                 "Jaden Springer",
+                "Kelly Oubre Jr.",
                 "Danny Green",
                 "Furkan Korkmaz",
                 "Patrick Beverley",
                 "Terquavion Smith",
                 "Danuel House Jr.",
-                "Javonte Smart"
+                "Javonte Smart",
+                "Ricky Council IV"
             ]
         ],
         "Small Forward": [
             "Tobias Harris",
-            "Kelly Oubre Jr.",
+            "Danny Green",
             [
-                "Danny Green",
+                "Kelly Oubre Jr.",
                 "Furkan Korkmaz",
                 "Danuel House Jr.",
-                "De'Anthony Melton"
+                "De'Anthony Melton",
+                "Ricky Council IV"
             ]
         ],
         "Power Forward": [
             "P.J. Tucker",
-            "Paul Reed",
+            "Kelly Oubre Jr.",
             [
                 "Tobias Harris",
-                "Kelly Oubre Jr.",
+                "Paul Reed",
                 "Danuel House Jr.",
                 "Filip Petrusev"
             ]
@@ -501,9 +503,9 @@
         ],
         "Center": [
             "Myles Turner",
-            "Isaiah Jackson",
+            "Jalen Smith",
             [
-                "Jalen Smith",
+                "Isaiah Jackson",
                 "Obi Toppin",
                 "Daniel Theis",
                 "Jarace Walker",
@@ -524,10 +526,10 @@
         ],
         "Shooting Guard": [
             "Malik Beasley",
-            "Pat Connaughton",
+            "MarJon Beauchamp",
             [
                 "Khris Middleton",
-                "MarJon Beauchamp",
+                "Pat Connaughton",
                 "Cameron Payne",
                 "A.J. Green",
                 "Andre Jackson Jr."
@@ -535,10 +537,10 @@
         ],
         "Small Forward": [
             "Khris Middleton",
-            "MarJon Beauchamp",
+            "Pat Connaughton",
             [
-                "Pat Connaughton",
                 "Jae Crowder",
+                "MarJon Beauchamp",
                 "Malik Beasley",
                 "Andre Jackson Jr.",
                 "Giannis Antetokounmpo",
@@ -1076,12 +1078,12 @@
         ],
         "Power Forward": [
             "Jerami Grant",
-            "Jabari Walker",
+            "Toumani Camara",
             [
+                "Jabari Walker",
                 "Kris Murray",
                 "Ish Wainright",
                 "Matisse Thybulle",
-                "Toumani Camara",
                 "Robert Williams III"
             ]
         ],
@@ -1099,23 +1101,23 @@
     },
     "UTA": {
         "Point Guard": [
-            "Jordan Clarkson",
-            "Collin Sexton",
+            "Talen Horton-Tucker",
+            "Kris Dunn",
             [
                 "Keyonte George",
-                "Kris Dunn",
-                "Talen Horton-Tucker",
+                "Collin Sexton",
+                "Jordan Clarkson",
                 "Josh Christopher"
             ]
         ],
         "Shooting Guard": [
-            "Talen Horton-Tucker",
-            "Ochai Agbaji",
+            "Jordan Clarkson",
+            "Collin Sexton",
             [
-                "Kris Dunn",
-                "Jordan Clarkson",
                 "Keyonte George",
-                "Collin Sexton",
+                "Ochai Agbaji",
+                "Kris Dunn",
+                "Talen Horton-Tucker",
                 "Brice Sensabaugh",
                 "Josh Christopher",
                 "Johnny Juzang"
@@ -1123,25 +1125,26 @@
         ],
         "Small Forward": [
             "Lauri Markkanen",
-            "Simone Fontecchio",
+            "Ochai Agbaji",
             [
+                "Simone Fontecchio",
+                "Kris Dunn",
                 "Talen Horton-Tucker",
                 "Brice Sensabaugh",
-                "Ochai Agbaji",
                 "Taylor Hendricks",
-                "Kris Dunn",
                 "Johnny Juzang",
                 "Josh Christopher"
             ]
         ],
         "Power Forward": [
             "John Collins",
-            "Taylor Hendricks",
+            "Lauri Markkanen",
             [
                 "Kelly Olynyk",
-                "Lauri Markkanen",
+                "Taylor Hendricks",
                 "Simone Fontecchio",
                 "Brice Sensabaugh",
+                "Talen Horton-Tucker",
                 "Luka Samanic"
             ]
         ],
@@ -1439,28 +1442,28 @@
         ],
         "Center": [
             "Domantas Sabonis",
-            "Alex Len",
+            "JaVale McGee",
             [
-                "Trey Lyles",
-                "JaVale McGee"
+                "Alex Len",
+                "Trey Lyles"
             ]
         ]
     },
     "DAL": {
         "Point Guard": [
             "Luka Don\u010di\u0107",
-            "Jaden Hardy",
+            "Dante Exum",
             [
-                "Dante Exum",
+                "Jaden Hardy",
                 "Kyrie Irving",
                 "Seth Curry"
             ]
         ],
         "Shooting Guard": [
             "Kyrie Irving",
-            "Tim Hardaway Jr.",
+            "Seth Curry",
             [
-                "Seth Curry",
+                "Tim Hardaway Jr.",
                 "Jaden Hardy",
                 "Dante Exum",
                 "AJ Lawson",
@@ -1468,25 +1471,25 @@
             ]
         ],
         "Small Forward": [
-            "Derrick Jones Jr.",
-            "Josh Green",
+            "Grant Williams",
+            "Tim Hardaway Jr.",
             [
                 "Olivier-Maxence Prosper",
-                "Grant Williams",
-                "Tim Hardaway Jr.",
+                "Josh Green",
                 "Dante Exum",
+                "Derrick Jones Jr.",
                 "AJ Lawson",
                 "Greg Brown III"
             ]
         ],
         "Power Forward": [
-            "Grant Williams",
-            "Maxi Kleber",
+            "Derrick Jones Jr.",
+            "Josh Green",
             [
+                "Grant Williams",
                 "Olivier-Maxence Prosper",
-                "Derrick Jones Jr.",
+                "Maxi Kleber",
                 "Markieff Morris",
-                "Josh Green",
                 "Greg Brown III"
             ]
         ],
@@ -1698,8 +1701,9 @@
         ],
         "Small Forward": [
             "Keldon Johnson",
-            "Julian Champagnie",
+            "Doug McDermott",
             [
+                "Julian Champagnie",
                 "Cedi Osman",
                 "Jeremy Sochan",
                 "Devin Vassell",
@@ -1711,8 +1715,8 @@
             "Victor Wembanyama",
             "Cedi Osman",
             [
-                "Jeremy Sochan",
                 "Julian Champagnie",
+                "Jeremy Sochan",
                 "Dominick Barlow",
                 "Doug McDermott",
                 "Keldon Johnson",
