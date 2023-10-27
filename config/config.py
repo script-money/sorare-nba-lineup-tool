@@ -9,7 +9,7 @@ pickup: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.common],
     "minRarity": None,
-    "target": 265,  # target can be set according to the prize pool target, if the target is too high, it will tend to pick players with more inconsistent performance
+    "target": 260,  # target can be set according to the prize pool target, if the target is too high, it will tend to pick players with more inconsistent performance
 }
 
 street_ball: Tournaments = {
@@ -179,7 +179,7 @@ rare_contender: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.rare,
     },
-    "target": 180,
+    "target": 200,
 }
 
 super_rare_contender: Tournaments = {
@@ -192,7 +192,7 @@ super_rare_contender: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.super_rare,
     },
-    "target": 180,
+    "target": 190,
 }
 
 super_rare_champion: Tournaments = {
@@ -205,7 +205,7 @@ super_rare_champion: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.super_rare,
     },
-    "target": 290,
+    "target": 275,
 }
 
 limited_champion: Tournaments = {
@@ -231,7 +231,7 @@ limited_contender: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 175,
+    "target": 190,
 }
 
 limited_no_cap: Tournaments = {
@@ -359,7 +359,7 @@ rare_underdog: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.rare,
     },
-    "target": 130,
+    "target": 150,
 }
 
 rare_no_cap: Tournaments = {
@@ -561,7 +561,7 @@ is_game_decision_bonus_activate = (
 inPlayoff = False
 
 all_tournaments: list[Tournaments] = [
-    # pickup,
+    pickup,
     # common_veterans,
     # common_underdog,
     # common_western_conference,
@@ -661,7 +661,6 @@ suggest_cards: dict[str, dict[str, str]] = {
         # "066a2859-0127-4481-860e-9f205203626d": "Brook Lopez"
         # "c016853c-1772-412f-b681-91f3ac74fd3f": "Jimmy Butler",
         # "aa3a4968-2d2d-419b-8e5b-85f3fbaae634": "Brandon Ingram",
-        # "48072d8e-ea46-4d4b-8bec-d613916aa991": "Trae Young",
     },
     "rare_champion": {
         # "5df4f5e8-7e52-4ee4-96a0-3cffafca2a02": "Buddy Hield",
