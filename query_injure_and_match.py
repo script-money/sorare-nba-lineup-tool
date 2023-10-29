@@ -172,8 +172,9 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
             days_to_add = [-weekday, 1 - weekday, 2 - weekday, 3 - weekday]
             next_days = [
                 (today + timedelta(days=i)).strftime("%Y%m%d")
-                for i in days_to_add
                 if i > 0
+                else (today + timedelta(days=i + 7)).strftime("%Y%m%d")
+                for i in days_to_add
             ]
     else:
         weeks = [
