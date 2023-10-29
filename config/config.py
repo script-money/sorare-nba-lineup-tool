@@ -1,6 +1,11 @@
 from types_ import Tournaments, CardRarity, NBAConference
 
-# proxies = {"http": "http://127.0.0.1:7890", "https": "http://127.0.0.1:7890"}
+use_proxy = False
+proxies = (
+    {"http": "http://127.0.0.1:7890", "https": "http://127.0.0.1:7890"}
+    if use_proxy
+    else None
+)
 
 pickup: Tournaments = {
     "name": "pickup",
@@ -192,7 +197,7 @@ super_rare_contender: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.super_rare,
     },
-    "target": 190,
+    "target": 160,
 }
 
 super_rare_champion: Tournaments = {
@@ -205,7 +210,7 @@ super_rare_champion: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.super_rare,
     },
-    "target": 275,
+    "target": 260,
 }
 
 limited_champion: Tournaments = {
@@ -578,8 +583,8 @@ all_tournaments: list[Tournaments] = [
     # limited_all_defense,
     # limited_champion,
     # limited_contender,
-    # limited_no_cap,
     # limited_underdog,
+    # limited_no_cap,
     # rare_eastern_conference,
     # rare_western_conference,
     # rare_no_cap,
@@ -592,8 +597,8 @@ all_tournaments: list[Tournaments] = [
     # rare_underdog,
     # super_rare_eastern_conference,
     # super_rare_western_conference,
-    # super_rare_contender,
     # super_rare_champion,
+    # super_rare_contender,
     # super_rare_underdog,
     # super_rare_under_23,
     # deck_the_halls,
@@ -643,16 +648,6 @@ suggest_cards: dict[str, dict[str, str]] = {
         # "da82a46b-3265-4861-958f-5d13da220269": "Bruce Brown",
         # "abbe6b0a-88c7-4539-ba80-9c41a25b4ce3": "Josh Okogie",
     },
-    "rare_contender": {
-        # "7687d882-b499-4a00-83f1-b16dab40a6fd": "Christian Braun",
-        # "e9bacf6f-f367-46fb-85bd-b6c642c69f51": "Bones Hyland",
-        # "26550275-d00e-4a81-8f61-ffbc036ef354": "Zeke Nnaji",
-        # "45730281-cbb7-4b83-b824-219bf220c07f": "Terance Mann",
-        # "5df4f5e8-7e52-4ee4-96a0-3cffafca2a02": "Buddy Hield",
-        # "0087b6e6-c8d5-410e-9bc9-e051d793b6b8": "Jonas Valanciunas",
-        # "a694ea01-a530-47c7-af92-ab5a7b97f6a3": "Bennedict Mathurin",
-        # "e7237e22-e75f-4a11-8035-42292046aa50": "Cedi Osman",
-    },
     "limited_contender": {},
     "super_rare_champion": {
         # "48072d8e-ea46-4d4b-8bec-d613916aa991": "Trae Young",
@@ -663,13 +658,12 @@ suggest_cards: dict[str, dict[str, str]] = {
         # "aa3a4968-2d2d-419b-8e5b-85f3fbaae634": "Brandon Ingram",
     },
     "rare_champion": {
-        # "5df4f5e8-7e52-4ee4-96a0-3cffafca2a02": "Buddy Hield",
-        # "b85c6b5b-8d5f-4eed-84f2-135b273b99e7": "Nikola Joki\u0107",
-        # "650a8bb6-56b6-4c8f-80a4-83801c757ee5": "Dejounte Murray",
-        # "ef040f2a-2d4b-4c1c-980b-b3a471870e61": "Kawhi Leonard",
-        # "cdc65dd7-ee7b-4e81-978a-33f884d334ae": "Trae Young",
-        # "35dec95d-8bbd-4ca9-a566-39a755d724fc": "Deandre Ayton",
-        # "8d4091b4-1b3f-445d-aaaa-57853b79965a": "Dorian Finney-Smith",
+        # "f1464116-cdfc-42d1-aa03-16d360c5e3cd": "Nikola Joki\u0107",
+        # "b29c6fed-4679-4476-8069-e79763b9f48a": "Cade Cunningham",
+    },
+    "rare_contender": {
+        # "e1bb9b58-429d-40ef-98d9-5a571f8a6a2c": "Cade Cunningham",
+        # "7687d882-b499-4a00-83f1-b16dab40a6fd": "Christian Braun",
     },
     "rare_underdog": {
         # "9fc2c2bd-9d3d-4831-a0df-013eff544469": "Bruce Brown",
