@@ -164,12 +164,18 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
         weekday = today.weekday()
 
         if weekday in [1, 2, 3, 4]:
-            days_to_add = [4 - weekday, 5 - weekday, 6 - weekday]
+            days_to_add = [3 - weekday, 4 - weekday, 5 - weekday, 6 - weekday]
             next_days = [
                 (today + timedelta(days=i)).strftime("%Y%m%d") for i in days_to_add
             ]
         elif weekday in [5, 6, 0]:
-            days_to_add = [-weekday, 1 - weekday, 2 - weekday, 3 - weekday]
+            days_to_add = [
+                -1 - weekday,
+                -weekday,
+                1 - weekday,
+                2 - weekday,
+                3 - weekday,
+            ]
             next_days = [
                 (today + timedelta(days=i)).strftime("%Y%m%d")
                 if i > 0
@@ -236,13 +242,6 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
             )
             match_data.append(MatchData(_date, away, home))
 
-    # day_merge_to_next_week = ["20230223"]
-    # match_exclude_first_day = match_data
-    # if next_days[0] not in day_merge_to_next_week and not inPlayoff:
-    #     match_exclude_first_day = list(
-    #         filter(lambda m: m.date != match_data[0].date, match_data)
-    #     )  # filter out the first day
-
     matches_mark_b2b: list[MatchData] = []
     for match in match_data:
         if match.away == "" and match.home == "":
@@ -278,8 +277,14 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
                 continue
             matches_mark_b2b.append(match)
 
+    match_exclude_first_day = matches_mark_b2b
+    if not inPlayoff:
+        match_exclude_first_day = list(
+            filter(lambda m: m.date != match_data[0].date, match_data)
+        )  # filter out the first day for b2b computation
+
     match_output_json = []
-    for match in matches_mark_b2b:
+    for match in match_exclude_first_day:
         match_output_json.append(match.__dict__())
     with open(f"data/next-week-{today_str}.json", "w") as f:
         json.dump(match_output_json, f, indent=4)
