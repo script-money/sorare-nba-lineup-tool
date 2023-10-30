@@ -171,7 +171,7 @@ rare_champion: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.rare,
     },
-    "target": 260,
+    "target": 290,
 }
 
 rare_contender: Tournaments = {
@@ -184,7 +184,7 @@ rare_contender: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.rare,
     },
-    "target": 200,
+    "target": 210,
 }
 
 super_rare_contender: Tournaments = {
@@ -197,7 +197,7 @@ super_rare_contender: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.super_rare,
     },
-    "target": 160,
+    "target": 220,
 }
 
 super_rare_champion: Tournaments = {
@@ -210,7 +210,7 @@ super_rare_champion: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.super_rare,
     },
-    "target": 260,
+    "target": 300,
 }
 
 limited_champion: Tournaments = {
@@ -223,7 +223,7 @@ limited_champion: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 245,
+    "target": 275,
 }
 
 limited_contender: Tournaments = {
@@ -236,7 +236,7 @@ limited_contender: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 190,
+    "target": 200,
 }
 
 limited_no_cap: Tournaments = {
@@ -262,7 +262,7 @@ limited_underdog: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 125,
+    "target": 150,
 }
 
 limited_western_conference: Tournaments = {
@@ -364,7 +364,7 @@ rare_underdog: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.rare,
     },
-    "target": 150,
+    "target": 170,
 }
 
 rare_no_cap: Tournaments = {
