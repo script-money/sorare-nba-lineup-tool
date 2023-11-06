@@ -1,0 +1,21 @@
+query NBAMyCardsSuggestionsQuery($leaderboardSlug: String!, $after: String) {
+  nbaLeaderboard(slug: $leaderboardSlug) {
+    myComposeLineupCards(
+      first: 50
+      after: $after
+      includeUsed: false
+      indexInLineup: 0
+      cardsInLineupPartial: []
+    ) {
+      nodes {
+        card {
+          slug
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}

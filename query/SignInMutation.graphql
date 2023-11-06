@@ -7,6 +7,7 @@ mutation SignInMutation($input: signInInput!) {
         expiredAt
       }
     }
+    otpSessionChallenge
     errors {
       message
     }

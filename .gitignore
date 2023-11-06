@@ -13,3 +13,4 @@ experiment/
 .env
 config/config.py.bak
 data/*.pdf
+config/priority_training_players.txt

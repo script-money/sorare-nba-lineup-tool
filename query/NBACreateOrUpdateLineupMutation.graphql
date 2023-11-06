@@ -1,0 +1,9 @@
+mutation NBACreateOrUpdateLineupMutation(
+  $input: NBACreateOrUpdateLineupInput!
+) {
+  createOrUpdateNBALineup(input: $input) {
+    createdLineup {
+      id
+    }
+  }
+}
