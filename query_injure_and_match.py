@@ -115,7 +115,6 @@ def get_injure_data_new():
     # from_str = (today - timedelta(days=0)).strftime("%Y-%m-%d")
     # df = extarct_official_injury_report(from_str, today_str)
     df = query_last_injury_report()
-    print(df.to_string())
     # remove duplicate by Player Name
     df = df.drop_duplicates(subset=["Player Name"], keep="last")
     df["team"] = df["Team"]
@@ -159,25 +158,17 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
 
     if not inPlayoff:
         weekday = today.weekday()
-
         if weekday in [1, 2, 3, 4]:
-            days_to_add = [3 - weekday, 4 - weekday, 5 - weekday, 6 - weekday]
             next_days = [
-                (today + timedelta(days=i)).strftime("%Y%m%d") for i in days_to_add
+                (today + timedelta(days=3 - weekday + i)).strftime("%Y%m%d")
+                for i in range(4)
             ]
         elif weekday in [5, 6, 0]:
-            days_to_add = [
-                -1 - weekday,
-                -weekday,
-                1 - weekday,
-                2 - weekday,
-                3 - weekday,
-            ]
+            if weekday == 0:
+                weekday = 7
             next_days = [
-                (today + timedelta(days=i)).strftime("%Y%m%d")
-                if i >= 0
-                else (today + timedelta(days=i + 7)).strftime("%Y%m%d")
-                for i in days_to_add
+                (today + timedelta(days=6 - weekday + i)).strftime("%Y%m%d")
+                for i in range(5)
             ]
     else:
         weeks = [

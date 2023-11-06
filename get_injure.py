@@ -191,10 +191,11 @@ def combine_injury_report_page(
             df.drop(columns=["Team Player Name Current Status", "Reason"], inplace=True)
             df_copy = df.copy()
             df = df_copy.drop(df_copy.tail(1).index)
+            df[["Game Date", "Game Time", "Matchup"]] = df[
+                ["Game Date", "Game Time", "Matchup"]
+            ].fillna(method="ffill")
             # 删除Player Name为NaN的行
             df.dropna(subset=["Player Name"], inplace=True)
-            # print(df.to_string())
-            # print("\n")
         if df.shape[1] == 4:
             # 如果第0行的最后一个是"NOT YET SUBMITTED"
             if df.iloc[0, -1] == "NOT YET SUBMITTED":
@@ -238,6 +239,7 @@ def combine_injury_report_page(
                 df_copy = df.copy()
                 df = df_copy.drop(df_copy.tail(1).index)
                 # 删除Player Name为NaN的行
+                df["Matchup"] = df["Matchup"].fillna(method="ffill")
                 df.dropna(subset=["Player Name"], inplace=True)
                 df = df[
                     [
@@ -249,6 +251,24 @@ def combine_injury_report_page(
                         "Current Status",
                     ]
                 ]
+        if df.shape[1] == 3:
+            df.columns = ["Matchup", "Team Player Name Current Status", "Reason"]
+            df["Team"] = df["Team Player Name Current Status"].apply(extract_team)
+
+            df["Player Name"] = df["Team Player Name Current Status"].apply(
+                extract_name
+            )
+            df["Current Status"] = df["Team Player Name Current Status"].apply(
+                lambda x: x.split(" ")[-1] if pd.isna(x) == False else x
+            )
+
+            df.drop(columns=["Team Player Name Current Status", "Reason"], inplace=True)
+            df_copy = df.copy()
+            df = df_copy.drop(df_copy.tail(1).index)
+            # 删除Player Name为NaN的行
+            df["Matchup"] = df["Matchup"].fillna(method="ffill")
+            df.dropna(subset=["Current Status"], inplace=True)
+
         # 创建 DataFrame 的副本
         df_copy = df.copy()
 
@@ -264,7 +284,7 @@ def combine_injury_report_page(
         df_7col.fillna(method="ffill", inplace=True)
         # remove status is NOT YET SUBMITTED
         df_7col = df_7col[df_7col["Current Status"] != "NOT YET SUBMITTED"]
-
+    print(df_7col.to_string())
     return df_7col
 
 
