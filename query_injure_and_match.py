@@ -4,7 +4,7 @@ from pytz import timezone
 from datetime import datetime, timedelta, date
 import json
 import time
-from config.config import proxies
+from config.config import proxies, cookies
 
 from types_ import NBAPlayerPosition
 from utils import rename_player
@@ -60,10 +60,7 @@ def get_injure_data():
     injured_data = []
     res = rq.get(
         "https://www.cbssports.com/nba/injuries/daily/",
-        headers={
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"
-        },
+        headers={"cookies": cookies},
         proxies=proxies,
     )
     root = etree.HTML(res.text, parser=etree.HTMLParser(encoding="utf-8"))
@@ -178,7 +175,7 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
             ]
             next_days = [
                 (today + timedelta(days=i)).strftime("%Y%m%d")
-                if i > 0
+                if i >= 0
                 else (today + timedelta(days=i + 7)).strftime("%Y%m%d")
                 for i in days_to_add
             ]
@@ -215,10 +212,7 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
         _date = datetime.strptime(day, "%Y%m%d").date()
         res = rq.get(
             f"https://www.cbssports.com/nba/schedule/{day}/",
-            headers={
-                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"
-            },
+            headers={"cookies": cookies},
             proxies=proxies,
         )
         root = etree.HTML(res.text, parser=etree.HTMLParser(encoding="utf-8"))
@@ -297,42 +291,41 @@ def get_team_rank():
     offense = []
     res = rq.get(
         "https://www.cbssports.com/nba/stats/team/team/scoring/nba/regular/",
-        headers={
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"
-        },
+        headers={"cookies": cookies},
         proxies=proxies,
     )
-    root = etree.HTML(res.text, parser=etree.HTMLParser(encoding="utf-8"))
-    for element in root.xpath('//tr[@class="TableBase-bodyTr"]'):
-        team = stash_team_rename(
-            element.xpath('./td[1]//span[@class="TeamName"]/a/@href')[0]
-        )
-        offense.append(team)
-    teams["team_offense_rank"] = offense
-    time.sleep(1)
+    if res.status_code == 200:
+        root = etree.HTML(res.text, parser=etree.HTMLParser(encoding="utf-8"))
+        for element in root.xpath('//tr[@class="TableBase-bodyTr"]'):
+            team = stash_team_rename(
+                element.xpath('./td[1]//span[@class="TeamName"]/a/@href')[0]
+            )
+            offense.append(team)
+        teams["team_offense_rank"] = offense
+        time.sleep(1)
 
-    defense = []
-    res2 = rq.get(
-        "https://www.cbssports.com/nba/stats/team/opponent/scoring/nba/regular/",
-        headers={
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"
-        },
-        proxies=proxies,
-    )
-    root2 = etree.HTML(res2.text, parser=etree.HTMLParser(encoding="utf-8"))
-    for element in root2.xpath('//tr[@class="TableBase-bodyTr"]'):
-        team = stash_team_rename(
-            element.xpath('./td[1]//span[@class="TeamName"]/a/@href')[0]
+        defense = []
+        res2 = rq.get(
+            "https://www.cbssports.com/nba/stats/team/opponent/scoring/nba/regular/",
+            headers={"cookies": cookies},
+            proxies=proxies,
         )
-        defense.append(team)
-    teams["team_defense_rank"] = defense
 
-    with open(f"data/team-rank.json", "w") as f:
-        json.dump(teams, f, indent=4)
-        print("team rank saved in data folder")
-    return teams
+        root2 = etree.HTML(res2.text, parser=etree.HTMLParser(encoding="utf-8"))
+        for element in root2.xpath('//tr[@class="TableBase-bodyTr"]'):
+            team = stash_team_rename(
+                element.xpath('./td[1]//span[@class="TeamName"]/a/@href')[0]
+            )
+            defense.append(team)
+        teams["team_defense_rank"] = defense
+
+        with open(f"data/team-rank.json", "w") as f:
+            json.dump(teams, f, indent=4)
+            print("team rank saved in data folder")
+        return teams
+    else:
+        print(f"Can't get team rank from cbssports, status is {res.status_code}")
+        exit(0)
 
 
 if __name__ == "__main__":

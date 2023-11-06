@@ -20,6 +20,10 @@ Working for 23-24 season
    }
    ```
 
+4. set PROXY in `.env` if you need proxy to request, like `PROXY='http://127.0.0.1:7890'`
+5. set COOKIES='fly_ab_uid=....' in `.env` to get NBA data, you can get it from postman: GET `https://www.cbssports.com/nba/teams/`
+   ![](./assets/postman.png)
+
 ## search in your cards
 
 0. set proxies in config/config.py if your need proxy to request

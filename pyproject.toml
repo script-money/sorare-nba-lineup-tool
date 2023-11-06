@@ -21,6 +21,7 @@ bcrypt = "^4.0.1"
 python-dotenv = "^0.21.0"
 tabula-py= "^2.6.0"
 pypdf2 = "^3.0.1"
+pyperclip = "^1.8.2"
 
 
 [tool.poetry.group.dev.dependencies]

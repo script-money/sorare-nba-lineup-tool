@@ -1,11 +1,15 @@
 from types_ import Tournaments, CardRarity, NBAConference
+import os
 
-use_proxy = False
-proxies = (
-    {"http": "http://127.0.0.1:7890", "https": "http://127.0.0.1:7890"}
-    if use_proxy
-    else None
-)
+cookies = os.environ.get("COOKIES")
+proxy = os.environ.get("PROXY")
+proxies = None
+if proxy is not None:
+    proxies = {"http": proxy, "https": proxy}
+    use_proxy = True
+    print("use proxy: ", proxies)
+else:
+    use_proxy = False
 
 pickup: Tournaments = {
     "name": "pickup",
@@ -533,7 +537,7 @@ rare_all_defense: Tournaments = {
 # Player performance a normal distribution, mu is the average value of the distribution, for example, player rating 30, mu = 0.1, then the expected average value of performance is 33
 # The mu additions (or reductions) set below are empirical values and are not guaranteed to be 100% accurate, so you can fine-tune them yourself
 compute_by_recent_n_weeks_games: int = (
-    1  # Calculate the rate of change in performance for the last n weeks of play
+    4  # Calculate the rate of change in performance for the last n weeks of play
 )
 mu_of_max_rank_team_bonus_ratio: float = 0  # If the opponent is the weakest team in offense and defense, the maximum addition to the average value of performance change rate, and vice versa playing strong teams cut
 mu_of_home_bonus: float = (
@@ -561,7 +565,7 @@ probability_reach_target: float = 0.01  # Sort from the results that have that p
 show_injure_detail = False
 target_adjust = 0  # if target_adjust is 10, all Tournaments targets will add 10, 0 for minimum number of matches. Suggestion: 0 for weekend, 5 for weekday, 20-30 for T3
 is_game_decision_bonus_activate = (
-    False  # Whether to activate the bonus for the game decision
+    True  # Whether to activate the bonus for the game decision
 )
 inPlayoff = False
 

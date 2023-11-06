@@ -1,5 +1,6 @@
 import json
 from types_ import NBAPlayer
+import pyperclip
 
 with open(f"data/all-players-data.json", "r") as f:
     players_json: list[NBAPlayer] = json.load(f)
@@ -18,9 +19,11 @@ def print_last_week_prict(results: str):
                 diffs.append(
                     f"{name:<25} avg: {number:<3} actual: {last_week_score:<3} outperform: {diff:<2}"
                 )
-    print("\n".join(diffs))
+    diffs_str = "\n".join(diffs)
+    pyperclip.copy(diffs_str)
+    print("result in copyboard")
 
 
 if __name__ == "__main__":
-    results = "Nassir Little(12), Justin Holiday(6), Jakob Poeltl(28), Naz Reid(19), Daniel Theis(11), Gordon Hayward(25), Kris Dunn(20), Charles Bassey(10), Mark Williams(22), Matisse Thybulle(15)"
+    results = "Joel Embiid(42), Cam Thomas(14), Moritz Wagner(11), Luka Dončić(54), Aaron Nesmith(21), Derrick White(26), Jalen Duren(28), Evan Mobley(29), Ben Simmons(18), Malik Beasley(6)"
     print_last_week_prict(results)
