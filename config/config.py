@@ -537,7 +537,7 @@ rare_all_defense: Tournaments = {
 # Player performance a normal distribution, mu is the average value of the distribution, for example, player rating 30, mu = 0.1, then the expected average value of performance is 33
 # The mu additions (or reductions) set below are empirical values and are not guaranteed to be 100% accurate, so you can fine-tune them yourself
 compute_by_recent_n_weeks_games: int = (
-    4  # Calculate the rate of change in performance for the last n weeks of play
+    3  # Calculate the rate of change in performance for the last n weeks of play
 )
 mu_of_max_rank_team_bonus_ratio: float = 0  # If the opponent is the weakest team in offense and defense, the maximum addition to the average value of performance change rate, and vice versa playing strong teams cut
 mu_of_home_bonus: float = (
