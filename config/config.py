@@ -227,7 +227,7 @@ limited_champion: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 275,
+    "target": 255,
 }
 
 limited_contender: Tournaments = {
@@ -240,7 +240,7 @@ limited_contender: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 200,
+    "target": 180,
 }
 
 limited_no_cap: Tournaments = {
@@ -539,7 +539,7 @@ rare_all_defense: Tournaments = {
 compute_by_recent_n_weeks_games: int = (
     3  # Calculate the rate of change in performance for the last n weeks of play
 )
-mu_of_max_rank_team_bonus_ratio: float = 0  # If the opponent is the weakest team in offense and defense, the maximum addition to the average value of performance change rate, and vice versa playing strong teams cut
+mu_of_max_rank_team_bonus_ratio: float = 0.1  # If the opponent is the weakest team in offense and defense, the maximum addition to the average value of performance change rate, and vice versa playing strong teams cut
 mu_of_home_bonus: float = (
     0.1  # Home additions to the mean rate of change in performance
 )
@@ -553,11 +553,12 @@ mu_of_single_game_bonus: float = (
     -0.1  # Deductions for average single-game performance change only
 )
 mu_of_multiple_games_bonus: float = (
-    0.1  # of performance change averages for games played 3 or more
+    0  # of performance change averages for games played 3 or more
 )
 outperform_treshold: float = (
     -3  # include players who average - outperform more than this value
 )
+max_cap_diff_allow = 5  # if 5, 105 total allow in contender
 exclude_game_weeks = [35, 48]  # Exclude the game weeks (such as all_star_week)
 show_top_10_outperform = True
 suggestion_count: int = 3  # Number of recommended results

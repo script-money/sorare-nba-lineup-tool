@@ -225,12 +225,15 @@ def predict(
         return NormalDist(0, 0)
 
     stats_arr: list[float] = []
+    seconds_arr: list[float] = []
     for week in all_card_week_scores[
         last_game_week_index : last_game_week_index + compute_by_recent_n_weeks_games
     ]:
         if len(stats_ratio) == 0:
             for game_stat in week["status"]["gameStats"]:
                 stats_arr.append(game_stat["score"])
+                if game_stat["detailedStats"]["secondsPlayed"] > 0:
+                    seconds_arr.append(game_stat["detailedStats"]["secondsPlayed"])
         else:
             week_stat_array = get_score_with_ratio(
                 week["status"]["gameStats"], stats_ratio
@@ -249,20 +252,23 @@ def predict(
     ):  # for players who never play or just play 1 game recently, there is no game data, so return 0 directly
         return NormalDist(0, 0)
 
-    # remove the first game if the first game is too different from the rest of the games
-    if len(stats_arr) > 4:
-        arr_except_last_two = stats_arr[2:]
-        _, mu0, sigma0 = t.fit(arr_except_last_two, fdf=len(arr_except_last_two))
-        if (
-            abs(arr_except_last_two[0]) - mu0 > 1.9432 * sigma0
-        ):  # 1.9432 is the 95% confidence interval of t distribution(fdf=6)
-            stats_arr = stats_arr[1:]
-
-    ewma_: list[float] = ewma(
-        stats_arr, 0.2
-    )  # use ewma to smooth the result, the coefficient can be adjusted, the smaller the value, the smaller the influence of the historical data
-    _, mu, sigma = t.fit(ewma_, fdf=len(ewma_))  # type: ignore
-    # use t distribution to fit the data to get the mean and standard deviation. For players who don't play much, sigma may be 0 with norm
+    if len(stats_arr) >= 4:  # recent 3 weeks should at least have 4 games if not dnp
+        data = np.array(stats_arr)
+        _, mu0, sigma = t.fit(data, fdf=len(data))
+        lower_bound = mu0 - 1.943 * sigma
+        upper_bound = mu0 + 1.943 * sigma
+        is_outlier = (data < lower_bound) | (data > upper_bound)
+        is_outlier[0] = False  # 最近一场爆发不算
+        ewma_: list[float] = ewma(
+            data[~is_outlier].tolist(), 0.2
+        )  # use ewma to smooth the result, the coefficient can be adjusted, the smaller the value, the smaller the influence of the historical data
+        _, mu, _ = t.fit(ewma_, fdf=len(ewma_))  # type: ignore
+        # use t distribution to fit the data to get the mean and standard deviation. For players who don't play much, sigma may be 0 with norm
+    else:
+        if seconds_arr[0] >= 20 * 60 or np.mean(seconds_arr) >= 10 * 60:
+            _, mu, sigma = t.fit(stats_arr, fdf=len(stats_arr))
+        else:
+            return NormalDist(0, 0)
 
     game_decision_bonus: float = 0
 
@@ -593,7 +599,6 @@ if __name__ == "__main__":
         is_recommend = True
 
     today_str: str = datetime.now(timezone("US/Eastern")).strftime("%Y-%m-%d")
-    # today_str = "2023-02-27"
 
     (
         common_cards,
@@ -886,7 +891,9 @@ if __name__ == "__main__":
                             )
                         )
                         if (
-                            total_point <= tournaments["tenGameAverageTotalLimit"] - 5
+                            total_point
+                            <= tournaments["tenGameAverageTotalLimit"]
+                            - max_cap_diff_allow
                             or total_point > tournaments["tenGameAverageTotalLimit"]
                         ):
                             continue
