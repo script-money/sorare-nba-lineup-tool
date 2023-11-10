@@ -112,8 +112,6 @@ def get_correct_name(series):
 
 
 def get_injure_data_new():
-    # from_str = (today - timedelta(days=0)).strftime("%Y-%m-%d")
-    # df = extarct_official_injury_report(from_str, today_str)
     df = query_last_injury_report()
     # remove duplicate by Player Name
     df = df.drop_duplicates(subset=["Player Name"], keep="last")
