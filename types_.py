@@ -141,6 +141,7 @@ class SelectCard(TypedDict):
     age: int
     rarity: CardRarity | None
     expect: NormalDist
+    season: str
     minutes: int
     team: str | None
     id: str | None

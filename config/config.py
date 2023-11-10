@@ -534,6 +534,47 @@ rare_all_defense: Tournaments = {
     },
 }
 
+in_season_beginner: Tournaments = {
+    "name": "in_season_beginner",
+    "tenGameAverageTotalLimit": 140,
+    "allowMVP": True,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.common],
+    "minRarity": None,
+    "target": 190,
+}
+
+in_season_advanced: Tournaments = {
+    "name": "in_season_advanced",
+    "tenGameAverageTotalLimit": 140,
+    "allowMVP": True,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.limited, CardRarity.rare],
+    "minRarity": None,
+    "target": 220,
+}
+
+in_season_expert: Tournaments = {
+    "name": "in_season_expert",
+    "tenGameAverageTotalLimit": 140,
+    "allowMVP": True,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.super_rare, CardRarity.unique],
+    "minRarity": None,
+    "target": 240,
+}
+
+in_season_days = [
+    "20231103",
+    "20231110",
+    "20231114",
+    "20231117",
+    "20231121",
+    "20231124",
+    "20231128",
+]
+
+
 # Player performance a normal distribution, mu is the average value of the distribution, for example, player rating 30, mu = 0.1, then the expected average value of performance is 33
 # The mu additions (or reductions) set below are empirical values and are not guaranteed to be 100% accurate, so you can fine-tune them yourself
 compute_by_recent_n_weeks_games: int = (
@@ -609,6 +650,9 @@ all_tournaments: list[Tournaments] = [
     # deck_the_halls,
     # season_of_giving,
     # street_ball,
+    # in_season_beginner,
+    # in_season_advanced,
+    # in_season_expert,
 ]  #  Change the priority of the tournament, the more advanced will be priority card selection
 
 blacklist_cards: list[str] = [

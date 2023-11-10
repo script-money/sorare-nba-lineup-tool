@@ -19,11 +19,13 @@ def print_last_week_prict(results: str):
                 diffs.append(
                     f"{name:<25} avg: {number:<3} actual: {last_week_score:<3} outperform: {diff:<2}"
                 )
+    print("\n")
     diffs_str = "\n".join(diffs)
+    print(diffs_str.strip())
     pyperclip.copy(diffs_str)
-    print("result in copyboard")
+    print("\n")
 
 
 if __name__ == "__main__":
-    results = "Joel Embiid(42), Cam Thomas(14), Moritz Wagner(11), Luka Dončić(54), Aaron Nesmith(21), Derrick White(26), Jalen Duren(28), Evan Mobley(29), Ben Simmons(18), Malik Beasley(6)"
+    results = "Bismack Biyombo(11), Malcolm Brogdon(20), Goga Bitadze(19), Cam Thomas(22), Dyson Daniels(14), Dillon Brooks(20), Grant Williams(20), Reggie Jackson(10), Tyler Herro(34), Moritz Wagner(13)"
     print_last_week_prict(results)

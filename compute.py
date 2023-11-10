@@ -144,6 +144,7 @@ def predict(
     matches: list[Match],
     team_rank: TeamRank,
     stats_ratio: dict[str, float],
+    in_season_teams: set[str],
 ) -> NormalDist:
     """Predict a player's performance in the next week.
 
@@ -209,8 +210,9 @@ def predict(
             else ""
         )
 
-    card_average: int = player["tenGameAverage"]
+    card_average: int = player["tenGameAverageGameStats"]["score"]
     team: str | None = None if player["team"] is None else player["team"]["fullName"]
+    inSeason = team in in_season_teams
     if player_name in possible_match_players and (
         last_week_type == PlayerInFixtureStatusIconType.no_game.value
         or last_week_type == PlayerInFixtureStatusIconType.did_not_play.value
@@ -331,7 +333,14 @@ def predict(
         opponent_home_bonus = is_opponent_home * mu_of_home_bonus
         opponent_b2b_bonus = is_opponent_b2b * mu_of_b2b
 
-        if not inPlayoff:
+        if inPlayoff and inSeason:
+            new_match_bonus = mu_of_main_player_in_high_value_game if is_main else 0
+            match_bonus = (
+                max(match_bonus, new_match_bonus)
+                if match_bonus != 0
+                else new_match_bonus
+            )
+        else:
             team_bonus = team_rank_bonus + team_home_bonus + team_b2b_bonus
             opponent_bonus = (
                 opponent_rank_bonus + opponent_home_bonus + opponent_b2b_bonus
@@ -353,16 +362,10 @@ def predict(
                     if match_bonus != 0
                     else new_match_bonus
                 )
-        else:
-            new_match_bonus = mu_of_main_player_in_high_value_game if is_main else 0
-            match_bonus = (
-                max(match_bonus, new_match_bonus)
-                if match_bonus != 0
-                else new_match_bonus
-            )
+
     # match count bonus
     match_count_bonus: float = 0
-    if len(match_join) == 1:
+    if len(match_join) == 1 or inSeason:
         match_count_bonus += mu_of_single_game_bonus
     if len(match_join) > 2:
         match_count_bonus += mu_of_multiple_games_bonus
@@ -447,11 +450,12 @@ def get_all_cards_with_prediction(
                 matches,
                 team_rank,
                 stats_ratio,
+                in_season_teams,
             )
 
             card_dist: SelectCard = {
                 "name": player_name,
-                "average": player["tenGameAverage"],
+                "average": player["tenGameAverageGameStats"]["score"],
                 "age": player["age"],
                 "rarity": None,
                 "expect": future_performance,
@@ -472,14 +476,16 @@ def get_all_cards_with_prediction(
                 matches,
                 team_rank,
                 stats_ratio,
+                in_season_teams,
             ) * (1 + card["totalBonus"])
 
             card_dist: SelectCard = {
                 "name": player_name,
-                "average": card["player"]["tenGameAverage"],
+                "average": card["player"]["tenGameAverageGameStats"]["score"],
                 "age": card["player"]["age"],
                 "rarity": card["rarity"],
                 "expect": future_performance,
+                "season": card["season"],
                 "minutes": average_minutes,
                 "team": None
                 if card["player"]["team"] is None
@@ -504,6 +510,7 @@ def load_data(
     list[NBACard],
     dict[str, MatchProbility],
     list[str],
+    set[str],
 ]:
     with open(f"data/cards.json", "r") as f:
         cards: list[NBACard] = json.load(f)
@@ -516,6 +523,11 @@ def load_data(
         if len(matches) == 0:
             print(f"No matches found, please check data/next-week-{today}.json")
             exit(0)
+        in_season_teams = set()
+        for match in matches:
+            if match["date"] in in_season_days:
+                in_season_teams.add(match["home"])
+                in_season_teams.add(match["away"])
 
     with open(f"data/team-rank.json", "r") as i:
         team_rank: TeamRank = json.load(i)
@@ -584,6 +596,7 @@ def load_data(
         avaliable_cards,
         all_probility,
         suggest_players,
+        in_season_teams,
     )
 
 
@@ -612,6 +625,7 @@ if __name__ == "__main__":
         avaliable_cards,
         match_probility,
         suggest_players,
+        in_season_teams,
     ) = load_data(today_str)
 
     print(
@@ -740,6 +754,12 @@ if __name__ == "__main__":
         used_cards = []
         try:
             for tournament_index, tournaments in enumerate(all_tournaments):
+                is_veterans = "veterans" in tournaments["name"]
+                is_under23 = "under_23" in tournaments["name"]
+                is_in_season = (
+                    "in_season" in tournaments["name"] and len(in_season_teams) > 0
+                )
+
                 group_to_select: list[list[SelectCard]] = []
                 if (
                     tournaments["name"] in suggest_cards
@@ -817,7 +837,7 @@ if __name__ == "__main__":
                             )
                         )
 
-                if "veterans" in tournaments["name"]:
+                if is_veterans:
                     stats_dist_list = list(
                         filter(
                             lambda c: c["age"] >= 30,
@@ -825,10 +845,18 @@ if __name__ == "__main__":
                         )
                     )
 
-                if "under_23" in tournaments["name"]:
+                if is_under23:
                     stats_dist_list = list(
                         filter(
                             lambda c: c["age"] <= 23,
+                            stats_dist_list,
+                        )
+                    )
+
+                if is_in_season:
+                    stats_dist_list = list(
+                        filter(
+                            lambda c: c["team"] in in_season_teams,
                             stats_dist_list,
                         )
                     )
@@ -892,7 +920,7 @@ if __name__ == "__main__":
                         )
                         if (
                             total_point
-                            <= tournaments["tenGameAverageTotalLimit"]
+                            < tournaments["tenGameAverageTotalLimit"]
                             - max_cap_diff_allow
                             or total_point > tournaments["tenGameAverageTotalLimit"]
                         ):
@@ -905,6 +933,24 @@ if __name__ == "__main__":
                             )
                             unique_players: int = len(set(tmp_selected_players))
                             if unique_players != len(tmp_selected_players):
+                                continue
+
+                        if "in_season_advanced" == tournaments["name"]:
+                            new_season_count = len(
+                                list(
+                                    filter(lambda c: c["season"] == "2023", all_5_cards)
+                                )
+                            )
+                            if new_season_count < 3:
+                                continue
+
+                        if "in_season_expert" == tournaments["name"]:
+                            new_season_count = len(
+                                list(
+                                    filter(lambda c: c["season"] == "2023", all_5_cards)
+                                )
+                            )
+                            if new_season_count < 2:
                                 continue
 
                         possible_group.append(all_5_cards)

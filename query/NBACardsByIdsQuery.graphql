@@ -3,13 +3,15 @@ query NBACardsByIdsQuery($input: NBACardsInput!) {
     id
     slug
     totalBonus
+    season
     player {
       displayName
-      tenGameAverage
+      tenGameAverageGameStats {
+        score
+      }
       age
       positions
-      latestFixtureStats(last: 24) {
-        tenGameAverage
+      latestFixtureStats(last: 6) {
         fixture {
           gameWeek
         }
