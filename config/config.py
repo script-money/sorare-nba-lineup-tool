@@ -610,6 +610,7 @@ is_game_decision_bonus_activate = (
     True  # Whether to activate the bonus for the game decision
 )
 inPlayoff = False
+enable_in_season = False
 
 all_tournaments: list[Tournaments] = [
     pickup,
@@ -674,8 +675,6 @@ blacklist_cards: list[str] = [
 
 blacklist_players: list[str] = [
     "Kemba Walker",
-    "Skylar Mays",
-    "Jay Huff",
     "Justin Minaya",
 ]  # Putting players name who do not query here is only valid for recommand mode
 

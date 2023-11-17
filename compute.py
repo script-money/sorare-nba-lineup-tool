@@ -268,7 +268,8 @@ def predict(
         # use t distribution to fit the data to get the mean and standard deviation. For players who don't play much, sigma may be 0 with norm
     else:
         if seconds_arr[0] >= 20 * 60 or np.mean(seconds_arr) >= 10 * 60:
-            _, mu, sigma = t.fit(stats_arr, fdf=len(stats_arr))
+            stat_and_average = stats_arr + [card_average]
+            _, mu, sigma = t.fit(stat_and_average, fdf=len(stat_and_average))
         else:
             return NormalDist(0, 0)
 
@@ -333,7 +334,7 @@ def predict(
         opponent_home_bonus = is_opponent_home * mu_of_home_bonus
         opponent_b2b_bonus = is_opponent_b2b * mu_of_b2b
 
-        if inPlayoff and inSeason:
+        if inPlayoff or inSeason:
             new_match_bonus = mu_of_main_player_in_high_value_game if is_main else 0
             match_bonus = (
                 max(match_bonus, new_match_bonus)
@@ -365,7 +366,7 @@ def predict(
 
     # match count bonus
     match_count_bonus: float = 0
-    if len(match_join) == 1 or inSeason:
+    if len(match_join) == 1 or (inSeason and enable_in_season):
         match_count_bonus += mu_of_single_game_bonus
     if len(match_join) > 2:
         match_count_bonus += mu_of_multiple_games_bonus
