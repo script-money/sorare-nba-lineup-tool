@@ -1,0 +1,11 @@
+query PriceHistoryQuery($playerSlug: String!, $rarity: Rarity!) {
+  tokens {
+    tokenPrices(playerSlug: $playerSlug, rarity: $rarity, collection: NBA) {
+      date
+      amounts {
+        usd
+        wei
+      }
+    }
+  }
+}

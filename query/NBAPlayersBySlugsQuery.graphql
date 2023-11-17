@@ -1,6 +1,7 @@
 query NBAPlayerQuery($input: [String!]) {
   nbaPlayers(slugs: $input) {
     displayName
+    slug
     tenGameAverageGameStats {
       score
     }
