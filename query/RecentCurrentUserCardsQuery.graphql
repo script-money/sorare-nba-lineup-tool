@@ -1,0 +1,12 @@
+query RecentCurrentUserCardsQuery($after: String!) {
+  currentUser {
+    nbaCards(first: 200, after: $after) {
+      nodes {
+        id
+      }
+      pageInfo {
+        endCursor
+      }
+    }
+  }
+}

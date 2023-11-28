@@ -15,8 +15,7 @@ async def main():
     if password is None or email is None:
         assert False, "Please set EMAIL and PASSWORD in .env file"
 
-    two_factor_code = os.getenv("TWO_FACTOR_CODE")
-
+    two_factor_code = input("Please input your two factor code: ")
     url = f"https://api.sorare.com/api/v1/users/{email}"
     res = rq.get(url)
     if res.status_code != 200:

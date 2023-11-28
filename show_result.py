@@ -7,7 +7,10 @@ with open(f"data/all-players-data.json", "r") as f:
 
 
 def print_last_week_prict(results: str):
-    player_results = results.split(", ")
+    player_results = []
+    player_results_money_list = results.split(", ")
+    for player_results_money in player_results_money_list:
+        player_results.append(player_results_money.split(" $")[0])
     diffs = []
     for player in player_results:
         name, number = player.split("(")
@@ -27,5 +30,5 @@ def print_last_week_prict(results: str):
 
 
 if __name__ == "__main__":
-    results = "Bismack Biyombo(11), Malcolm Brogdon(20), Goga Bitadze(19), Cam Thomas(22), Dyson Daniels(14), Dillon Brooks(20), Grant Williams(20), Reggie Jackson(10), Tyler Herro(34), Moritz Wagner(13)"
+    results = "Kevin Huerter(25) $14.77, Jordan Clarkson(25) $14.03, Matisse Thybulle(15) $7.38, Domantas Sabonis(41) $44.63, Nikola Jokić(60) $310.06, Brandin Podziemski(8) $20.99, David Roddy(15) $6.80, Santi Aldama(16) $8.66, Damian Lillard(41) $52.11, Cason Wallace(15) $10.81"
     print_last_week_prict(results)

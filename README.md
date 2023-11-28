@@ -6,22 +6,8 @@ Working for 23-24 season
 
 1. install poetry, then use `poetry install` to install dependencies
 2. install JAVA environment
-3. get all NBACard id at `https://api.sorare.com/federation/graphql/playground#`, The _(first: 200)_ change to your card amount and copy query ids to **config/NBACards.json**
-
-   ```graphql
-   query RecentCurrentUserCardsQuery {
-     currentUser {
-       nbaCards(first: 200) {
-         nodes {
-           id
-         }
-       }
-     }
-   }
-   ```
-
-4. set PROXY in `.env` if you need proxy to request, like `PROXY='http://127.0.0.1:7890'`
-5. set COOKIES='fly_ab_uid=....' in `.env` to get NBA data, you can get it from postman: GET `https://www.cbssports.com/nba/teams/`
+3. set PROXY in `.env` if you need proxy to request, like `PROXY='http://127.0.0.1:7890'`
+4. set COOKIES='fly_ab_uid=....' in `.env` to get NBA data, you can get it from postman: GET `https://www.cbssports.com/nba/teams/`
    ![](./assets/postman.png)
 
 ## search in your cards

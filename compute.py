@@ -266,6 +266,9 @@ def predict(
         )  # use ewma to smooth the result, the coefficient can be adjusted, the smaller the value, the smaller the influence of the historical data
         _, mu, _ = t.fit(ewma_, fdf=len(ewma_))  # type: ignore
         # use t distribution to fit the data to get the mean and standard deviation. For players who don't play much, sigma may be 0 with norm
+        # for play minutes great than 25 min should reduce the ewma effect
+        if np.mean(seconds_arr) > 25 * 60:
+            mu = (mu + mu0) / 2
     else:
         if seconds_arr[0] >= 20 * 60 or np.mean(seconds_arr) >= 10 * 60:
             stat_and_average = stats_arr + [card_average]
