@@ -59,12 +59,12 @@ common_eastern_conference: Tournaments = {
 
 common_underdog: Tournaments = {
     "name": "common_underdog",
-    "tenGameAverageTotalLimit": 60,
+    "tenGameAverageTotalLimit": 75,
     "allowMVP": False,
     "allowedConference": None,
     "allowedRarities": [CardRarity.common],
     "minRarity": None,
-    "target": 110,
+    "target": 120,
 }
 
 common_no_cap: Tournaments = {
@@ -180,7 +180,7 @@ rare_champion: Tournaments = {
 
 rare_contender: Tournaments = {
     "name": "rare_contender",
-    "tenGameAverageTotalLimit": 110,
+    "tenGameAverageTotalLimit": 120,
     "allowMVP": False,
     "allowedConference": None,
     "allowedRarities": [CardRarity.rare],
@@ -193,7 +193,7 @@ rare_contender: Tournaments = {
 
 super_rare_contender: Tournaments = {
     "name": "super_rare_contender",
-    "tenGameAverageTotalLimit": 110,
+    "tenGameAverageTotalLimit": 120,
     "allowMVP": False,
     "allowedConference": None,
     "allowedRarities": [CardRarity.super_rare],
@@ -232,7 +232,7 @@ limited_champion: Tournaments = {
 
 limited_contender: Tournaments = {
     "name": "limited_contender",
-    "tenGameAverageTotalLimit": 110,
+    "tenGameAverageTotalLimit": 120,
     "allowMVP": False,
     "allowedConference": None,
     "allowedRarities": [CardRarity.limited],
@@ -258,7 +258,7 @@ limited_no_cap: Tournaments = {
 
 limited_underdog: Tournaments = {
     "name": "limited_underdog",
-    "tenGameAverageTotalLimit": 60,
+    "tenGameAverageTotalLimit": 75,
     "allowMVP": False,
     "allowedConference": None,
     "allowedRarities": [CardRarity.limited],
@@ -360,7 +360,7 @@ limited_veterans: Tournaments = {
 
 rare_underdog: Tournaments = {
     "name": "rare_underdog",
-    "tenGameAverageTotalLimit": 60,
+    "tenGameAverageTotalLimit": 75,
     "allowMVP": False,
     "allowedConference": None,
     "allowedRarities": [CardRarity.rare],
@@ -406,7 +406,7 @@ rare_under_23: Tournaments = {
 
 super_rare_underdog: Tournaments = {
     "name": "super_rare_underdog",
-    "tenGameAverageTotalLimit": 60,
+    "tenGameAverageTotalLimit": 75,
     "allowMVP": False,
     "allowedConference": None,
     "allowedRarities": [CardRarity.super_rare],
@@ -676,6 +676,8 @@ blacklist_cards: list[str] = [
 blacklist_players: list[str] = [
     "Kemba Walker",
     "Justin Minaya",
+    "Duop Reath",
+    "GG Jackson II"
 ]  # Putting players name who do not query here is only valid for recommand mode
 
 recommend_from_teams: list[str] = [
