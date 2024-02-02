@@ -1,3 +1,4 @@
+import argparse
 import requests as rq
 from lxml import etree
 from pytz import timezone
@@ -178,6 +179,7 @@ def get_next_epoch_schedule(specific_date=None) -> list[MatchData]:
             ("20230515", "20230521"),
             ("20230522", "20230529"),
             ("20230601", "20230618"),
+            ("20231204", "20231210"),
         ]
         today_date = today.date()
         for start_date_str, end_date_str in reversed(weeks):
@@ -318,8 +320,15 @@ def get_team_rank():
 
 
 if __name__ == "__main__":
-    get_next_epoch_schedule()
+    p: argparse.ArgumentParser = argparse.ArgumentParser()
+
+    p.add_argument("-a", "--all", action="store_true", required=False)
+    args = p.parse_args()
+
+    if args.all:
+        get_next_epoch_schedule()
+        get_team_rank()
+
     get_injure_data()
     get_injure_data_new()
     combine_two_type_injure_json()
-    get_team_rank()
