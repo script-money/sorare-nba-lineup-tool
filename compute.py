@@ -491,9 +491,11 @@ def get_all_cards_with_prediction(
                 "expect": future_performance,
                 "season": card["season"],
                 "minutes": average_minutes,
-                "team": None
-                if card["player"]["team"] is None
-                else card["player"]["team"]["fullName"],
+                "team": (
+                    None
+                    if card["player"]["team"] is None
+                    else card["player"]["team"]["fullName"]
+                ),
                 "id": card["id"],
             }
             all_cards_with_prediction_list.append(card_dist)
@@ -787,9 +789,11 @@ if __name__ == "__main__":
                 pre_select_cards: list[SelectCard] = (
                     list(
                         filter(
-                            lambda c: c["name"] in suggest_players_id_to_name.values()
-                            if is_recommend
-                            else c["id"] in suggest_players_id_to_name.keys(),
+                            lambda c: (
+                                c["name"] in suggest_players_id_to_name.values()
+                                if is_recommend
+                                else c["id"] in suggest_players_id_to_name.keys()
+                            ),
                             stats_dist_list,
                         )
                     )
@@ -939,22 +943,17 @@ if __name__ == "__main__":
                             if unique_players != len(tmp_selected_players):
                                 continue
 
-                        if "in_season_advanced" == tournaments["name"]:
+                        season_limit = tournaments["seasonLimit"]
+                        if season_limit != None or season_limit > 0:
                             new_season_count = len(
                                 list(
-                                    filter(lambda c: c["season"] == "2023", all_5_cards)
+                                    filter(
+                                        lambda c: c["season"] == current_season,
+                                        all_5_cards,
+                                    )
                                 )
                             )
-                            if new_season_count < 3:
-                                continue
-
-                        if "in_season_expert" == tournaments["name"]:
-                            new_season_count = len(
-                                list(
-                                    filter(lambda c: c["season"] == "2023", all_5_cards)
-                                )
-                            )
-                            if new_season_count < 2:
+                            if new_season_count < season_limit:
                                 continue
 
                         possible_group.append(all_5_cards)

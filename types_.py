@@ -111,6 +111,7 @@ class Tournaments(TypedDict):
     allowedConference: NBAConference | None
     allowedRarities: list[CardRarity]
     minRarity: LeaderboardRulesMinimumRarityRequirement | None
+    seasonLimit: int | None
     target: int
     multiplier: NotRequired[dict[str, float]]
 

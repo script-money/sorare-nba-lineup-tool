@@ -175,7 +175,7 @@ rare_champion: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.rare,
     },
-    "target": 290,
+    "target": 300,
 }
 
 rare_contender: Tournaments = {
@@ -188,7 +188,7 @@ rare_contender: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.rare,
     },
-    "target": 210,
+    "target": 220,
 }
 
 super_rare_contender: Tournaments = {
@@ -201,7 +201,7 @@ super_rare_contender: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.super_rare,
     },
-    "target": 220,
+    "target": 240,
 }
 
 super_rare_champion: Tournaments = {
@@ -214,7 +214,7 @@ super_rare_champion: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.super_rare,
     },
-    "target": 300,
+    "target": 310,
 }
 
 limited_champion: Tournaments = {
@@ -227,7 +227,7 @@ limited_champion: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 255,
+    "target": 260,
 }
 
 limited_contender: Tournaments = {
@@ -240,7 +240,7 @@ limited_contender: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 180,
+    "target": 200,
 }
 
 limited_no_cap: Tournaments = {
@@ -253,6 +253,7 @@ limited_no_cap: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
+    "seasonLimit": 3,
     "target": 295,
 }
 
@@ -266,7 +267,7 @@ limited_underdog: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 150,
+    "target": 160,
 }
 
 limited_western_conference: Tournaments = {
@@ -279,7 +280,8 @@ limited_western_conference: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 210,
+    "seasonLimit": 3,
+    "target": 200,
 }
 
 limited_eastern_conference: Tournaments = {
@@ -292,7 +294,8 @@ limited_eastern_conference: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.limited,
     },
-    "target": 210,
+    "seasonLimit": 3,
+    "target": 250,
 }
 
 limited_all_offense: Tournaments = {
@@ -302,7 +305,8 @@ limited_all_offense: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.limited],
     "minRarity": None,
-    "target": 220,
+    "seasonLimit": 3,
+    "target": 250,
     "multiplier": {
         "points": 1,
         "blocks": 0,
@@ -323,7 +327,8 @@ limited_all_defense: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.limited],
     "minRarity": None,
-    "target": 120,
+    "seasonLimit": 3,
+    "target": 140,
     "multiplier": {
         "points": 0,
         "blocks": 1,
@@ -344,6 +349,7 @@ limited_under_23: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.limited],
     "minRarity": None,
+    "seasonLimit": 3,
     "target": 230,
 }
 
@@ -354,6 +360,7 @@ limited_veterans: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.limited],
     "minRarity": None,
+    "seasonLimit": 3,
     "target": 230,
 }
 
@@ -368,7 +375,7 @@ rare_underdog: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.rare,
     },
-    "target": 170,
+    "target": 180,
 }
 
 rare_no_cap: Tournaments = {
@@ -381,6 +388,7 @@ rare_no_cap: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.rare,
     },
+    "seasonLimit": 3,
     "target": 300,
 }
 
@@ -391,6 +399,7 @@ rare_veterans: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.rare],
     "minRarity": None,
+    "seasonLimit": 3,
     "target": 225,
 }
 
@@ -401,6 +410,7 @@ rare_under_23: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.rare],
     "minRarity": None,
+    "seasonLimit": 3,
     "target": 225,
 }
 
@@ -414,7 +424,7 @@ super_rare_underdog: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.super_rare,
     },
-    "target": 140,
+    "target": 200,
 }
 
 super_rare_no_cap: Tournaments = {
@@ -427,7 +437,8 @@ super_rare_no_cap: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.super_rare,
     },
-    "target": 300,
+    "seasonLimit": 3,
+    "target": 330,
 }
 
 super_rare_under_23: Tournaments = {
@@ -437,7 +448,8 @@ super_rare_under_23: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.super_rare],
     "minRarity": None,
-    "target": 245,
+    "seasonLimit": 3,
+    "target": 270,
 }
 
 super_rare_eastern_conference: Tournaments = {
@@ -450,7 +462,8 @@ super_rare_eastern_conference: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.super_rare,
     },
-    "target": 255,
+    "seasonLimit": 3,
+    "target": 290,
 }
 
 super_rare_western_conference: Tournaments = {
@@ -463,7 +476,8 @@ super_rare_western_conference: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.super_rare,
     },
-    "target": 255,
+    "seasonLimit": 3,
+    "target": 290,
 }
 
 rare_eastern_conference: Tournaments = {
@@ -476,7 +490,8 @@ rare_eastern_conference: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.rare,
     },
-    "target": 250,
+    "seasonLimit": 3,
+    "target": 270,
 }
 
 rare_western_conference: Tournaments = {
@@ -489,7 +504,8 @@ rare_western_conference: Tournaments = {
         "minCount": 5,
         "rarity": CardRarity.rare,
     },
-    "target": 250,
+    "seasonLimit": 3,
+    "target": 270,
 }
 
 rare_all_offense: Tournaments = {
@@ -499,6 +515,7 @@ rare_all_offense: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.rare],
     "minRarity": None,
+    "seasonLimit": 3,
     "target": 230,
     "multiplier": {
         "points": 1,
@@ -520,7 +537,8 @@ rare_all_defense: Tournaments = {
     "allowedConference": None,
     "allowedRarities": [CardRarity.rare],
     "minRarity": None,
-    "target": 130,
+    "seasonLimit": 3,
+    "target": 150,
     "multiplier": {
         "points": 0,
         "blocks": 1,
@@ -547,6 +565,7 @@ in_season_beginner: Tournaments = {
 in_season_advanced: Tournaments = {
     "name": "in_season_advanced",
     "tenGameAverageTotalLimit": 140,
+    "seasonLimit": 3,
     "allowMVP": True,
     "allowedConference": None,
     "allowedRarities": [CardRarity.limited, CardRarity.rare],
@@ -557,6 +576,7 @@ in_season_advanced: Tournaments = {
 in_season_expert: Tournaments = {
     "name": "in_season_expert",
     "tenGameAverageTotalLimit": 140,
+    "seasonLimit": 2,
     "allowMVP": True,
     "allowedConference": None,
     "allowedRarities": [CardRarity.super_rare, CardRarity.unique],
@@ -580,7 +600,9 @@ in_season_days = [
 compute_by_recent_n_weeks_games: int = (
     3  # Calculate the rate of change in performance for the last n weeks of play
 )
-mu_of_max_rank_team_bonus_ratio: float = 0.1  # If the opponent is the weakest team in offense and defense, the maximum addition to the average value of performance change rate, and vice versa playing strong teams cut
+mu_of_max_rank_team_bonus_ratio: float = (
+    0.1  # If the opponent is the weakest team in offense and defense, the maximum addition to the average value of performance change rate, and vice versa playing strong teams cut
+)
 mu_of_home_bonus: float = (
     0.1  # Home additions to the mean rate of change in performance
 )
@@ -600,10 +622,12 @@ outperform_treshold: float = (
     -3  # include players who average - outperform more than this value
 )
 max_cap_diff_allow = 5  # if 5, 105 total allow in contender
-exclude_game_weeks = [35, 48]  # Exclude the game weeks (such as all_star_week)
+exclude_game_weeks = [33]  # Exclude the game weeks (such as all_star_week)
 show_top_10_outperform = True
 suggestion_count: int = 3  # Number of recommended results
-probability_reach_target: float = 0.01  # Sort from the results that have that probability of reaching the target score
+probability_reach_target: float = (
+    0.01  # Sort from the results that have that probability of reaching the target score
+)
 show_injure_detail = False
 target_adjust = 0  # if target_adjust is 10, all Tournaments targets will add 10, 0 for minimum number of matches. Suggestion: 0 for weekend, 5 for weekday, 20-30 for T3
 is_game_decision_bonus_activate = (
@@ -611,6 +635,7 @@ is_game_decision_bonus_activate = (
 )
 inPlayoff = False
 enable_in_season = False
+current_season = "2023"
 
 all_tournaments: list[Tournaments] = [
     pickup,
@@ -677,7 +702,6 @@ blacklist_players: list[str] = [
     "Kemba Walker",
     "Justin Minaya",
     "Duop Reath",
-    "GG Jackson II"
 ]  # Putting players name who do not query here is only valid for recommand mode
 
 recommend_from_teams: list[str] = [
