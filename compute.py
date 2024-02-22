@@ -943,8 +943,10 @@ if __name__ == "__main__":
                             if unique_players != len(tmp_selected_players):
                                 continue
 
-                        season_limit = tournaments["seasonLimit"]
-                        if season_limit != None or season_limit > 0:
+                        if (
+                            "seasonLimit" in tournaments.keys()
+                            and tournaments["seasonLimit"] > 0
+                        ):
                             new_season_count = len(
                                 list(
                                     filter(
@@ -953,7 +955,7 @@ if __name__ == "__main__":
                                     )
                                 )
                             )
-                            if new_season_count < season_limit:
+                            if new_season_count < tournaments["seasonLimit"]:
                                 continue
 
                         possible_group.append(all_5_cards)
