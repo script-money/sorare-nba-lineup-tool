@@ -328,7 +328,7 @@ limited_all_defense: Tournaments = {
     "allowedRarities": [CardRarity.limited],
     "minRarity": None,
     "seasonLimit": 3,
-    "target": 140,
+    "target": 130,
     "multiplier": {
         "points": 0,
         "blocks": 1,
@@ -538,7 +538,7 @@ rare_all_defense: Tournaments = {
     "allowedRarities": [CardRarity.rare],
     "minRarity": None,
     "seasonLimit": 3,
-    "target": 150,
+    "target": 130,
     "multiplier": {
         "points": 0,
         "blocks": 1,
@@ -624,6 +624,7 @@ outperform_treshold: float = (
 max_cap_diff_allow = 5  # if 5, 105 total allow in contender
 exclude_game_weeks = [33]  # Exclude the game weeks (such as all_star_week)
 show_top_10_outperform = True
+player_tops = 10
 suggestion_count: int = 3  # Number of recommended results
 probability_reach_target: float = (
     0.01  # Sort from the results that have that probability of reaching the target score

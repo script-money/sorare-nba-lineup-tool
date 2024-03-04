@@ -722,21 +722,19 @@ if __name__ == "__main__":
 
     if show_top_10_outperform:
         # print top 10 outperform players
-        print("\nTop 10 outperform players:")
-        top10_df = (
-            df[df["rarity"] != "common"]
-            .sort_values(by="outperform", ascending=False)
-            .head(10)[["name", "rarity", "average"]]
-        )
-        # print with format name1(average1), name2(average2), ...
-        print(
-            ", ".join(
-                [
-                    f"{name}({rarity+',' if rarity is not None else ''}{average})"
-                    for name, rarity, average in top10_df.values
-                ]
+        print("\nTop n outperform players:")
+        grouped = df[df["rarity"] != "common"].groupby("rarity")
+        for rarity, group in grouped:
+            print(f"\nTop {player_tops} {rarity} outperform players:")
+            top_performers = group.sort_values(by="outperform", ascending=False).head(
+                player_tops
             )
-        )
+            print(
+                "\n".join(
+                    f"{row['name']}({rarity},{row['average']})"
+                    for _, row in top_performers.iterrows()
+                )
+            )
 
     df_show = df_show.drop(columns=["outperform"])
 
@@ -943,17 +941,9 @@ if __name__ == "__main__":
                             if unique_players != len(tmp_selected_players):
                                 continue
 
-                        if (
-                            "seasonLimit" in tournaments.keys()
-                            and tournaments["seasonLimit"] > 0
-                        ):
-                            new_season_count = len(
-                                list(
-                                    filter(
-                                        lambda c: c["season"] == current_season,
-                                        all_5_cards,
-                                    )
-                                )
+                        if tournaments.get("seasonLimit", 0) > 0:
+                            new_season_count = sum(
+                                c["season"] == current_season for c in all_5_cards
                             )
                             if new_season_count < tournaments["seasonLimit"]:
                                 continue
