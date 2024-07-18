@@ -304,7 +304,10 @@ limited_all_offense: Tournaments = {
     "allowMVP": True,
     "allowedConference": None,
     "allowedRarities": [CardRarity.limited],
-    "minRarity": None,
+    "minRarity": {
+        "minCount": 5,
+        "rarity": CardRarity.limited,
+    },
     "seasonLimit": 3,
     "target": 250,
     "multiplier": {
@@ -322,11 +325,14 @@ limited_all_offense: Tournaments = {
 
 limited_all_defense: Tournaments = {
     "name": "limited_all_defense",
-    "tenGameAverageTotalLimit": 120,
+    "tenGameAverageTotalLimit": 110,
     "allowMVP": True,
     "allowedConference": None,
     "allowedRarities": [CardRarity.limited],
-    "minRarity": None,
+    "minRarity": {
+        "minCount": 5,
+        "rarity": CardRarity.limited,
+    },
     "seasonLimit": 3,
     "target": 130,
     "multiplier": {
@@ -348,7 +354,10 @@ limited_under_23: Tournaments = {
     "allowMVP": True,
     "allowedConference": None,
     "allowedRarities": [CardRarity.limited],
-    "minRarity": None,
+    "minRarity": {
+        "minCount": 5,
+        "rarity": CardRarity.limited,
+    },
     "seasonLimit": 3,
     "target": 230,
 }
@@ -359,7 +368,10 @@ limited_veterans: Tournaments = {
     "allowMVP": True,
     "allowedConference": None,
     "allowedRarities": [CardRarity.limited],
-    "minRarity": None,
+    "minRarity": {
+        "minCount": 5,
+        "rarity": CardRarity.limited,
+    },
     "seasonLimit": 3,
     "target": 230,
 }
@@ -398,7 +410,10 @@ rare_veterans: Tournaments = {
     "allowMVP": True,
     "allowedConference": None,
     "allowedRarities": [CardRarity.rare],
-    "minRarity": None,
+    "minRarity": {
+        "minCount": 5,
+        "rarity": CardRarity.rare,
+    },
     "seasonLimit": 3,
     "target": 225,
 }
@@ -409,7 +424,10 @@ rare_under_23: Tournaments = {
     "allowMVP": True,
     "allowedConference": None,
     "allowedRarities": [CardRarity.rare],
-    "minRarity": None,
+    "minRarity": {
+        "minCount": 5,
+        "rarity": CardRarity.rare,
+    },
     "seasonLimit": 3,
     "target": 225,
 }
@@ -447,7 +465,10 @@ super_rare_under_23: Tournaments = {
     "allowMVP": True,
     "allowedConference": None,
     "allowedRarities": [CardRarity.super_rare],
-    "minRarity": None,
+    "minRarity": {
+        "minCount": 5,
+        "rarity": CardRarity.rare,
+    },
     "seasonLimit": 3,
     "target": 270,
 }
@@ -514,7 +535,9 @@ rare_all_offense: Tournaments = {
     "allowMVP": True,
     "allowedConference": None,
     "allowedRarities": [CardRarity.rare],
-    "minRarity": None,
+    "minRarity": {
+        "rarity": CardRarity.rare,
+    },
     "seasonLimit": 3,
     "target": 230,
     "multiplier": {
@@ -532,13 +555,39 @@ rare_all_offense: Tournaments = {
 
 rare_all_defense: Tournaments = {
     "name": "rare_all_defense",
-    "tenGameAverageTotalLimit": 120,
+    "tenGameAverageTotalLimit": 115,
     "allowMVP": True,
     "allowedConference": None,
     "allowedRarities": [CardRarity.rare],
-    "minRarity": None,
+    "minRarity": {
+        "rarity": CardRarity.rare,
+    },
     "seasonLimit": 3,
     "target": 130,
+    "multiplier": {
+        "points": 0,
+        "blocks": 1,
+        "rebounds": 1,
+        "steals": 1,
+        "assists": 0,
+        "turnovers": 0,
+        "made3PointFGs": 0,
+        "doubleDoubles": 0,
+        "tripleDoubles": 0,
+    },
+}
+
+expert_all_defense: Tournaments = {
+    "name": "expert_all_defense",
+    "tenGameAverageTotalLimit": 120,
+    "allowMVP": True,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.super_rare, CardRarity.unique],
+    "minRarity": {
+        "rarity": CardRarity.super_rare,
+    },
+    "seasonLimit": 3,
+    "target": 120,
     "multiplier": {
         "points": 0,
         "blocks": 1,
@@ -580,8 +629,58 @@ in_season_expert: Tournaments = {
     "allowMVP": True,
     "allowedConference": None,
     "allowedRarities": [CardRarity.super_rare, CardRarity.unique],
-    "minRarity": None,
+    "minRarity": {
+        "rarity": CardRarity.super_rare,
+    },
     "target": 240,
+}
+
+points_free_rare: Tournaments = {
+    "name": "points_free_rare",
+    "tenGameAverageTotalLimit": 120,
+    "allowMVP": True,
+    "seasonLimit": 3,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.rare],
+    "minRarity": {
+        "rarity": CardRarity.rare,
+    },
+    "target": 100,
+    "multiplier": {
+        "points": 0,
+        "blocks": 1,
+        "rebounds": 1,
+        "steals": 1,
+        "assists": 1,
+        "turnovers": 1,
+        "made3PointFGs": 1,
+        "doubleDoubles": 1,
+        "tripleDoubles": 1,
+    },
+}
+
+points_free_super_rare: Tournaments = {
+    "name": "points_free_super_rare",
+    "tenGameAverageTotalLimit": 120,
+    "allowMVP": True,
+    "seasonLimit": 3,
+    "allowedConference": None,
+    "allowedRarities": [CardRarity.super_rare],
+    "minRarity": {
+        "rarity": CardRarity.super_rare,
+    },
+    "target": 100,
+    "multiplier": {
+        "points": 0,
+        "blocks": 1,
+        "rebounds": 1,
+        "steals": 1,
+        "assists": 1,
+        "turnovers": 1,
+        "made3PointFGs": 1,
+        "doubleDoubles": 1,
+        "tripleDoubles": 1,
+    },
 }
 
 in_season_days = [
@@ -660,18 +759,21 @@ all_tournaments: list[Tournaments] = [
     # limited_no_cap,
     # rare_eastern_conference,
     # rare_western_conference,
-    # rare_no_cap,
     # rare_under_23,
     # rare_veterans,
     # rare_all_offense,
-    # rare_all_defense,
     # rare_champion,
     # rare_contender,
     # rare_underdog,
+    # rare_no_cap,
+    # rare_all_defense,
+    # points_free_rare,
     # super_rare_eastern_conference,
     # super_rare_western_conference,
-    # super_rare_champion,
+    # expert_all_defense,
+    # points_free_super_rare,
     # super_rare_contender,
+    # super_rare_champion,
     # super_rare_underdog,
     # super_rare_under_23,
     # deck_the_halls,
@@ -712,56 +814,6 @@ recommend_from_teams: list[str] = [
 ]  # if list is not empty, card recommend from those teams
 
 suggest_cards: dict[str, dict[str, str]] = {
-    "common_champion": {},
-    "common_contender": {},
-    "common_underdog": {},
-    "common_western_conference": {},
-    "common_eastern_conference": {},
-    "common_no_cap": {},
-    "super_rare_contender": {
-        # "7687d882-b499-4a00-83f1-b16dab40a6fd": "Christian Braun",
-        # "da82a46b-3265-4861-958f-5d13da220269": "Bruce Brown",
-        # "abbe6b0a-88c7-4539-ba80-9c41a25b4ce3": "Josh Okogie",
-    },
-    "limited_contender": {},
-    "super_rare_champion": {
-        # "48072d8e-ea46-4d4b-8bec-d613916aa991": "Trae Young",
-        # "da82a46b-3265-4861-958f-5d13da220269": "Bruce Brown",
-        # "abbe6b0a-88c7-4539-ba80-9c41a25b4ce3": "Josh Okogie"
-        # "066a2859-0127-4481-860e-9f205203626d": "Brook Lopez"
-        # "c016853c-1772-412f-b681-91f3ac74fd3f": "Jimmy Butler",
-        # "aa3a4968-2d2d-419b-8e5b-85f3fbaae634": "Brandon Ingram",
-    },
-    "rare_champion": {
-        # "f1464116-cdfc-42d1-aa03-16d360c5e3cd": "Nikola Joki\u0107",
-        # "b29c6fed-4679-4476-8069-e79763b9f48a": "Cade Cunningham",
-    },
-    "rare_contender": {
-        # "e1bb9b58-429d-40ef-98d9-5a571f8a6a2c": "Cade Cunningham",
-        # "7687d882-b499-4a00-83f1-b16dab40a6fd": "Christian Braun",
-    },
-    "rare_underdog": {
-        # "9fc2c2bd-9d3d-4831-a0df-013eff544469": "Bruce Brown",
-        # "4cc2790f-6e43-48b1-ac45-d2e75ae1c49b": "Yuta Watanabe",
-        # "e7237e22-e75f-4a11-8035-42292046aa50": "Cedi Osman",
-        # "c830ad34-aa43-4b39-b0aa-b695d616bf5c": "Bryce McGowens",
-        # "62ab6bad-b284-40e4-85da-8af52f870200": "Alondes Williams",
-    },
-    "super_rare_underdog": {
-        # "7ec97d41-27fa-4422-8054-a6ac9780205c": "Vlatko \u010can\u010dar"
-    },
-    "limited_champion": {
-        # "10c74499-37d5-4170-a952-3401588a3f8a": "Nikola Joki\u0107",
-        # "6f93a513-5031-4e36-8e06-f922dc00ea3b": "Jayson Tatum",
-        # "7ff1a297-9236-4ca5-8295-a7a2b45dd7a1": "Russell Westbrook",
-    },
-    "limited_western_conference": {},
-    "limited_eastern_conference": {},
-    "limited_no_cap": {},
-    "limited_underdog": {},
-    "limited_veterans": {},
-    "limited_all_offense": {
-        # "cdc65dd7-ee7b-4e81-978a-33f884d334ae": "Trae Young"
-    },
-    # "rare_all_defense": {"fad9b50e-4c35-4631-bcf6-3db5565553ca": "Andre Drummond"},
+    "super_rare_champion": {},
+    "super_rare_contender": {},
 }  #  Set the id of cards that will be selected, can find id and name in data/cards-xxxx-xx-xx.json

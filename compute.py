@@ -270,7 +270,9 @@ def predict(
         if np.mean(seconds_arr) > 25 * 60:
             mu = (mu + mu0) / 2
     else:
-        if seconds_arr[0] >= 20 * 60 or np.mean(seconds_arr) >= 10 * 60:
+        if len(seconds_arr) >= 1 and (
+            seconds_arr[0] >= 20 * 60 or np.mean(seconds_arr) >= 10 * 60
+        ):
             stat_and_average = stats_arr + [card_average]
             _, mu, sigma = t.fit(stat_and_average, fdf=len(stat_and_average))
         else:
@@ -758,18 +760,25 @@ if __name__ == "__main__":
         used_cards = []
         try:
             for tournament_index, tournaments in enumerate(all_tournaments):
-                is_veterans = "veterans" in tournaments["name"]
-                is_under23 = "under_23" in tournaments["name"]
+                tournament_name = tournaments["name"]
+                is_veterans = "veterans" in tournament_name
+                is_under23 = "under_23" in tournament_name
+                is_defense = "defense" in tournament_name
+                is_offense = "offense" in tournament_name
+                is_points_free = "points_free" in tournament_name
+                total_limit = tournaments["tenGameAverageTotalLimit"]
+                season_limit = tournaments.get("seasonLimit", 0)
+
                 is_in_season = (
-                    "in_season" in tournaments["name"] and len(in_season_teams) > 0
+                    "in_season" in tournament_name and len(in_season_teams) > 0
                 )
 
                 group_to_select: list[list[SelectCard]] = []
                 if (
-                    tournaments["name"] in suggest_cards
+                    tournament_name in suggest_cards
                 ):  # current tournament in suggest_cards(preconfig)
                     suggest_players_id_to_name: dict[str, str] = suggest_cards[
-                        tournaments["name"]
+                        tournament_name
                     ]
                     pre_select: int = len(suggest_players_id_to_name)
                 else:
@@ -885,18 +894,31 @@ if __name__ == "__main__":
                     )
 
                 # filter card_pool average less than expect's mean
-                card_pool: list[SelectCard] = list(
-                    filter(
-                        lambda c: c["average"] < c["expect"].mean - outperform_treshold,
-                        card_pool,
+                if not is_defense and not is_points_free:
+                    card_pool: list[SelectCard] = list(
+                        filter(
+                            lambda c: c["average"]
+                            < c["expect"].mean - outperform_treshold,
+                            card_pool,
+                        )
                     )
-                )
 
+                if is_defense or is_points_free:
+                    card_pool: list[SelectCard] = list(
+                        filter(
+                            lambda c: c["average"] / 2
+                            < c["expect"].mean - outperform_treshold
+                            and c["minutes"] >= 10,
+                            card_pool,
+                        )
+                    )
+
+                print(f"card pool {len(card_pool)} in {tournament_name}")
                 to_select_card_count: int = 5 - pre_select
                 possible_group: list[list[SelectCard]] = []
                 max_group_index, max_group_value = -1, -1
 
-                if tournaments["tenGameAverageTotalLimit"] == 0:
+                if total_limit == 0:
                     sorted_card_pool = sorted(
                         card_pool, key=lambda c: c["expect"].mean, reverse=True
                     )
@@ -924,32 +946,31 @@ if __name__ == "__main__":
                                 ]
                             )
                         )
-                        if (
-                            total_point
-                            < tournaments["tenGameAverageTotalLimit"]
-                            - max_cap_diff_allow
-                            or total_point > tournaments["tenGameAverageTotalLimit"]
+
+                        if not (
+                            total_limit - max_cap_diff_allow
+                            <= total_point
+                            <= total_limit
                         ):
                             continue
 
                         if not is_recommend:
                             # check player duplicate
-                            tmp_selected_players: list[str] = list(
-                                map(lambda card: card["name"], all_5_cards)
-                            )
-                            unique_players: int = len(set(tmp_selected_players))
-                            if unique_players != len(tmp_selected_players):
+                            if len({card["name"] for card in all_5_cards}) != len(
+                                all_5_cards
+                            ):
                                 continue
 
-                        if tournaments.get("seasonLimit", 0) > 0:
+                        if season_limit > 0:
                             new_season_count = sum(
                                 c["season"] == current_season for c in all_5_cards
                             )
-                            if new_season_count < tournaments["seasonLimit"]:
+                            if new_season_count < season_limit:
                                 continue
 
                         possible_group.append(all_5_cards)
 
+                    print(f"{tournament_name} possible group {len(possible_group)}")
                     if len(possible_group) == 0:
                         message = f"{tournaments['name']} no possible group\n"
                         print(message)
@@ -1045,8 +1066,8 @@ if __name__ == "__main__":
                 else:
                     result_lines.append(f"{tournaments['name']} no possible lineup\n")
                 result_lines.append("\n")
-        except IndexError:
-            print("no more selection, break")
+        except IndexError as e:
+            print("no more selection, break", e)
             break
 
     # write result lines to file

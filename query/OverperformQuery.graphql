@@ -1,0 +1,22 @@
+query NbaPastFixtures($first: Int!, $after: String) {
+  nbaPastFixtures(first: $first, after: $after) {
+    nodes {
+      gameWeek
+      playerFixtureStats(first: 20, order: OUTPERFORMANCE) {
+        nodes {
+          score
+          tenGameAverage
+          player{
+            matchName
+            team{
+              abbreviation
+            }
+          }
+        }
+      }
+    }
+    pageInfo {
+      endCursor
+    }
+  }
+}

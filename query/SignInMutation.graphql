@@ -2,10 +2,10 @@ mutation SignInMutation($input: signInInput!) {
   signIn(input: $input) {
     currentUser {
       slug
-      jwtToken(aud: "sorare-nba-lineup-tool") {
+    }
+    jwtToken(aud: "sorare-nba-lineup-tool") {
         token
         expiredAt
-      }
     }
     otpSessionChallenge
     errors {

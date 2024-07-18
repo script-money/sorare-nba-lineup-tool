@@ -62,7 +62,7 @@ async def main():
                     print("Login in failed, Please check your two factor code")
                     exit(0)
 
-        token = res["signIn"]["currentUser"]["jwtToken"]["token"]
+        token = res["signIn"]["jwtToken"]["token"]
 
         # Read the existing .env file
         env_lines = []

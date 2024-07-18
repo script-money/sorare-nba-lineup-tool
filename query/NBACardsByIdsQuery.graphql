@@ -5,7 +5,7 @@ query NBACardsByIdsQuery($input: NBACardsInput!) {
     totalBonus
     season
     player {
-      displayName
+      matchName
       tenGameAverageGameStats {
         score
       }

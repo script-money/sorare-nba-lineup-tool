@@ -26,7 +26,7 @@ with open("query/RecentCurrentUserCardsQuery.graphql") as g:
 async def main():
     token = os.getenv("JWT")
     transport: AIOHTTPTransport = AIOHTTPTransport(
-        url="https://api.sorare.com/sports/graphql",
+        url="https://api.sorare.com/federation/graphql",
         headers={
             "content-type": "application/json",
             "Authorization": f"Bearer {token}",
