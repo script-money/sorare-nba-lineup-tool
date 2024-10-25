@@ -10,7 +10,7 @@ team = team_in_nba_office_website
 
 def query_last_injury_report():
     last_link = ""
-    res = rq.get("https://official.nba.com/nba-injury-report-2022-23-season/")
+    res = rq.get("https://official.nba.com/nba-injury-report-2024-25-season/")
     if res.status_code != 200:
         raise ValueError(
             "Error in getting the link to the last injury report, please try again later"

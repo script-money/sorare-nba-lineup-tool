@@ -2,14 +2,12 @@ from types_ import Tournaments, CardRarity, NBAConference
 import os
 
 cookies = os.environ.get("COOKIES")
+
 proxy = os.environ.get("PROXY")
-proxies = None
-if proxy is not None:
-    proxies = {"http": proxy, "https": proxy}
-    use_proxy = True
-    print("use proxy: ", proxies)
-else:
-    use_proxy = False
+proxies = {"http": proxy, "https": proxy} if proxy else None
+use_proxy = bool(proxy)
+if use_proxy:
+    print("use proxy:", proxies)
 
 pickup: Tournaments = {
     "name": "pickup",
