@@ -1,44 +1,21 @@
-query NBACardsByIdsQuery($input: NBACardsInput!) {
-  nbaCards(input: $input) {
-    id
-    slug
-    totalBonus
-    season
-    player {
-      matchName
-      tenGameAverageGameStats {
-        score
+query NBACardsByIdsQuery($slugs: [String!]) {
+  anyCards(slugs: $slugs, sport: NBA) {
+    anyPlayer {
+      activeClub {
+        name
+        slug
       }
-      age
-      positions
-      latestFixtureStats(last: 7) {
-        fixture {
-          gameWeek
-        }
-        status {
-          statusIconType
-          gameStats {
-            detailedStats {
-              points
-              rebounds
-              assists
-              blocks
-              steals
-              turnovers
-              made3PointFGs
-              doubleDoubles
-              tripleDoubles
-              secondsPlayed
-            }
-            score
-          }
-        }
-      }
-      team {
-        fullName
-        abbreviation
-      }
+      displayName
+      lastFiveSo5Appearances
+      lastTenSo5Appearances
+      lastFifteenSo5Appearances
     }
-    rarity
+    anyPositions
+    addCommonCardPoints
+    inSeasonEligible
+    power
+    rarityTyped
+    slug
+    sport
   }
 }

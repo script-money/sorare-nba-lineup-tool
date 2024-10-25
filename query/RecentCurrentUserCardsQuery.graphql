@@ -1,8 +1,8 @@
-query RecentCurrentUserCardsQuery($after: String!) {
+query NBARecentCurrentUserCardsQuery($after: String) {
   currentUser {
-    nbaCards(first: 200, after: $after) {
+    cards(first: 200, after: $after) {
       nodes {
-        id
+        slug
       }
       pageInfo {
         endCursor

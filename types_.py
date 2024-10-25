@@ -4,14 +4,14 @@ from statistics import NormalDist
 
 
 class NBATeam(TypedDict):
-    fullName: str
-    abbreviation: str
+    name: str
+    slug: str
 
 
 class NBAPlayerPosition(Enum):
-    g = "NBA_GUARD"
-    f = "NBA_FORWARD"
-    c = "NBA_CENTER"
+    g = "basketball_guard"
+    f = "basketball_forward"
+    c = "basketball_center"
 
 
 class PlayerInFixtureStatusIconType(Enum):
@@ -80,19 +80,21 @@ class NBAPlayerInFixture(TypedDict):
 
 class NBAPlayer(TypedDict):
     displayName: str
-    tenGameAverage: int
-    age: int
-    positions: list[str]
-    latestFixtureStats: list[NBAPlayerInFixture]
-    team: NBATeam
+    lastFiveSo5Appearances: int
+    lastTenSo5Appearances: int
+    lastFifteenSo5Appearances: int
+    activeClub: NBATeam
 
 
 class NBACard(TypedDict):
-    id: str
     slug: str
-    totalBonus: float
+    power: float
     player: NBAPlayer
-    rarity: CardRarity
+    rarityTyped: CardRarity
+    inSeasonEligible: bool
+    addCommonCardPoints: int
+    anyPositions: list[NBAPlayerPosition]
+    anyPlayer: NBAPlayer
 
 
 class NBACardsRes(TypedDict):
@@ -146,11 +148,6 @@ class SelectCard(TypedDict):
     minutes: int
     team: str | None
     id: str | None
-
-
-class NBACardsInput(TypedDict):
-    ids: list[str]
-    assetIds: list[str]
 
 
 class MatchProbility(TypedDict):
