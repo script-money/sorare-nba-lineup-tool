@@ -16,6 +16,5 @@ query NBACardsByIdsQuery($slugs: [String!]) {
     power
     rarityTyped
     slug
-    sport
   }
 }

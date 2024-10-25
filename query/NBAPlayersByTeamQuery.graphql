@@ -1,8 +1,11 @@
 query NBAPlayersByTeamQuery($input: String!) {
-  nbaTeam(slug: $input) {
-    id
-    players {
-      slug
+  team(slug: $input) {
+    name
+    slug
+    activePlayers {
+      nodes {
+        slug
+			}
     }
   }
 }

@@ -1,40 +1,46 @@
-query NBAPlayerQuery($input: [String!]) {
-  nbaPlayers(slugs: $input) {
-    displayName
-    slug
-    tenGameAverageGameStats {
-      score
-    }
-    positions
-    age
-    latestFixtureStats(last: 6) {
-      score
-      tenGameAverage
-      fixture {
-        gameWeek
+query NBAPlayerQuery($input: [String!]!) {
+  anyPlayers(slugs: $input) {
+    nodes {
+      slug
+      age
+      displayName
+      lastTenSo5Appearances
+      lastFiveSo5Appearances
+      lastFifteenSo5Appearances
+      activeClub {
+        name
+        slug
       }
-      status {
-        statusIconType
-        gameStats {
-          detailedStats {
-            points
-            rebounds
-            assists
-            blocks
-            steals
-            turnovers
-            made3PointFGs
-            doubleDoubles
-            tripleDoubles
-            secondsPlayed
-          }
+      anyGameStats(last: 10) {
+        playerGameScore {
           score
+          ... on BasketballPlayerGameScore {
+            basketballPlayerGameStats {
+              minsPlayed
+              points
+              rebounds
+              steals
+              threePointsMade
+              tripleDouble
+              turnovers
+              doubleDouble
+              blocks
+              assists
+              basketballGame {
+                date
+                homeTeam{
+                  slug
+                }
+                awayTeam{
+                  slug
+                }
+                homeScore
+                awayScore
+              }
+            }
+          }
         }
       }
-    }
-    team {
-      fullName
-      abbreviation
     }
   }
 }

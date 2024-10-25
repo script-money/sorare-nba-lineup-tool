@@ -4,7 +4,7 @@ from statistics import NormalDist
 
 
 class NBATeam(TypedDict):
-    name: str
+    name: NotRequired[str]
     slug: str
 
 
@@ -37,7 +37,7 @@ class CardRarity(Enum):
 
 
 class NBAGame(TypedDict):
-    startDate: str
+    date: str  # ISO 8601 format, e.g. "2024-10-25T02:00:00Z"
     homeTeam: NBATeam
     awayTeam: NBATeam
     homeScore: int
@@ -86,10 +86,44 @@ class NBAPlayer(TypedDict):
     activeClub: NBATeam
 
 
+class BasketballPlayerGameStats(TypedDict):
+    minsPlayed: int
+    points: int
+    rebounds: int
+    steals: int
+    threePointsMade: int
+    tripleDouble: bool
+    turnovers: int
+    doubleDouble: bool
+    blocks: int
+    assists: int
+    basketballGame: NBAGame
+
+
+class NBAPlayerGameScore(TypedDict):
+    score: float
+    basketballPlayerGameStats: BasketballPlayerGameStats
+
+
+class NBAGameStats(TypedDict):
+    playerGameScore: NBAPlayerGameScore
+
+
+class NBAPlayerWithStats(TypedDict):
+    slug: str
+    age: int
+    displayName: str
+    lastFiveSo5Appearances: int
+    lastTenSo5Appearances: int
+    lastFifteenSo5Appearances: int
+    activeClub: NBATeam
+    anyGameStats: list[NBAGameStats]
+
+
 class NBACard(TypedDict):
     slug: str
     power: float
-    player: NBAPlayer
+    sport: str
     rarityTyped: CardRarity
     inSeasonEligible: bool
     addCommonCardPoints: int
